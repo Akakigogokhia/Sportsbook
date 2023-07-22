@@ -1,0 +1,52 @@
+<div class="auth">
+  <div class="auth__container">
+    <div>{{ error }}</div>
+    <form
+      [formGroup]="authForm"
+      (ngSubmit)="onSubmit()"
+      class="card__form"
+      *ngIf="!isLoading"
+    >
+      <div class="auth__form-group">
+        <label class="auth__label" for="email">E-Mail</label>
+        <input
+          type="email"
+          id="email"
+          class="auth__input auth__input--email"
+          formControlName="email"
+          required
+          email
+          minlength="6"
+        />
+      </div>
+      <div class="auth__form-group">
+        <label class="auth__label" for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          class="auth__input auth__input--password"
+          formControlName="password"
+          required
+          minlength="6"
+        />
+      </div>
+      <div class="auth__buttons">
+        <button
+          class="auth__btn auth__btn--submit"
+          type="submit"
+          [disabled]="!authForm.valid"
+        >
+          {{ isLoginMode ? "Login" : "Sign Up" }}
+        </button>
+        |
+        <button
+          (click)="switchMode()"
+          class="auth__btn auth__btn--switch"
+          type="button"
+        >
+          Switch to {{ isLoginMode ? "Sign Up" : "Login" }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
