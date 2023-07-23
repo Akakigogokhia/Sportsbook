@@ -4,8 +4,9 @@ import { HttpClient } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment';
 import * as AuthActions from './auth.actions';
-import { switchMap, map, of, catchError } from 'rxjs';
+import { switchMap, map, of, catchError, tap } from 'rxjs';
 import { AuthResponse, User } from '../auth.models';
+import { Router } from '@angular/router';
 
 const handleAuthentication = (
   expiresIn: number,
@@ -107,5 +108,20 @@ export class AuthEffects {
     )
   );
 
-  constructor(private actions$: Actions, private http: HttpClient) {}
+  AuthRedirect = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActions.Login),
+        tap(() => {
+          this.router.navigate(['/sport']);
+        })
+      ),
+    { dispatch: false }
+  );
+
+  constructor(
+    private actions$: Actions,
+    private http: HttpClient,
+    private router: Router
+  ) {}
 }

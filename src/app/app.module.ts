@@ -11,6 +11,7 @@ import { EffectsModule } from '@ngrx/effects';
 import * as FromApp from './store/app.reducer';
 import { AuthEffects } from './components/auth/store/auth.effects';
 import { FormatDecimalPipe } from './shared/pipes/format-decimal.pipe';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [AppComponent, AuthComponent, FormatDecimalPipe],
@@ -18,6 +19,7 @@ import { FormatDecimalPipe } from './shared/pipes/format-decimal.pipe';
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,
+    AppRoutingModule,
     StoreModule.forRoot(FromApp.AppReducer),
     EffectsModule.forRoot([AuthEffects]),
   ],
