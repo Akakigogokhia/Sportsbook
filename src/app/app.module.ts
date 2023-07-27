@@ -12,16 +12,23 @@ import * as FromApp from './store/app.reducer';
 import { AuthEffects } from './components/auth/store/auth.effects';
 import { FormatDecimalPipe } from './shared/pipes/format-decimal.pipe';
 import { AppRoutingModule } from './app-routing.module';
+import { TopFixturesComponent } from './components/betting/top-fixtures/top-fixtures.component';
+import { BettingEffects } from './components/betting/store/betting.effects';
 
 @NgModule({
-  declarations: [AppComponent, AuthComponent, FormatDecimalPipe],
+  declarations: [
+    AppComponent,
+    AuthComponent,
+    FormatDecimalPipe,
+    TopFixturesComponent,
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,
     AppRoutingModule,
     StoreModule.forRoot(FromApp.AppReducer),
-    EffectsModule.forRoot([AuthEffects]),
+    EffectsModule.forRoot([AuthEffects, BettingEffects]),
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -7,43 +7,7 @@ import * as AuthActions from './auth.actions';
 import { switchMap, map, of, catchError, tap } from 'rxjs';
 import { AuthResponse, User } from '../auth.models';
 import { Router } from '@angular/router';
-
-const handleAuthentication = (
-  expiresIn: number,
-  email: string,
-  userId: string,
-  token: string
-) => {
-  const expirationDate = new Date(new Date().getTime() + +expiresIn * 1000);
-  const user = new User(email, userId, token, expirationDate);
-  localStorage.setItem('userData', JSON.stringify(user));
-  return AuthActions.Login({
-    email: email,
-    userId: userId,
-    token: token,
-    expirationDate: expirationDate,
-    redirect: true,
-  });
-};
-
-const handleError = (errorRes: any) => {
-  let errorMessage = 'An unknown error occured!';
-  if (!errorRes.error || !errorRes.error.error) {
-    return of(AuthActions.LoginFail({ error: errorMessage }));
-  }
-  switch (errorRes.error.error.message) {
-    case 'EMAIL_EXISTS':
-      errorMessage = 'This email already exists';
-      break;
-    case 'EMAIL_NOT_FOUND':
-      errorMessage = 'This email does not exist';
-      break;
-    case 'INVALID_PASSWORD':
-      errorMessage = 'This password is not correct';
-      break;
-  }
-  return of(AuthActions.LoginFail({ error: errorMessage }));
-};
+import { AuthService } from '../auth.service';
 
 @Injectable()
 export class AuthEffects {
@@ -63,7 +27,7 @@ export class AuthEffects {
           )
           .pipe(
             map((resData) => {
-              return handleAuthentication(
+              return this.authService.handleAuthentication(
                 +resData.expiresIn,
                 resData.email,
                 resData.localId,
@@ -71,7 +35,7 @@ export class AuthEffects {
               );
             }),
             catchError((errorRes) => {
-              return handleError(errorRes);
+              return this.authService.handleError(errorRes);
             })
           );
       })
@@ -93,7 +57,7 @@ export class AuthEffects {
           )
           .pipe(
             map((resData) => {
-              return handleAuthentication(
+              return this.authService.handleAuthentication(
                 +resData.expiresIn,
                 resData.email,
                 resData.localId,
@@ -101,7 +65,7 @@ export class AuthEffects {
               );
             }),
             catchError((errorRes) => {
-              return handleError(errorRes);
+              return this.authService.handleError(errorRes);
             })
           )
       )
@@ -122,6 +86,7 @@ export class AuthEffects {
   constructor(
     private actions$: Actions,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 }
