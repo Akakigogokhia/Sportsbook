@@ -1,0 +1,23 @@
+<div class="leagues">
+  <h2>{{ leagues[leagueId].name }}</h2>
+  <section class="league__header">
+    <div class="league__desc">
+      <div>date</div>
+      <div>fixture</div>
+    </div>
+    <div class="league__oddNames">
+      <div>1</div>
+      <div>X</div>
+      <div>2</div>
+      <div>1X</div>
+      <div>12</div>
+      <div>X2</div>
+      <div>under</div>
+      <div>total</div>
+      <div>over</div>
+    </div>
+  </section>
+  <div class="league" *ngFor="let match of events">
+    <app-match-preview [match]="match"></app-match-preview>
+  </div>
+</div>

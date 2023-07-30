@@ -1,0 +1,19 @@
+.match {
+  display: flex;
+  gap: 10px;
+}
+
+.odds {
+  display: flex;
+  gap: 10px;
+}
+
+.match__odds {
+  display: flex;
+  gap: 10px;
+}
+
+.match__desc {
+  display: flex;
+  gap: 10px;
+}

@@ -3,7 +3,7 @@ export interface MarketResponse {
 }
 
 export interface Event {
-  event_id: string;
+  event_id: number;
   sport_id: number;
   league_id: number;
   league_name: string;
@@ -33,7 +33,7 @@ export interface Period {
 }
 
 export interface Spreads {
-  [spread: number]: HomeAway;
+  [spread: string]: HomeAway;
 }
 
 export interface HomeAway {
@@ -44,7 +44,7 @@ export interface HomeAway {
 }
 
 export interface Totals {
-  [point: number]: OverUnder;
+  [point: string]: OverUnder;
 }
 
 export interface OverUnder {

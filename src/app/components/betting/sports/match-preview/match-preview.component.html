@@ -1,0 +1,53 @@
+<div class="match">
+  <section class="match__date">
+    <div class="match__time">{{ match.starts | date : "HH:mm" }}</div>
+    <div class="match__day">{{ match.starts | formatDate }}</div>
+  </section>
+  <section class="match__desc">
+    <div class="match__teams">
+      <div class="match__home">{{ match.home }}</div>
+      <div class="match__away">{{ match.away }}</div>
+    </div>
+    <div class="match__odds">
+      <section class="odds match__odds--moneyLine">
+        <div class="odd match__odds--homeWin">
+          {{ match.periods?.num_0?.money_line?.home }}
+        </div>
+        <div class="odd match__odds--draw">
+          {{ match.periods?.num_0?.money_line?.draw }}
+        </div>
+        <div class="odd match__odds--awayWin">
+          {{ match.periods?.num_0?.money_line?.away }}
+        </div>
+      </section>
+      <section class="odds match__odds--doubleChance">
+        <div class="odd match__odds--homeX">
+          {{ doubleChance.homeOrDraw }}
+        </div>
+        <div class="odd match__odds--homeAway">
+          {{ doubleChance.homeOrAway }}
+        </div>
+        <div class="odd match__odds--xAway">
+          {{ doubleChance.drawOrAway }}
+        </div>
+      </section>
+      <section class="odds match__odds--totals">
+        <div class="odd match__odds--under">
+          {{
+            match.periods?.num_0?.totals?.hasOwnProperty("2.5")
+              ? (match.periods?.num_0?.totals)!["2.5"].under
+              : "--"
+          }}
+        </div>
+        <app-totals></app-totals>
+        <div class="odd match__odds--over">
+          {{
+            match.periods?.num_0?.totals?.hasOwnProperty("2.5")
+              ? (match.periods?.num_0?.totals)!["2.5"].over
+              : "--"
+          }}
+        </div>
+      </section>
+    </div>
+  </section>
+</div>
