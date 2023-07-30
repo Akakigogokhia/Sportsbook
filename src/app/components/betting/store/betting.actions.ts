@@ -1,5 +1,9 @@
 import { createAction, props } from '@ngrx/store';
-import { Ticket } from 'src/app/shared/models/betting.models';
+import {
+  GroupedEvents,
+  SortedEvents,
+  Ticket,
+} from 'src/app/shared/models/betting.models';
 import { Event } from 'src/app/shared/models/response.models';
 
 export const FetchFixtures = createAction('[Betting] FetchFixtures');
@@ -11,7 +15,7 @@ export const SetFixtures = createAction(
 
 export const SetPopularFixtures = createAction(
   '[Betting] SetPopularFixtures',
-  props<{ popularFixtures: Event[] }>()
+  props<{ popularFixtures: SortedEvents }>()
 );
 
 export const SetMarket = createAction(

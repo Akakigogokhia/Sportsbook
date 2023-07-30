@@ -1,5 +1,3 @@
-export interface Fixture {}
-
 export interface MarketResponse {
   events: Event[];
 }

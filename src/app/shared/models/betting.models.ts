@@ -1,3 +1,5 @@
+import { Event } from './response.models';
+
 export interface Ticket {
   id: string;
   bets: Bet[];
@@ -16,3 +18,9 @@ export interface Bet {
   position: string;
   odd: number;
 }
+
+export interface GroupedEvents {
+  [leagueId: string]: Event[];
+}
+
+export type SortedEvents = [string, Event[]][] | null;

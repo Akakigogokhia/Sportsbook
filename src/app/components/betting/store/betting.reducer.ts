@@ -1,19 +1,31 @@
 import { createReducer, on } from '@ngrx/store';
-import { Ticket } from 'src/app/shared/models/betting.models';
+import {
+  GroupedEvents,
+  SortedEvents,
+  Ticket,
+} from 'src/app/shared/models/betting.models';
 import * as BettingActions from './betting.actions';
 import { Event } from 'src/app/shared/models/response.models';
 
 export interface State {
-  allFixtures: Event[] | null;
-  popularFixtures: Event[] | null;
-  market: Event | null; //market for specific match
+  footballAll: Event[] | null;
+  footballPopular: SortedEvents;
+  basketBallAll: Event[] | null;
+  basketBallPopular: GroupedEvents | null;
+  tennisAll: Event[] | null;
+  tennisPopular: GroupedEvents | null;
+  market: Event | null;
   activeTicket: Ticket | null;
   ticketHistory: Ticket[] | null;
 }
 
 const initialState: State = {
-  allFixtures: null,
-  popularFixtures: null,
+  footballAll: null,
+  footballPopular: null,
+  basketBallAll: null,
+  basketBallPopular: null,
+  tennisAll: null,
+  tennisPopular: null,
   market: null,
   activeTicket: null,
   ticketHistory: null,
@@ -23,10 +35,10 @@ export const BettingReducer = createReducer(
   initialState,
   on(BettingActions.SetFixtures, (state, action) => ({
     ...state,
-    allFixtures: action.allFixtures,
+    footballAll: action.allFixtures,
   })),
   on(BettingActions.SetPopularFixtures, (state, action) => ({
     ...state,
-    popularFixtures: action.popularFixtures,
+    footballPopular: action.popularFixtures,
   }))
 );

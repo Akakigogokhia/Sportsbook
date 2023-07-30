@@ -1,8 +1,9 @@
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as BettingActions from './betting.actions';
-import { map, switchMap, tap } from 'rxjs';
-import { BettingService } from '../betting.service';
+import { map, switchMap } from 'rxjs';
+import { SortingService } from '../services/sorting.service';
 import { Injectable } from '@angular/core';
+import { BettingService } from '../services/betting.service';
 
 @Injectable()
 export class BettingEffects {
@@ -13,7 +14,7 @@ export class BettingEffects {
         return this.bettingService.makeApiRequest().pipe(
           map((response) => {
             return BettingActions.SetPopularFixtures({
-              popularFixtures: this.bettingService.sortByPopularity(
+              popularFixtures: this.sortingService.sortByPopularity(
                 response.events
               ),
             });
@@ -25,6 +26,7 @@ export class BettingEffects {
 
   constructor(
     private actions$: Actions,
-    private bettingService: BettingService
+    private bettingService: BettingService,
+    private sortingService: SortingService
   ) {}
 }
