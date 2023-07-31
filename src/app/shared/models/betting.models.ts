@@ -1,4 +1,4 @@
-import { Event } from './response.models';
+import { Event } from './market.model';
 
 export interface Ticket {
   id: string;

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Event } from 'src/app/shared/models/response.models';
+import { Event } from 'src/app/shared/models/market.model';
 
 @Injectable({
   providedIn: 'root',
@@ -15,11 +15,16 @@ export class DateService {
   }
 
   filterStarted(fixtures: Event[]) {
-    return fixtures.filter(
-      (fixture) =>
-        this.convertTimezone(new Date(fixture.starts)).getTime() >
-        new Date().getTime()
-    );
+    return fixtures
+      .filter(
+        (fixture) =>
+          this.convertTimezone(new Date(fixture.starts)).getTime() >
+          new Date().getTime()
+      )
+      .sort(
+        (a: Event, b: Event) =>
+          new Date(a.starts).getTime() - new Date(b.starts).getTime()
+      );
   }
 
   convertTimezone(date: Date): Date {

@@ -1,1 +1,9 @@
-<div>2.5</div>
+<div class="totals">
+  <div class="odd totals__under">
+    {{ totals.hasOwnProperty(total) ? totals![total].under : "--" }}
+  </div>
+  <div class="totals__total">{{ total }}</div>
+  <div class="odd totals__over">
+    {{ totals.hasOwnProperty(total) ? totals![total].over : "--" }}
+  </div>
+</div>

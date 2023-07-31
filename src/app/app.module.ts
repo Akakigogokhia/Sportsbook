@@ -18,6 +18,7 @@ import { LeagueComponent } from './components/betting/sports/league/league.compo
 import { MatchPreviewComponent } from './components/betting/sports/match-preview/match-preview.component';
 import { FormatDatePipe } from './shared/pipes/format-date.pipe';
 import { TotalsComponent } from './components/betting/sports/totals/totals.component';
+import { MatchDetailComponent } from './components/betting/sports/match-detail/match-detail.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { TotalsComponent } from './components/betting/sports/totals/totals.compo
     MatchPreviewComponent,
     FormatDatePipe,
     TotalsComponent,
+    MatchDetailComponent,
   ],
   imports: [
     BrowserModule,

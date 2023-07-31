@@ -1,6 +1,7 @@
 <div class="popular" *ngFor="let league of popularFixtures">
   <app-league
     class="popular__league"
+    [sportId]="sportId"
     [leagueId]="league[0]"
     [events]="league[1]"
   ></app-league>

@@ -13,14 +13,14 @@
         <div class="odd match__odds--homeWin">
           {{ match.periods?.num_0?.money_line?.home }}
         </div>
-        <div class="odd match__odds--draw">
+        <div class="odd match__odds--draw" *ngIf="sportId === 1">
           {{ match.periods?.num_0?.money_line?.draw }}
         </div>
         <div class="odd match__odds--awayWin">
           {{ match.periods?.num_0?.money_line?.away }}
         </div>
       </section>
-      <section class="odds match__odds--doubleChance">
+      <section class="odds match__odds--doubleChance" *ngIf="sportId === 1">
         <div class="odd match__odds--homeX">
           {{ doubleChance.homeOrDraw }}
         </div>
@@ -32,22 +32,9 @@
         </div>
       </section>
       <section class="odds match__odds--totals">
-        <div class="odd match__odds--under">
-          {{
-            match.periods?.num_0?.totals?.hasOwnProperty("2.5")
-              ? (match.periods?.num_0?.totals)!["2.5"].under
-              : "--"
-          }}
-        </div>
-        <app-totals></app-totals>
-        <div class="odd match__odds--over">
-          {{
-            match.periods?.num_0?.totals?.hasOwnProperty("2.5")
-              ? (match.periods?.num_0?.totals)!["2.5"].over
-              : "--"
-          }}
-        </div>
+        <app-totals [total]="defaultTotal" [totals]="this.totals"></app-totals>
       </section>
     </div>
   </section>
+  <button (click)="loadDetails()">more</button>
 </div>

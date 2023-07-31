@@ -1,5 +1,5 @@
 <div class="leagues">
-  <h2>{{ leagues[leagueId].name }}</h2>
+  <h2>{{ leagueName }}</h2>
   <section class="league__header">
     <div class="league__desc">
       <div>date</div>
@@ -7,17 +7,19 @@
     </div>
     <div class="league__oddNames">
       <div>1</div>
-      <div>X</div>
+      <div *ngIf="sportId === 1">X</div>
       <div>2</div>
-      <div>1X</div>
-      <div>12</div>
-      <div>X2</div>
+      <div class="league__oddNames--special" *ngIf="sportId === 1">
+        <div>1X</div>
+        <div>12</div>
+        <div>X2</div>
+      </div>
       <div>under</div>
       <div>total</div>
       <div>over</div>
     </div>
   </section>
   <div class="league" *ngFor="let match of events">
-    <app-match-preview [match]="match"></app-match-preview>
+    <app-match-preview [sportId]="sportId" [match]="match"></app-match-preview>
   </div>
 </div>

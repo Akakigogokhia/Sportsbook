@@ -5,13 +5,14 @@ export interface MarketResponse {
 export interface Event {
   event_id: number;
   sport_id: number;
-  league_id: number;
+  league_id: string;
   league_name: string;
   starts: string;
   home: string;
   away: string;
   event_type: string;
   is_have_odds: boolean;
+  resulting_unit?: 'Sets' | 'Games';
   periods?: Periods;
 }
 

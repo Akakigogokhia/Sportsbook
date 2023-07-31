@@ -3,7 +3,7 @@ import {
   GroupedEvents,
   SortedEvents,
 } from 'src/app/shared/models/betting.models';
-import { Event } from 'src/app/shared/models/response.models';
+import { Event } from 'src/app/shared/models/market.model';
 import { Constants } from 'src/app/shared/services/constants.service';
 import { DateService } from './date.service';
 
@@ -13,29 +13,65 @@ import { DateService } from './date.service';
 export class SortingService {
   constructor(private constants: Constants, private dateService: DateService) {}
 
-  sortByPopularity = (fixtures: Event[]) => {
+  groupFixturesByLeagueId = (fixtures: Event[]) => {
+    const leagueOrder: string[] = [];
+    const groupedByLeagueId = fixtures.reduce((grouped, fixture) => {
+      const { league_id, event_type } = fixture;
+      if (
+        event_type === 'prematch' &&
+        fixture.periods?.num_0.money_line?.home
+      ) {
+        if (!grouped[league_id]) {
+          grouped[league_id] = [];
+          leagueOrder.push(league_id);
+        }
+
+        grouped[league_id].push(fixture);
+      }
+
+      return grouped;
+    }, {} as GroupedEvents);
+
+    return { groupedByLeagueId, leagueOrder };
+  };
+
+  groupFixturesInOrder = (
+    groupedFixtues: GroupedEvents,
+    leagueOrder: string[]
+  ) => {
+    const groupedByOrder: SortedEvents = leagueOrder.map((id) => [
+      id,
+      groupedFixtues[id],
+    ]);
+
+    return groupedByOrder;
+  };
+
+  sortTennisFixtures(fixtures: Event[]) {
+    const { groupedByLeagueId, leagueOrder } =
+      this.groupFixturesByLeagueId(fixtures);
+    return this.groupFixturesInOrder(groupedByLeagueId, leagueOrder);
+  }
+
+  sortFixtures = (fixtures: Event[], sport_id: number) => {
     fixtures = this.dateService.filterStarted(fixtures);
-    fixtures.sort(
-      (a: Event, b: Event) =>
-        new Date(a.starts).getTime() - new Date(b.starts).getTime()
-    );
 
-    const groupedByLeagueId: GroupedEvents = {};
-    fixtures.forEach((fixture) => {
-      const id = fixture.league_id;
-      groupedByLeagueId[id] = groupedByLeagueId[id] || [];
+    const { groupedByLeagueId } = this.groupFixturesByLeagueId(fixtures);
+    const popularLeagues =
+      sport_id === 1
+        ? this.constants.popularLeagues
+        : this.constants.popularBasketballLeagues;
 
-      if (fixture.event_type === 'prematch')
-        groupedByLeagueId[id].push(fixture);
-    });
-
-    const filteredLeagueIds = Object.keys(groupedByLeagueId).filter((id) =>
-      this.constants.popularLeagues.includes(id)
-    );
+    const filteredLeagueIds =
+      sport_id === 1
+        ? Object.keys(groupedByLeagueId).filter((id) =>
+            popularLeagues.includes(id)
+          )
+        : Object.keys(groupedByLeagueId);
 
     const sortedLeagueIds = filteredLeagueIds.sort((a, b) => {
-      const firstIndex = this.constants.popularLeagues.indexOf(a);
-      const secondIndex = this.constants.popularLeagues.indexOf(b);
+      const firstIndex = popularLeagues.indexOf(a);
+      const secondIndex = popularLeagues.indexOf(b);
       const firstDate = this.dateService.convertTimezone(
         new Date(groupedByLeagueId[a][0].starts)
       );
@@ -46,7 +82,13 @@ export class SortingService {
       const firstToday = this.dateService.isToday(firstDate);
       const secondToday = this.dateService.isToday(secondDate);
 
-      if (firstToday && !secondToday) {
+      if (firstIndex === -1 && secondIndex === -1) {
+        return 0;
+      } else if (firstIndex === -1) {
+        return 1;
+      } else if (secondIndex === -1) {
+        return -1;
+      } else if (firstToday && !secondToday) {
         return -1;
       } else if (!firstToday && secondToday) {
         return 1;

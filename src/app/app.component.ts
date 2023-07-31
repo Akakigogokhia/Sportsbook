@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Event } from './shared/models/response.models';
+import { Event } from './shared/models/market.model';
 import { Store } from '@ngrx/store';
 import * as FromApp from './store/app.reducer';
 import * as BettingActions from './components/betting/store/betting.actions';
@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
   ) {}
 
   fetch() {
-    this.store.dispatch(BettingActions.FetchFixtures());
+    this.store.dispatch(BettingActions.FetchFixtures({ sport_id: 1 }));
     this.router.navigate(['/popular']);
   }
 

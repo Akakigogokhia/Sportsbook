@@ -1,32 +1,29 @@
 import { createReducer, on } from '@ngrx/store';
-import {
-  GroupedEvents,
-  SortedEvents,
-  Ticket,
-} from 'src/app/shared/models/betting.models';
+import { SortedEvents, Ticket } from 'src/app/shared/models/betting.models';
 import * as BettingActions from './betting.actions';
-import { Event } from 'src/app/shared/models/response.models';
+import { Event } from 'src/app/shared/models/market.model';
+import { SpecialMarkets } from 'src/app/shared/models/specialMarket.model';
 
 export interface State {
-  footballAll: Event[] | null;
+  sport_id: number | null;
+  activeFixtures: SortedEvents;
   footballPopular: SortedEvents;
-  basketBallAll: Event[] | null;
-  basketBallPopular: GroupedEvents | null;
-  tennisAll: Event[] | null;
-  tennisPopular: GroupedEvents | null;
-  market: Event | null;
+  basketBallPopular: SortedEvents;
+  tennisPopular: SortedEvents;
+  activeMarket: Event | null;
+  activeSpecialMarket: SpecialMarkets | null;
   activeTicket: Ticket | null;
   ticketHistory: Ticket[] | null;
 }
 
 const initialState: State = {
-  footballAll: null,
+  sport_id: null,
+  activeFixtures: null,
   footballPopular: null,
-  basketBallAll: null,
   basketBallPopular: null,
-  tennisAll: null,
   tennisPopular: null,
-  market: null,
+  activeMarket: null,
+  activeSpecialMarket: null,
   activeTicket: null,
   ticketHistory: null,
 };
@@ -37,8 +34,43 @@ export const BettingReducer = createReducer(
     ...state,
     footballAll: action.allFixtures,
   })),
-  on(BettingActions.SetPopularFixtures, (state, action) => ({
+  on(BettingActions.SetPopularFixtures, (state, action) => {
+    switch (state.sport_id) {
+      case 1:
+        return {
+          ...state,
+          footballPopular: action.popularFixtures,
+          activeFixtures: action.popularFixtures,
+        };
+        break;
+      case 2:
+        return {
+          ...state,
+          tennisPopular: action.popularFixtures,
+          activeFixtures: action.popularFixtures,
+        };
+      case 3:
+        return {
+          ...state,
+          basketBallPopular: action.popularFixtures,
+          activeFixtures: action.popularFixtures,
+        };
+        break;
+      default:
+        return { ...state, footballPopular: action.popularFixtures };
+        break;
+    }
+  }),
+  on(BettingActions.FetchFixtures, (state, action) => ({
     ...state,
-    footballPopular: action.popularFixtures,
+    sport_id: action.sport_id,
+  })),
+  on(BettingActions.SelectMatch, (state, action) => ({
+    ...state,
+    activeMarket: action.market,
+  })),
+  on(BettingActions.SetSpecialMarkets, (state, action) => ({
+    ...state,
+    activeSpecialMarket: action.specialMarkets,
   }))
 );
