@@ -1,6 +1,6 @@
 export interface SpecialMarket {
   name: string;
-  lines: Lines[];
+  lines: Lines;
 }
 
 export type SpecialMarkets = SpecialMarket[];

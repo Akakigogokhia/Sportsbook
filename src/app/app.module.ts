@@ -19,6 +19,9 @@ import { MatchPreviewComponent } from './components/betting/sports/match-preview
 import { FormatDatePipe } from './shared/pipes/format-date.pipe';
 import { TotalsComponent } from './components/betting/sports/totals/totals.component';
 import { MatchDetailComponent } from './components/betting/sports/match-detail/match-detail.component';
+import { AllOddsComponent } from './components/betting/sports/match-detail/all-odds/all-odds.component';
+import { GoalsComponent } from './components/betting/sports/match-detail/goals/goals.component';
+import { FirstHalfOddsComponent } from './components/betting/sports/match-detail/first-half-odds/first-half-odds.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,9 @@ import { MatchDetailComponent } from './components/betting/sports/match-detail/m
     FormatDatePipe,
     TotalsComponent,
     MatchDetailComponent,
+    AllOddsComponent,
+    GoalsComponent,
+    FirstHalfOddsComponent,
   ],
   imports: [
     BrowserModule,

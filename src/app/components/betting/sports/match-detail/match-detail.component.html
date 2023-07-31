@@ -1,4 +1,52 @@
-<div *ngFor="let specialMarket of specialMarkets">
-  <div>{{ specialMarket.name }}</div>
-  <div></div>
+<div class="details">
+  <div class="details__header">
+    <ul>
+      <li (click)="setOddsType('All')">All</li>
+      <li (click)="setOddsType('I Half')">I Half</li>
+      <li (click)="setOddsType('Goals')">Goals</li>
+    </ul>
+  </div>
+
+  <section class="odds details__odds--all" *ngIf="oddsType === 'All'">
+    <section class="details__odds--moneyLine">
+      <div class="odd">1 - {{ home }}</div>
+      <div class="odd" *ngIf="draw">X - {{ draw }}</div>
+      <div class="odd">2 - {{ away }}</div>
+    </section>
+    <section class="details__odds--doubleChance" *ngIf="draw">
+      <div class="odd">1X - {{ doubleChance.homeOrDraw }}</div>
+      <div class="odd">12 - {{ doubleChance.homeOrAway }}</div>
+      <div class="odd">X2 - {{ doubleChance.drawOrAway }}</div>
+    </section>
+    <section
+      class="details__odds--totals"
+      *ngFor="let total of market?.periods?.num_0?.totals | keyvalue"
+    >
+      <div class="odd">Under - {{ total.value.under }}</div>
+      <div>{{ total.key }}</div>
+      <div class="odd">Over - {{ total.value.over }}</div>
+    </section>
+    <section
+      class="details__odds--spreads"
+      *ngFor="let spread of market?.periods?.num_0?.spreads | keyvalue"
+    >
+      <div *ngIf="spread.key !== '0.0' && spread.value.home">
+        <div>
+          {{ "1 - " + spread.value.home }} {{ spread.key }}
+          {{ "2 - " + spread.value.away }}
+        </div>
+        <div></div>
+      </div>
+      <div></div>
+    </section>
+    <div *ngFor="let specialMarket of specialMarkets">
+      <div>{{ specialMarket.name }}</div>
+      <div *ngFor="let line of specialMarket.lines | keyvalue">
+        <div *ngIf="line.value.price">{{ line.value.name }}</div>
+        <div *ngIf="line.value.price">{{ line.value.price }}</div>
+      </div>
+    </div>
+  </section>
+  <section class="odds details__odds--first"></section>
+  <section class="odds details__odds--goals"></section>
 </div>
