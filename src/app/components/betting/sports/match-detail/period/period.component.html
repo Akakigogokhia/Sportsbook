@@ -1,0 +1,38 @@
+<div [style.backgroundColor]="single ? 'yellow' : 'red'">
+  <h1 *ngIf="firstHalf">{{ sportId === 1 ? "1st Half" : "1st Set" }}</h1>
+  <section class="details__odds--moneyLine">
+    <div class="odd">1 - {{ home }}</div>
+    <div class="odd" *ngIf="draw">X - {{ draw }}</div>
+    <div class="odd">2 - {{ away }}</div>
+  </section>
+  <section class="details__odds--doubleChance" *ngIf="!firstHalf && draw">
+    <div class="odd">1X - {{ doubleChance.homeOrDraw }}</div>
+    <div class="odd">12 - {{ doubleChance.homeOrAway }}</div>
+    <div class="odd">X2 - {{ doubleChance.drawOrAway }}</div>
+  </section>
+  <section
+    class="details__odds--totals"
+    *ngFor="let total of period.totals | keyvalue"
+  >
+    <div class="odd">Under - {{ total.value.under }}</div>
+    <div>{{ total.key }}</div>
+    <div class="odd">Over - {{ total.value.over }}</div>
+  </section>
+  <section
+    class="details__odds--spreads"
+    *ngFor="let spread of period.spreads | keyvalue"
+  >
+    <div *ngIf="spread.key !== '0.0' && spread.value.home">
+      <div>
+        {{ "1 - " + spread.value.home }}
+        {{ spread.key[0] == "-" ? spread.key : "+" + spread.key }}
+        {{ "2 - " + spread.value.away }}
+      </div>
+    </div>
+  </section>
+  <div *ngIf="specialMarkets">
+    <app-special-markets
+      [specialMarkets]="specialMarkets"
+    ></app-special-markets>
+  </div>
+</div>

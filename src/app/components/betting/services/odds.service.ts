@@ -25,16 +25,16 @@ export class OddsService {
     };
   }
 
-  convertOddsAndTimezone(value: any): any {
+  convertOddsAndTimezone(value: any, key: string): any {
     if (typeof value === 'number') {
       return value.toFixed(2);
-    } else if (typeof value === 'string' && !isNaN(new Date(value).getTime())) {
+    } else if (key === 'starts') {
       return new Date(value).getTime() + 4 * 60 * 60 * 1000;
     } else if (typeof value === 'object' && value !== null) {
       const formattedObj: any = {};
       for (const key in value) {
         if (Object.prototype.hasOwnProperty.call(value, key)) {
-          formattedObj[key] = this.convertOddsAndTimezone(value[key]);
+          formattedObj[key] = this.convertOddsAndTimezone(value[key], key);
         }
       }
       return formattedObj;

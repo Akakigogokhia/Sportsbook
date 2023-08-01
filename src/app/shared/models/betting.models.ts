@@ -1,4 +1,4 @@
-import { Event } from './response.models';
+import { Event } from './market.model';
 
 export interface Ticket {
   id: string;
@@ -6,7 +6,6 @@ export interface Ticket {
   total_stake: number;
   total_odd: number;
   potential_payout: number;
-  timestamp: Date;
 }
 
 export interface Bet {
@@ -24,3 +23,9 @@ export interface GroupedEvents {
 }
 
 export type SortedEvents = [string, Event[]][] | null;
+
+export interface DoubleChance {
+  homeOrDraw: string;
+  homeOrAway: string;
+  drawOrAway: string;
+}

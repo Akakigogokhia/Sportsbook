@@ -1,0 +1,38 @@
+<div class="details">
+  <div class="details__header">
+    <ul>
+      <li (click)="setOddsType('All')">All</li>
+      <li (click)="setOddsType('I Half')">
+        {{ sportId === 2 ? "I Set" : "I Half" }}
+      </li>
+      <li *ngIf="sportId !== 2" (click)="setOddsType('Goals')">
+        {{ sportId == 1 ? "Goals" : "Points" }}
+      </li>
+    </ul>
+  </div>
+
+  <section class="odds details__odds--all" *ngIf="oddsType === 'All'">
+    <app-all-odds
+      [market]="market"
+      [specialMarkets]="specialMarkets"
+      [sportId]="sportId!"
+    ></app-all-odds>
+  </section>
+  <section class="odds details__odds--first" *ngIf="oddsType === 'I Half'">
+    <app-period
+      [specialMarkets]="specialMarkets!"
+      [period]="market?.periods?.num_1!"
+      [firstHalf]="true"
+      [single]="true"
+      [sportId]="sportId!"
+    ></app-period>
+  </section>
+  <section class="odds details__odds--goals" *ngIf="oddsType === 'Goals'">
+    <app-goal-points
+      [specialMarkets]="specialMarkets!"
+      [period]="market?.periods?.num_0!"
+      [sportId]="sportId!"
+    >
+    </app-goal-points>
+  </section>
+</div>

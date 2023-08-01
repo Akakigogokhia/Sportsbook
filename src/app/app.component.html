@@ -1,10 +1,2 @@
 <button (click)="fetch()">Fetch</button>
 <router-outlet></router-outlet>
-
-<div *ngFor="let event of events">
-  <div>{{ event.home }} - {{ event.away }}</div>
-  <div>{{ event.periods?.num_0?.money_line?.home! | formatDecimal }}</div>
-  <div>{{ event.periods?.num_0?.money_line?.draw! | formatDecimal }}</div>
-  <div>{{ event.periods?.num_0?.money_line?.away! | formatDecimal }}</div>
-  <div>{{ event.starts | date : "medium" }}</div>
-</div>

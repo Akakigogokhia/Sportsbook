@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Event } from 'src/app/shared/models/response.models';
+import { Event } from 'src/app/shared/models/market.model';
 import { Constants, League } from 'src/app/shared/services/constants.service';
 
 @Component({
@@ -10,12 +10,15 @@ import { Constants, League } from 'src/app/shared/services/constants.service';
 export class LeagueComponent implements OnInit {
   @Input() leagueId: string;
   @Input() events: Event[];
+  @Input() sportId: number;
 
   leagues: League;
+  leagueName: string;
 
   constructor(private constants: Constants) {}
 
   ngOnInit(): void {
     this.leagues = this.constants.leagues;
+    this.leagueName = this.events[0].league_name;
   }
 }

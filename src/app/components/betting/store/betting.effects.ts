@@ -1,25 +1,55 @@
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as BettingActions from './betting.actions';
-import { map, switchMap } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs';
 import { SortingService } from '../services/sorting.service';
 import { Injectable } from '@angular/core';
 import { BettingService } from '../services/betting.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class BettingEffects {
   FetchFixtures = createEffect(() =>
     this.actions$.pipe(
       ofType(BettingActions.FetchFixtures),
-      switchMap(() => {
-        return this.bettingService.makeApiRequest().pipe(
+      switchMap((action) => {
+        return this.bettingService.makeApiRequest(action.sport_id).pipe(
           map((response) => {
-            return BettingActions.SetPopularFixtures({
-              popularFixtures: this.sortingService.sortByPopularity(
-                response.events
-              ),
-            });
+            if (action.sport_id === 1 || action.sport_id === 3) {
+              return BettingActions.SetPopularFixtures({
+                popularFixtures: this.sortingService.sortFixtures(
+                  response.events,
+                  action.sport_id
+                ),
+              });
+            } else {
+              return BettingActions.SetPopularFixtures({
+                popularFixtures: this.sortingService.sortTennisFixtures(
+                  response.events
+                ),
+              });
+            }
           })
         );
+      })
+    )
+  );
+
+  OpenDetails = createEffect(() =>
+    this.actions$.pipe(
+      ofType(BettingActions.SelectMatch),
+      switchMap((action) => {
+        return this.bettingService
+          .getSpecialMarkets(+action.market.event_id)
+          .pipe(
+            map((response) => {
+              return BettingActions.SetSpecialMarkets({
+                specialMarkets: response.specials,
+              });
+            })
+          );
+      }),
+      tap(() => {
+        this.router.navigate(['/match']);
       })
     )
   );
@@ -27,6 +57,7 @@ export class BettingEffects {
   constructor(
     private actions$: Actions,
     private bettingService: BettingService,
-    private sortingService: SortingService
+    private sortingService: SortingService,
+    private router: Router
   ) {}
 }
