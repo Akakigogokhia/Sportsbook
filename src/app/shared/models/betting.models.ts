@@ -6,7 +6,6 @@ export interface Ticket {
   total_stake: number;
   total_odd: number;
   potential_payout: number;
-  timestamp: Date;
 }
 
 export interface Bet {

@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
   constructor(private store: Store<FromApp.AppState>, private router: Router) {}
 
   fetch() {
-    this.store.dispatch(BettingActions.FetchFixtures({ sport_id: 2 }));
+    this.store.dispatch(BettingActions.FetchFixtures({ sport_id: 1 }));
     this.router.navigate(['/popular']);
   }
 

@@ -12,8 +12,6 @@ export interface State {
   tennisPopular: SortedEvents;
   activeMarket: Event | null;
   activeSpecialMarket: SpecialMarkets | null;
-  activeTicket: Ticket | null;
-  ticketHistory: Ticket[] | null;
 }
 
 const initialState: State = {
@@ -24,8 +22,6 @@ const initialState: State = {
   tennisPopular: null,
   activeMarket: null,
   activeSpecialMarket: null,
-  activeTicket: null,
-  ticketHistory: null,
 };
 
 export const BettingReducer = createReducer(

@@ -24,7 +24,8 @@
   >
     <div *ngIf="spread.key !== '0.0' && spread.value.home">
       <div>
-        {{ "1 - " + spread.value.home }} {{ spread.key }}
+        {{ "1 - " + spread.value.home }}
+        {{ spread.key[0] == "-" ? spread.key : "+" + spread.key }}
         {{ "2 - " + spread.value.away }}
       </div>
     </div>

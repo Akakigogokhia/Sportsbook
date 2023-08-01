@@ -23,6 +23,8 @@ import { AllOddsComponent } from './components/betting/sports/match-detail/all-o
 import { SpecialMarketsComponent } from './components/betting/sports/match-detail/special-markets/special-markets.component';
 import { PeriodComponent } from './components/betting/sports/match-detail/period/period.component';
 import { GoalPointsComponent } from './components/betting/sports/match-detail/goal-points/goal-points.component';
+import { BetslipEffects } from './components/betslip/store/betslip.effects';
+import { TicketComponent } from './components/betslip/ticket/ticket.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,7 @@ import { GoalPointsComponent } from './components/betting/sports/match-detail/go
     SpecialMarketsComponent,
     PeriodComponent,
     GoalPointsComponent,
+    TicketComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,7 +49,7 @@ import { GoalPointsComponent } from './components/betting/sports/match-detail/go
     ReactiveFormsModule,
     AppRoutingModule,
     StoreModule.forRoot(FromApp.AppReducer),
-    EffectsModule.forRoot([AuthEffects, BettingEffects]),
+    EffectsModule.forRoot([AuthEffects, BettingEffects, BetslipEffects]),
   ],
   providers: [],
   bootstrap: [AppComponent],

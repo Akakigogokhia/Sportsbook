@@ -1,5 +1,9 @@
 import { createAction, props } from '@ngrx/store';
-import { SortedEvents, Ticket } from 'src/app/shared/models/betting.models';
+import {
+  Bet,
+  SortedEvents,
+  Ticket,
+} from 'src/app/shared/models/betting.models';
 import { Event } from 'src/app/shared/models/market.model';
 import { SpecialMarkets } from 'src/app/shared/models/specialMarket.model';
 
