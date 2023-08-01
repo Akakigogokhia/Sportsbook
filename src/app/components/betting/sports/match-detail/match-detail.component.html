@@ -25,14 +25,21 @@
       [firstHalf]="true"
       [single]="true"
       [sportId]="sportId!"
+      [event_id]="market!.event_id"
+      [awayTeam]="market!.away"
+      [homeTeam]="market!.home"
+      [starts]="market!.starts"
     ></app-period>
   </section>
   <section class="odds details__odds--goals" *ngIf="oddsType === 'Goals'">
-    <app-goal-points
-      [specialMarkets]="specialMarkets!"
+    <app-period
+      [specialMarkets]="goalSpecialMarkets"
       [period]="market?.periods?.num_0!"
+      [event_id]="market!.event_id"
+      [homeTeam]="market!.home"
+      [awayTeam]="market!.away"
       [sportId]="sportId!"
-    >
-    </app-goal-points>
+      [starts]="market!.starts"
+    ></app-period>
   </section>
 </div>

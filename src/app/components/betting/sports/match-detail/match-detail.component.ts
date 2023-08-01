@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { SpecialMarkets } from 'src/app/shared/models/specialMarket.model';
 import { Event } from 'src/app/shared/models/market.model';
+import { FilterService } from '../../services/filter.service';
 
 @Component({
   selector: 'app-match-detail',
@@ -18,9 +19,13 @@ export class MatchDetailComponent implements OnInit, OnDestroy {
   marketSubscription: Subscription;
   specialMarketSubscription: Subscription;
   sportIdSubscription: Subscription;
+  goalSpecialMarkets: SpecialMarkets;
   oddsType: 'All' | 'I Half' | 'Goals' = 'All';
 
-  constructor(private store: Store<FromApp.AppState>) {}
+  constructor(
+    private store: Store<FromApp.AppState>,
+    private filterService: FilterService
+  ) {}
 
   setOddsType(type: 'All' | 'I Half' | 'Goals') {
     this.oddsType = type;
@@ -38,6 +43,10 @@ export class MatchDetailComponent implements OnInit, OnDestroy {
     this.sportIdSubscription = this.store
       .select(BettingSelector.selectSportId)
       .subscribe((sportId) => (this.sportId = sportId));
+
+    this.goalSpecialMarkets = this.filterService.getGoalOdds(
+      this.specialMarkets!
+    );
 
     console.log(this.specialMarkets);
   }

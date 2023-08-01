@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Event } from 'src/app/shared/models/market.model';
 import { SpecialMarkets } from 'src/app/shared/models/specialMarket.model';
 
@@ -7,12 +7,10 @@ import { SpecialMarkets } from 'src/app/shared/models/specialMarket.model';
   templateUrl: './all-odds.component.html',
   styleUrls: ['./all-odds.component.scss'],
 })
-export class AllOddsComponent implements OnInit {
+export class AllOddsComponent {
   @Input() market: Event | null;
   @Input() specialMarkets: SpecialMarkets | null;
   @Input() sportId: number;
 
   constructor() {}
-
-  ngOnInit(): void {}
 }

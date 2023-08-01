@@ -4,6 +4,7 @@ import { Period } from 'src/app/shared/models/market.model';
 import { SpecialMarkets } from 'src/app/shared/models/specialMarket.model';
 import { FilterService } from '../../../services/filter.service';
 import { OddsService } from '../../../services/odds.service';
+import { BetsliptService } from 'src/app/components/betslip/services/betslip.service';
 
 @Component({
   selector: 'app-period',
@@ -16,6 +17,10 @@ export class PeriodComponent implements OnInit {
   @Input() firstHalf: boolean;
   @Input() single: boolean;
   @Input() sportId: number;
+  @Input() event_id: number;
+  @Input() homeTeam: string;
+  @Input() awayTeam: string;
+  @Input() starts: string;
   home: number;
   draw: number;
   away: number;
@@ -23,8 +28,21 @@ export class PeriodComponent implements OnInit {
 
   constructor(
     private filterService: FilterService,
-    private oddsService: OddsService
+    private oddsService: OddsService,
+    private betslipService: BetsliptService
   ) {}
+
+  addBet(odd: number, bet_type: string, position: string) {
+    this.betslipService.addBet(
+      this.event_id,
+      this.homeTeam,
+      this.awayTeam,
+      this.starts,
+      bet_type,
+      position,
+      odd
+    );
+  }
 
   ngOnInit(): void {
     if (this.single)

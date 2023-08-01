@@ -10,42 +10,53 @@
     </div>
     <div class="match__odds">
       <section class="odds match__odds--moneyLine">
-        <div (click)="addBet(home)" class="odd match__odds--homeWin">
+        <div
+          (click)="addBet(home, 'Main Line', '1')"
+          class="odd match__odds--homeWin"
+        >
           {{ home }}
         </div>
         <div
-          (click)="addBet(draw)"
+          (click)="addBet(draw, 'Main Line', 'X')"
           class="odd match__odds--draw"
           *ngIf="sportId === 1"
         >
           {{ draw }}
         </div>
-        <div (click)="addBet(away)" class="odd match__odds--awayWin">
+        <div
+          (click)="addBet(away, 'Main Line', '2')"
+          class="odd match__odds--awayWin"
+        >
           {{ away }}
         </div>
       </section>
       <section class="odds match__odds--doubleChance" *ngIf="sportId === 1">
         <div
-          (click)="addBet(+doubleChance.homeOrDraw)"
+          (click)="addBet(+doubleChance.homeOrDraw, 'Double Chance', '1X')"
           class="odd match__odds--homeX"
         >
           {{ doubleChance.homeOrDraw }}
         </div>
         <div
-          (click)="addBet(+doubleChance.homeOrAway)"
+          (click)="addBet(+doubleChance.homeOrAway, 'Double Chance', '12')"
           class="odd match__odds--homeAway"
         >
           {{ doubleChance.homeOrAway }}
         </div>
         <div
-          (click)="addBet(+doubleChance.drawOrAway)"
+          (click)="addBet(+doubleChance.drawOrAway, 'Double Chance', 'X2')"
           class="odd match__odds--xAway"
         >
           {{ doubleChance.drawOrAway }}
         </div>
       </section>
       <section class="odds match__odds--totals">
-        <app-totals [total]="defaultTotal" [totals]="this.totals"></app-totals>
+        <app-totals
+          *ngIf="defaultTotal"
+          [total]="defaultTotal"
+          [totals]="this.totals"
+          [match]="match"
+        ></app-totals>
       </section>
     </div>
   </section>

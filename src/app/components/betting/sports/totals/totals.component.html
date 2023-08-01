@@ -1,9 +1,15 @@
-<div class="totals" *ngIf="totals">
-  <div class="odd totals__under">
-    {{ totals.hasOwnProperty(total) ? totals![total].under : "--" }}
+<div class="totals">
+  <div
+    class="odd totals__under"
+    (click)="addBet(totals![total].under, total, 'under')"
+  >
+    {{ totals![total].under }}
   </div>
   <div class="totals__total">{{ total }}</div>
-  <div class="odd totals__over">
-    {{ totals.hasOwnProperty(total) ? totals![total].over : "--" }}
+  <div
+    class="odd totals__over"
+    (click)="addBet(totals![total].over, total, 'over')"
+  >
+    {{ totals![total].over }}
   </div>
 </div>

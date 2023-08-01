@@ -22,7 +22,6 @@ import { MatchDetailComponent } from './components/betting/sports/match-detail/m
 import { AllOddsComponent } from './components/betting/sports/match-detail/all-odds/all-odds.component';
 import { SpecialMarketsComponent } from './components/betting/sports/match-detail/special-markets/special-markets.component';
 import { PeriodComponent } from './components/betting/sports/match-detail/period/period.component';
-import { GoalPointsComponent } from './components/betting/sports/match-detail/goal-points/goal-points.component';
 import { BetslipEffects } from './components/betslip/store/betslip.effects';
 import { TicketComponent } from './components/betslip/ticket/ticket.component';
 
@@ -40,7 +39,6 @@ import { TicketComponent } from './components/betslip/ticket/ticket.component';
     AllOddsComponent,
     SpecialMarketsComponent,
     PeriodComponent,
-    GoalPointsComponent,
     TicketComponent,
   ],
   imports: [
