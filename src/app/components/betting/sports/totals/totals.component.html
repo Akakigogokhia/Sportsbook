@@ -1,4 +1,4 @@
-<div class="totals">
+<div class="totals" *ngIf="totals">
   <div class="odd totals__under">
     {{ totals.hasOwnProperty(total) ? totals![total].under : "--" }}
   </div>

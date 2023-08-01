@@ -11,13 +11,13 @@
     <div class="match__odds">
       <section class="odds match__odds--moneyLine">
         <div class="odd match__odds--homeWin">
-          {{ match.periods?.num_0?.money_line?.home }}
+          {{ home }}
         </div>
         <div class="odd match__odds--draw" *ngIf="sportId === 1">
-          {{ match.periods?.num_0?.money_line?.draw }}
+          {{ draw }}
         </div>
         <div class="odd match__odds--awayWin">
-          {{ match.periods?.num_0?.money_line?.away }}
+          {{ away }}
         </div>
       </section>
       <section class="odds match__odds--doubleChance" *ngIf="sportId === 1">

@@ -20,8 +20,9 @@ import { FormatDatePipe } from './shared/pipes/format-date.pipe';
 import { TotalsComponent } from './components/betting/sports/totals/totals.component';
 import { MatchDetailComponent } from './components/betting/sports/match-detail/match-detail.component';
 import { AllOddsComponent } from './components/betting/sports/match-detail/all-odds/all-odds.component';
-import { GoalsComponent } from './components/betting/sports/match-detail/goals/goals.component';
-import { FirstHalfOddsComponent } from './components/betting/sports/match-detail/first-half-odds/first-half-odds.component';
+import { SpecialMarketsComponent } from './components/betting/sports/match-detail/special-markets/special-markets.component';
+import { PeriodComponent } from './components/betting/sports/match-detail/period/period.component';
+import { GoalPointsComponent } from './components/betting/sports/match-detail/goal-points/goal-points.component';
 
 @NgModule({
   declarations: [
@@ -35,8 +36,9 @@ import { FirstHalfOddsComponent } from './components/betting/sports/match-detail
     TotalsComponent,
     MatchDetailComponent,
     AllOddsComponent,
-    GoalsComponent,
-    FirstHalfOddsComponent,
+    SpecialMarketsComponent,
+    PeriodComponent,
+    GoalPointsComponent,
   ],
   imports: [
     BrowserModule,

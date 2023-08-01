@@ -1,11 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, first } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Event, MarketResponse } from 'src/app/shared/models/market.model';
-import {
-  SpecialMarkets,
-  SpecialMarketResponse,
-} from 'src/app/shared/models/specialMarket.model';
+import { SpecialMarketResponse } from 'src/app/shared/models/specialMarket.model';
 
 @Injectable({
   providedIn: 'root',

@@ -24,3 +24,9 @@ export interface GroupedEvents {
 }
 
 export type SortedEvents = [string, Event[]][] | null;
+
+export interface DoubleChance {
+  homeOrDraw: string;
+  homeOrAway: string;
+  drawOrAway: string;
+}
