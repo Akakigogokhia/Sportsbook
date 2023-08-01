@@ -27,7 +27,7 @@ export const BetslipReducer = createReducer(
       ...state,
       ticket: {
         ...state.ticket,
-        bets: bets,
+        bets: [...bets, bet],
       },
     };
   }),

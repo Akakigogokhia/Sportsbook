@@ -3,6 +3,7 @@ import { Event, Totals } from 'src/app/shared/models/market.model';
 import { OddsService } from '../../services/odds.service';
 import * as FromApp from '../../../../store/app.reducer';
 import * as BettingActions from '../../store/betting.actions';
+import * as BetslipActions from '../../../betslip/store/betslip.actions';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -41,6 +42,22 @@ export class MatchPreviewComponent implements OnInit {
 
   loadDetails() {
     this.store.dispatch(BettingActions.SelectMatch({ market: this.match }));
+  }
+
+  addBet(odd: number) {
+    this.store.dispatch(
+      BetslipActions.AddBet({
+        bet: {
+          event_id: this.match.event_id,
+          home: this.match.home,
+          away: this.match.away,
+          date: this.match.starts,
+          bet_type: 'BTTS',
+          position: 'Yes',
+          odd: odd,
+        },
+      })
+    );
   }
 
   constructor(
