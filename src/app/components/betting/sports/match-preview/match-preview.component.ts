@@ -24,6 +24,14 @@ export class MatchPreviewComponent implements OnInit {
   doubleChance: { homeOrDraw: string; homeOrAway: string; drawOrAway: string };
 
   ngOnInit(): void {
+    this.match = this.oddsService.convertOddsAndTimezone(this.match, '');
+    this.totals = this.match.periods?.num_0.totals!;
+    if (this.totals) {
+      this.defaultTotal =
+        this.sportId === 1 && this.totals.hasOwnProperty('2.5')
+          ? '2.5'
+          : Object.keys(this.totals)[0];
+    }
     this.home = this.match.periods?.num_0.money_line?.home || 0;
     this.draw = this.match.periods?.num_0.money_line?.draw || 0;
     this.away = this.match.periods?.num_0.money_line?.away || 0;
@@ -33,15 +41,6 @@ export class MatchPreviewComponent implements OnInit {
       this.draw,
       this.away
     );
-
-    this.match = this.oddsService.convertOddsAndTimezone(this.match, '');
-    this.totals = this.match.periods?.num_0.totals!;
-    if (this.totals) {
-      this.defaultTotal =
-        this.sportId === 1 && this.totals.hasOwnProperty('2.5')
-          ? '2.5'
-          : Object.keys(this.totals)[0];
-    }
   }
 
   loadDetails() {

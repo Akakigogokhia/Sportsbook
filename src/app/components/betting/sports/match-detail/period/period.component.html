@@ -53,8 +53,9 @@
           (click)="
             addBet(
               spread.value.home,
-              'Spread',
-              (spread.key[0] == '-' ? spread.key : '+' + spread.key) + ' - 1'
+              'Spread ' +
+                (spread.key[0] == '-' ? spread.key : '+' + spread.key),
+              '1'
             )
           "
         >
@@ -65,8 +66,9 @@
           (click)="
             addBet(
               spread.value.home,
-              'Spread',
-              (spread.key[0] == '-' ? spread.key : '+' + spread.key) + ' - 2'
+              'Spread ' +
+                (spread.key[0] == '-' ? spread.key : '+' + spread.key),
+              '2'
             )
           "
         >

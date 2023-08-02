@@ -21,8 +21,8 @@ const initialState: State = {
 export const BetslipReducer = createReducer(
   initialState,
   on(BetslipActions.AddBet, (state, { bet }) => {
-    const bets = state.ticket.bets;
-    bets.filter((activeBet) => activeBet.event_id !== bet.event_id);
+    let bets = state.ticket.bets;
+    bets = bets.filter((activeBet) => activeBet.event_id !== bet.event_id);
     return {
       ...state,
       ticket: {
@@ -47,8 +47,8 @@ export const BetslipReducer = createReducer(
       ...state,
       ticket: {
         ...state.ticket,
-        total_odd: total_odd,
-        potential_payout: potential_payout,
+        total_odd: +total_odd.toFixed(2),
+        potential_payout: +potential_payout.toFixed(2),
       },
     };
   })

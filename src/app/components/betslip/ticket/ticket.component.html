@@ -1,0 +1,21 @@
+<div class="ticket">
+  <section class="ticket__bet" *ngFor="let bet of ticket.bets">
+    <div class="ticket__bet--teams">
+      <div>{{ bet.home }}</div>
+      <div>{{ bet.away }}</div>
+    </div>
+    <div>{{ bet.bet_type }}</div>
+    <div>{{ bet.position }}</div>
+    <div>{{ bet.odd }}</div>
+    <div></div>
+  </section>
+</div>
+<section class="ticket__outcomes">
+  <div class="ticket__totalOdd">{{ ticket.total_odd }}</div>
+  <input
+    [defaultValue]="1"
+    [value]="ticket.total_odd"
+    class="ticket__betAmount"
+  />
+  <div class="ticket__potentialPayout">{{ ticket.potential_payout }}</div>
+</section>
