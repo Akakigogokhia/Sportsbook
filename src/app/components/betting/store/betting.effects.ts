@@ -1,6 +1,6 @@
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as BettingActions from './betting.actions';
-import { map, switchMap, tap } from 'rxjs';
+import { map, switchMap, tap, withLatestFrom } from 'rxjs';
 import { SortingService } from '../services/sorting.service';
 import { Injectable } from '@angular/core';
 import { BettingService } from '../services/betting.service';

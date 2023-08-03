@@ -4,7 +4,8 @@ import * as BetslipActions from './betslip.actions';
 
 export interface State {
   ticket: Ticket;
-  ticketHistory: Ticket[] | null;
+  ticketHistory: Ticket[];
+  activeTickets: Ticket[];
 }
 
 const initialState: State = {
@@ -15,7 +16,8 @@ const initialState: State = {
     total_odd: 0,
     potential_payout: 0,
   },
-  ticketHistory: null,
+  ticketHistory: [],
+  activeTickets: [],
 };
 
 export const BetslipReducer = createReducer(
@@ -31,11 +33,11 @@ export const BetslipReducer = createReducer(
       },
     };
   }),
-  on(BetslipActions.ChangeBetAmount, (state, { amount }) => ({
+  on(BetslipActions.ChangeBetAmount, (state, { betAmount }) => ({
     ...state,
     ticket: {
       ...state.ticket,
-      total_stake: amount,
+      total_stake: betAmount,
     },
   })),
   on(BetslipActions.CalculateTicket, (state) => {
@@ -51,5 +53,16 @@ export const BetslipReducer = createReducer(
         potential_payout: +potential_payout.toFixed(2),
       },
     };
-  })
+  }),
+  on(BetslipActions.ClearTicket, (state) => ({
+    ...state,
+    ticket: {
+      ...state.ticket,
+      bets: [],
+    },
+  })),
+  on(BetslipActions.PlaceTicket, (state, action) => ({
+    ...state,
+    activeTickets: [...state.activeTickets, action.ticket],
+  }))
 );

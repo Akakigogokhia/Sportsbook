@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AuthComponent } from './components/auth/auth.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
@@ -24,6 +24,7 @@ import { SpecialMarketsComponent } from './components/betting/sports/match-detai
 import { PeriodComponent } from './components/betting/sports/match-detail/period/period.component';
 import { BetslipEffects } from './components/betslip/store/betslip.effects';
 import { TicketComponent } from './components/betslip/ticket/ticket.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { TicketComponent } from './components/betslip/ticket/ticket.component';
     SpecialMarketsComponent,
     PeriodComponent,
     TicketComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,6 +50,7 @@ import { TicketComponent } from './components/betslip/ticket/ticket.component';
     AppRoutingModule,
     StoreModule.forRoot(FromApp.AppReducer),
     EffectsModule.forRoot([AuthEffects, BettingEffects, BetslipEffects]),
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

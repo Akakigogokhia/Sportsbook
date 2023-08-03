@@ -1,0 +1,41 @@
+<header class="header">
+  <section class="header__timeFilter">
+    <div class="header__timeFilter--dropdown">
+      <div
+        class="header__timeFilter--name"
+        *ngIf="filterName"
+        (click)="removeFilter()"
+      >
+        {{ filterName }} x
+      </div>
+      <label for="duration">Select Duration:</label>
+      <select
+        id="duration"
+        [(ngModel)]="selectedDuration"
+        (change)="filterByTime(+selectedDuration)"
+      >
+        <option value="0.5">30 min</option>
+        <option value="1">1 hour</option>
+        <option value="3">3 hours</option>
+        <option value="12">12 hours</option>
+        <option value="24">24 hours</option>
+        <option value="48">48 hours</option>
+      </select>
+    </div>
+    <div (click)="filterByTime('today')" class="header__timeFilter--day">
+      today
+    </div>
+    <div (click)="filterByTime('tomorrow')" class="header__timeFilter--day">
+      tomorrow
+    </div>
+  </section>
+  <section class="header__sports">
+    <div (click)="changeSport(1)" class="header__sports--football">
+      Football
+    </div>
+    <div (click)="changeSport(2)" class="header__sports--tennis">Tennis</div>
+    <div (click)="changeSport(3)" class="header__sports--basketball">
+      Basketball
+    </div>
+  </section>
+</header>

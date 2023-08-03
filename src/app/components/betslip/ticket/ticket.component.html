@@ -1,4 +1,4 @@
-<div class="ticket">
+<div class="ticket" *ngIf="ticket.bets.length > 0">
   <section class="ticket__bet" *ngFor="let bet of ticket.bets">
     <div class="ticket__bet--teams">
       <div>{{ bet.home }}</div>
@@ -9,13 +9,24 @@
     <div>{{ bet.odd }}</div>
     <div></div>
   </section>
+  <section class="ticket__outcomes">
+    <div class="ticket__totalOdd">{{ ticket.total_odd }}</div>
+    <input
+      [(ngModel)]="betAmount"
+      (input)="changeBetAmount(betAmount)"
+      class="ticket__betAmount"
+    />
+    <div class="ticket__potentialPayout">
+      potential payout - {{ ticket.total_odd * betAmount | formatDecimal }}
+    </div>
+  </section>
+  <section class="ticket__buttons">
+    <button class="btn ticket__placeBet">Place Ticket</button>
+    <button (click)="clearBets()" class="btn ticket__clearBets">
+      Clear Bets
+    </button>
+  </section>
 </div>
-<section class="ticket__outcomes">
-  <div class="ticket__totalOdd">{{ ticket.total_odd }}</div>
-  <input
-    [defaultValue]="1"
-    [value]="ticket.total_odd"
-    class="ticket__betAmount"
-  />
-  <div class="ticket__potentialPayout">{{ ticket.potential_payout }}</div>
-</section>
+<div *ngIf="ticket.bets.length == 0">
+  Ticket is empty, please choose your position
+</div>

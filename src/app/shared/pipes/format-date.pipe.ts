@@ -9,7 +9,7 @@ export class FormatDatePipe implements PipeTransform {
   constructor(private dateService: DateService) {}
   transform(date: string): string {
     const targetDate = new Date(date);
-    if (this.dateService.isToday(targetDate)) {
+    if (this.dateService.isSameDate(targetDate)) {
       return 'today';
     } else {
       const datePipe = new DatePipe('en-Us');

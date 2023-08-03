@@ -1,11 +1,18 @@
 import { createAction, props } from '@ngrx/store';
-import { Bet } from 'src/app/shared/models/betting.models';
+import { Bet, Ticket } from 'src/app/shared/models/betting.models';
 
 export const AddBet = createAction('[Betting] Addbet', props<{ bet: Bet }>());
 
 export const ChangeBetAmount = createAction(
   '[Betting] ChangeBetAmount',
-  props<{ amount: number }>()
+  props<{ betAmount: number }>()
 );
 
 export const CalculateTicket = createAction('[Betting] CalculateTicket');
+
+export const ClearTicket = createAction('[Betting] ClearTicket');
+
+export const PlaceTicket = createAction(
+  '[Betting] PlaceTicket',
+  props<{ ticket: Ticket }>()
+);

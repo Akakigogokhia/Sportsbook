@@ -79,8 +79,8 @@ export class SortingService {
         new Date(groupedByLeagueId[b][0].starts)
       );
 
-      const firstToday = this.dateService.isToday(firstDate);
-      const secondToday = this.dateService.isToday(secondDate);
+      const firstToday = this.dateService.isSameDate(firstDate);
+      const secondToday = this.dateService.isSameDate(secondDate);
 
       if (firstIndex === -1 && secondIndex === -1) {
         return 0;
