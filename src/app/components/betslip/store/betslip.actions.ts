@@ -16,3 +16,13 @@ export const PlaceTicket = createAction(
   '[Betting] PlaceTicket',
   props<{ ticket: Ticket }>()
 );
+
+export const CheckBetStatus = createAction(
+  '[Betting] CheckBetStatus',
+  props<{ bet: Bet }>()
+);
+
+export const SaveBetStatus = createAction(
+  '[Bettin] SaveBetStatus',
+  props<{ bet_status: boolean }>()
+);

@@ -1,0 +1,19 @@
+<div class="betslip" *ngIf="betslip.bets.length > 0">
+  <section class="ticket__bet" *ngFor="let bet of betslip.bets">
+    <div class="ticket__bet--teams">
+      <div>{{ bet.home }}</div>
+      <div>{{ bet.away }}</div>
+    </div>
+    <div>{{ bet.bet_type }}</div>
+    <div>{{ bet.position }}</div>
+    <div>{{ bet.odd }}</div>
+    <div></div>
+  </section>
+  <section class="ticket__outcomes">
+    <div class="ticket__totalOdd">{{ betslip.total_odd }}</div>
+    <div class="ticket__potentialPayout">
+      potential payout - {{ betslip.potential_payout | formatDecimal }}
+    </div>
+  </section>
+  <div></div>
+</div>

@@ -16,6 +16,8 @@ export interface Bet {
   bet_type: string;
   position: string;
   odd: number;
+  status: boolean | null;
+  firstHalf: boolean | null;
 }
 
 export interface GroupedEvents {

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as BetslipActions from './betslip.actions';
-import { map } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs';
+import { BetsliptService } from '../services/betslip.service';
 
 @Injectable()
 export class BetslipEffects {
@@ -11,5 +12,27 @@ export class BetslipEffects {
       map(() => BetslipActions.CalculateTicket())
     )
   );
-  constructor(private actions$: Actions) {}
+
+  CheckBetStatus = createEffect(() =>
+    this.actions$.pipe(
+      ofType(BetslipActions.CheckBetStatus),
+      switchMap((action) =>
+        this.betSlipService.betStatusCall(action.bet.event_id).pipe(
+          map((response) =>
+            BetslipActions.SaveBetStatus({
+              bet_status: this.betSlipService.checkBetStatus(
+                action.bet,
+                response.event.period_results!
+              ),
+            })
+          )
+        )
+      )
+    )
+  );
+
+  constructor(
+    private actions$: Actions,
+    private betSlipService: BetsliptService
+  ) {}
 }

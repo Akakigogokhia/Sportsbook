@@ -25,6 +25,8 @@ import { PeriodComponent } from './components/betting/sports/match-detail/period
 import { BetslipEffects } from './components/betslip/store/betslip.effects';
 import { TicketComponent } from './components/betslip/ticket/ticket.component';
 import { HeaderComponent } from './components/header/header.component';
+import { TicketsComponent } from './components/betslip/tickets/tickets.component';
+import { BetslipComponent } from './components/betslip/tickets/betslip/betslip.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,8 @@ import { HeaderComponent } from './components/header/header.component';
     PeriodComponent,
     TicketComponent,
     HeaderComponent,
+    TicketsComponent,
+    BetslipComponent,
   ],
   imports: [
     BrowserModule,

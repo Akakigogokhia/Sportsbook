@@ -69,9 +69,9 @@ export const BettingReducer = createReducer(
     ...state,
     activeSpecialMarket: action.specialMarkets,
   })),
-  on(BettingActions.ChangeSport, (state, { sportId }) => ({
+  on(BettingActions.ChangeSport, (state, { sport_id }) => ({
     ...state,
-    sport_id: sportId,
+    sport_id: sport_id,
   })),
   on(BettingActions.FilterByTime, (state, { start, end }) => {
     let fixtures: SortedEvents;

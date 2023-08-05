@@ -21,7 +21,9 @@
     </div>
   </section>
   <section class="ticket__buttons">
-    <button class="btn ticket__placeBet">Place Ticket</button>
+    <button (click)="placeTicket()" class="btn ticket__placeBet">
+      Place Ticket
+    </button>
     <button (click)="clearBets()" class="btn ticket__clearBets">
       Clear Bets
     </button>
@@ -29,4 +31,9 @@
 </div>
 <div *ngIf="ticket.bets.length == 0">
   Ticket is empty, please choose your position
+</div>
+<div class="ticket__dialogBox" *ngIf="dialogBox">
+  <div>Do you want to repeat the ticket?</div>
+  <div (click)="answerDialog(true)">Yes</div>
+  <div (click)="answerDialog(false)">No</div>
 </div>

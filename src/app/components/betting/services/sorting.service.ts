@@ -19,7 +19,7 @@ export class SortingService {
       const { league_id, event_type } = fixture;
       if (
         event_type === 'prematch' &&
-        fixture.periods?.num_0.money_line?.home
+        fixture.periods?.num_0?.money_line?.home
       ) {
         if (!grouped[league_id]) {
           grouped[league_id] = [];

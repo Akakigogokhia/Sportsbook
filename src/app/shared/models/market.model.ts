@@ -13,12 +13,19 @@ export interface Event {
   event_type: string;
   is_have_odds: boolean;
   resulting_unit?: 'Sets' | 'Games';
+  period_results?: PreiodResult[];
   periods?: Periods;
 }
 
 export interface Periods {
   num_0: Period;
   num_1: Period;
+}
+
+export interface PreiodResult {
+  team_1_score: number;
+  team_2_score: number;
+  cancellation_reason: string;
 }
 
 export interface Period {

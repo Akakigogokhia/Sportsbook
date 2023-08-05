@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class BettingEffects {
   FetchFixtures = createEffect(() =>
     this.actions$.pipe(
-      ofType(BettingActions.FetchFixtures),
+      ofType(BettingActions.FetchFixtures, BettingActions.ChangeSport),
       switchMap((action) => {
         return this.bettingService.makeApiRequest(action.sport_id).pipe(
           map((response) => {

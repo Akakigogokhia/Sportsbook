@@ -1,31 +1,41 @@
 <div [style.backgroundColor]="single ? 'yellow' : 'red'">
   <h1 *ngIf="firstHalf">{{ sportId === 2 ? "1st Set" : "1st Half" }}</h1>
   <section class="details__odds--moneyLine">
-    <div (click)="addBet(home, 'Main Line', '1')" class="odd">
+    <div (click)="addBet(home, 'Main Line', '1', firstHalf)" class="odd">
       1 - {{ home }}
     </div>
-    <div (click)="addBet(home, 'Main Line', 'X')" class="odd" *ngIf="draw">
+    <div
+      (click)="addBet(home, 'Main Line', 'X', firstHalf)"
+      class="odd"
+      *ngIf="draw"
+    >
       X - {{ draw }}
     </div>
-    <div (click)="addBet(home, 'Main Line', '2')" class="odd">
+    <div (click)="addBet(home, 'Main Line', '2', firstHalf)" class="odd">
       2 - {{ away }}
     </div>
   </section>
   <section class="details__odds--doubleChance" *ngIf="!firstHalf && draw">
     <div
-      (click)="addBet(+doubleChance.homeOrDraw, 'Double Chance', '1X')"
+      (click)="
+        addBet(+doubleChance.homeOrDraw, 'Double Chance', '1X', firstHalf)
+      "
       class="odd"
     >
       1X - {{ doubleChance.homeOrDraw }}
     </div>
     <div
-      (click)="addBet(+doubleChance.homeOrAway, 'Double Chance', '12')"
+      (click)="
+        addBet(+doubleChance.homeOrAway, 'Double Chance', '12', firstHalf)
+      "
       class="odd"
     >
       12 - {{ doubleChance.homeOrAway }}
     </div>
     <div
-      (click)="addBet(+doubleChance.drawOrAway, 'Double Chance', 'X2')"
+      (click)="
+        addBet(+doubleChance.drawOrAway, 'Double Chance', 'X2', firstHalf)
+      "
       class="odd"
     >
       X2 - {{ doubleChance.drawOrAway }}
@@ -35,11 +45,17 @@
     class="details__odds--totals"
     *ngFor="let total of period.totals | keyvalue"
   >
-    <div (click)="addBet(total.value.under, 'Total', 'Under')" class="odd">
+    <div
+      (click)="addBet(total.value.under, 'Total', 'Under', firstHalf)"
+      class="odd"
+    >
       Under - {{ total.value.under }}
     </div>
     <div>{{ total.key }}</div>
-    <div (click)="addBet(total.value.over, 'Total', 'Over')" class="odd">
+    <div
+      (click)="addBet(total.value.over, 'Total', 'Over', firstHalf)"
+      class="odd"
+    >
       Over - {{ total.value.over }}
     </div>
   </section>
@@ -55,7 +71,8 @@
               spread.value.home,
               'Spread ' +
                 (spread.key[0] == '-' ? spread.key : '+' + spread.key),
-              '1'
+              '1',
+              firstHalf
             )
           "
         >
@@ -68,7 +85,8 @@
               spread.value.home,
               'Spread ' +
                 (spread.key[0] == '-' ? spread.key : '+' + spread.key),
-              '2'
+              '2',
+              firstHalf
             )
           "
         >

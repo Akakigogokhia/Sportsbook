@@ -32,7 +32,7 @@ export class PeriodComponent implements OnInit {
     private betslipService: BetsliptService
   ) {}
 
-  addBet(odd: number, bet_type: string, position: string) {
+  addBet(odd: number, bet_type: string, position: string, firstHalf: boolean) {
     this.betslipService.addBet(
       this.event_id,
       this.homeTeam,
@@ -40,7 +40,8 @@ export class PeriodComponent implements OnInit {
       this.starts,
       bet_type,
       position,
-      odd
+      odd,
+      firstHalf
     );
   }
 

@@ -35,7 +35,7 @@ export const SetSpecialMarkets = createAction(
 
 export const ChangeSport = createAction(
   '[Betting] ChangeSport',
-  props<{ sportId: number }>()
+  props<{ sport_id: number }>()
 );
 
 export const FilterByTime = createAction(

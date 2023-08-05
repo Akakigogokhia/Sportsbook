@@ -16,7 +16,8 @@ export class TicketComponent implements OnInit, OnDestroy {
   ticket: Ticket;
   betAmount: number = 1;
   potential_payout: number;
-  saveChosen: boolean;
+  repeatTicket: boolean;
+  dialogBox: boolean = false;
 
   constructor(private store: Store<FromApp.AppState>) {}
 
@@ -37,11 +38,19 @@ export class TicketComponent implements OnInit, OnDestroy {
   }
 
   placeTicket() {
-    this.ticket.potential_payout = this.betAmount * this.ticket.total_odd;
+    this.dialogBox = true;
+    this.ticket = {
+      ...this.ticket,
+      potential_payout: this.betAmount * this.ticket.total_odd,
+    };
     this.store.dispatch(BetslipActions.PlaceTicket({ ticket: this.ticket }));
-    if (!this.saveChosen) {
+  }
+
+  answerDialog(shouldSaveTicket: boolean) {
+    if (!shouldSaveTicket) {
       this.store.dispatch(BetslipActions.ClearTicket());
     }
+    this.dialogBox = false;
   }
 
   ngOnDestroy(): void {

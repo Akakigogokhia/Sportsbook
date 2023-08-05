@@ -15,7 +15,7 @@ export class HeaderComponent {
   constructor(private store: Store<AppState>) {}
 
   changeSport = (sportId: number) => {
-    this.store.dispatch(BettingActions.ChangeSport({ sportId: sportId }));
+    this.store.dispatch(BettingActions.ChangeSport({ sport_id: sportId }));
   };
 
   filterByTime = (time: string | number) => {
@@ -36,7 +36,6 @@ export class HeaderComponent {
     if (typeof time === 'number') {
       start = new Date();
       end = new Date(start.getTime() + time * 60 * 60 * 1000);
-      console.log(end);
     } else if (time === 'tomorrow') {
       start.setDate(start.getDate() + 1);
       end.setDate(end.getDate() + 1);
@@ -49,6 +48,7 @@ export class HeaderComponent {
   };
 
   removeFilter() {
+    this.filterName = '';
     this.store.dispatch(BettingActions.RemoveFilter());
   }
 }

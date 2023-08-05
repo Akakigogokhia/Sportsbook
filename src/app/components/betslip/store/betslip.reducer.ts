@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { Ticket } from 'src/app/shared/models/betting.models';
+import { Bet, Ticket } from 'src/app/shared/models/betting.models';
 import * as BetslipActions from './betslip.actions';
 
 export interface State {
@@ -65,4 +65,14 @@ export const BetslipReducer = createReducer(
     ...state,
     activeTickets: [...state.activeTickets, action.ticket],
   }))
+  // on(BetslipActions.SaveBetStatus, (state, action) => {
+  //   let checkedBet: Bet
+  //   let activeTicketsCopy = [...state.activeTickets]
+  //   activeTicketsCopy.map(ticket => {
+  //     let index = ticket.bets.findIndex(bet => bet.event_id === action.event_id)
+  //     if (index) {
+  //       ticket.bets[index].status =
+  //     }
+  //   })
+  // })
 );
