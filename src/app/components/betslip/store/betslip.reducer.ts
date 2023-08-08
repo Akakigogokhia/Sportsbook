@@ -1,10 +1,12 @@
 import { createReducer, on } from '@ngrx/store';
-import { Ticket } from 'src/app/shared/models/betting.models';
+import { Bet, Ticket } from 'src/app/shared/models/betting.models';
 import * as BetslipActions from './betslip.actions';
 
 export interface State {
   ticket: Ticket;
-  ticketHistory: Ticket[] | null;
+  ticketHistory: Ticket[];
+  activeTickets: Ticket[];
+  error: string | null;
 }
 
 const initialState: State = {
@@ -15,27 +17,29 @@ const initialState: State = {
     total_odd: 0,
     potential_payout: 0,
   },
-  ticketHistory: null,
+  ticketHistory: [],
+  activeTickets: [],
+  error: null,
 };
 
 export const BetslipReducer = createReducer(
   initialState,
   on(BetslipActions.AddBet, (state, { bet }) => {
-    const bets = state.ticket.bets;
-    bets.filter((activeBet) => activeBet.event_id !== bet.event_id);
+    let bets = state.ticket.bets;
+    bets = bets.filter((activeBet) => activeBet.event_id !== bet.event_id);
     return {
       ...state,
       ticket: {
         ...state.ticket,
-        bets: bets,
+        bets: [...bets, bet],
       },
     };
   }),
-  on(BetslipActions.ChangeBetAmount, (state, { amount }) => ({
+  on(BetslipActions.ChangeBetAmount, (state, { betAmount }) => ({
     ...state,
     ticket: {
       ...state.ticket,
-      total_stake: amount,
+      total_stake: betAmount,
     },
   })),
   on(BetslipActions.CalculateTicket, (state) => {
@@ -47,9 +51,54 @@ export const BetslipReducer = createReducer(
       ...state,
       ticket: {
         ...state.ticket,
-        total_odd: total_odd,
-        potential_payout: potential_payout,
+        total_odd: +total_odd.toFixed(2),
+        potential_payout: +potential_payout.toFixed(2),
       },
     };
-  })
+  }),
+  on(BetslipActions.ClearTicket, (state) => ({
+    ...state,
+    ticket: {
+      ...state.ticket,
+      bets: [],
+    },
+  })),
+  on(BetslipActions.PlaceTicket, (state, action) => ({
+    ...state,
+    activeTickets: state.activeTickets
+      ? [...state.activeTickets, action.ticket]
+      : [action.ticket],
+  })),
+  on(BetslipActions.SaveBetStatus, (state, action) => {
+    console.log(state.activeTickets);
+    const activeTicketsCopy = state.activeTickets.map((ticket) => {
+      const updatedBets = ticket.bets.map((bet) => {
+        if (bet.id === action.id) {
+          return {
+            ...bet,
+            status: action.bet_status,
+          };
+        }
+        return bet;
+      });
+
+      return {
+        ...ticket,
+        bets: updatedBets,
+      };
+    });
+
+    return {
+      ...state,
+      activeTickets: activeTicketsCopy,
+    };
+  }),
+  on(BetslipActions.LoadTicketsSuccess, (state, { tickets }) => ({
+    ...state,
+    activeTickets: tickets,
+  })),
+  on(BetslipActions.LoadTicketsFailure, (state, { error }) => ({
+    ...state,
+    error: error,
+  }))
 );

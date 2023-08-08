@@ -3,11 +3,19 @@
     [period]="market!.periods!.num_0"
     [firstHalf]="false"
     [sportId]="sportId!"
+    [event_id]="market!.event_id"
+    [awayTeam]="market!.away"
+    [homeTeam]="market!.home"
+    [starts]="market!.starts"
   ></app-period>
   <app-period
     [period]="market!.periods!.num_1"
     [firstHalf]="true"
     [sportId]="sportId!"
+    [event_id]="market!.event_id"
+    [awayTeam]="market!.away"
+    [homeTeam]="market!.home"
+    [starts]="market!.starts"
   ></app-period>
   <app-special-markets [specialMarkets]="specialMarkets"></app-special-markets>
 </div>

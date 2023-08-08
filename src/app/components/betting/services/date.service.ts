@@ -5,12 +5,11 @@ import { Event } from 'src/app/shared/models/market.model';
   providedIn: 'root',
 })
 export class DateService {
-  isToday(date: Date) {
-    const today = new Date();
+  isSameDate(date: Date, date1: Date = new Date()) {
     return (
-      date.getFullYear() === today.getFullYear() &&
-      date.getMonth() === today.getMonth() &&
-      date.getDate() === today.getDate()
+      date.getFullYear() === date1.getFullYear() &&
+      date.getMonth() === date1.getMonth() &&
+      date.getDate() === date1.getDate()
     );
   }
 

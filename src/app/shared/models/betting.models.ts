@@ -9,6 +9,7 @@ export interface Ticket {
 }
 
 export interface Bet {
+  id: number;
   event_id: number;
   home: string;
   away: string;
@@ -16,6 +17,8 @@ export interface Bet {
   bet_type: string;
   position: string;
   odd: number;
+  status: boolean | null;
+  firstHalf: boolean | null;
 }
 
 export interface GroupedEvents {

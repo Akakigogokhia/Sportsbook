@@ -19,7 +19,7 @@ export class SortingService {
       const { league_id, event_type } = fixture;
       if (
         event_type === 'prematch' &&
-        fixture.periods?.num_0.money_line?.home
+        fixture.periods?.num_0?.money_line?.home
       ) {
         if (!grouped[league_id]) {
           grouped[league_id] = [];
@@ -79,8 +79,8 @@ export class SortingService {
         new Date(groupedByLeagueId[b][0].starts)
       );
 
-      const firstToday = this.dateService.isToday(firstDate);
-      const secondToday = this.dateService.isToday(secondDate);
+      const firstToday = this.dateService.isSameDate(firstDate);
+      const secondToday = this.dateService.isSameDate(secondDate);
 
       if (firstIndex === -1 && secondIndex === -1) {
         return 0;

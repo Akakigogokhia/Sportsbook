@@ -1,1 +1,39 @@
-<p>ticket works!</p>
+<div class="ticket" *ngIf="ticket.bets.length > 0">
+  <section class="ticket__bet" *ngFor="let bet of ticket.bets">
+    <div class="ticket__bet--teams">
+      <div>{{ bet.home }}</div>
+      <div>{{ bet.away }}</div>
+    </div>
+    <div>{{ bet.bet_type }}</div>
+    <div>{{ bet.position }}</div>
+    <div>{{ bet.odd }}</div>
+    <div></div>
+  </section>
+  <section class="ticket__outcomes">
+    <div class="ticket__totalOdd">{{ ticket.total_odd }}</div>
+    <input
+      [(ngModel)]="betAmount"
+      (input)="changeBetAmount(betAmount)"
+      class="ticket__betAmount"
+    />
+    <div class="ticket__potentialPayout">
+      potential payout - {{ ticket.total_odd * betAmount | formatDecimal }}
+    </div>
+  </section>
+  <section class="ticket__buttons">
+    <button (click)="placeTicket()" class="btn ticket__placeBet">
+      Place Ticket
+    </button>
+    <button (click)="clearBets()" class="btn ticket__clearBets">
+      Clear Bets
+    </button>
+  </section>
+</div>
+<div *ngIf="ticket.bets.length == 0">
+  Ticket is empty, please choose your position
+</div>
+<div class="ticket__dialogBox" *ngIf="dialogBox">
+  <div>Do you want to repeat the ticket?</div>
+  <div (click)="answerDialog(true)">Yes</div>
+  <div (click)="answerDialog(false)">No</div>
+</div>

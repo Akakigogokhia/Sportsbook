@@ -5,7 +5,7 @@ import { Event } from 'src/app/shared/models/market.model';
 import { SpecialMarkets } from 'src/app/shared/models/specialMarket.model';
 
 export interface State {
-  sport_id: number | null;
+  sport_id: number;
   activeFixtures: SortedEvents;
   footballPopular: SortedEvents;
   basketBallPopular: SortedEvents;
@@ -15,7 +15,7 @@ export interface State {
 }
 
 const initialState: State = {
-  sport_id: null,
+  sport_id: 1,
   activeFixtures: null,
   footballPopular: null,
   basketBallPopular: null,
@@ -68,5 +68,47 @@ export const BettingReducer = createReducer(
   on(BettingActions.SetSpecialMarkets, (state, action) => ({
     ...state,
     activeSpecialMarket: action.specialMarkets,
-  }))
+  })),
+  on(BettingActions.ChangeSport, (state, { sport_id }) => ({
+    ...state,
+    sport_id: sport_id,
+  })),
+  on(BettingActions.FilterByTime, (state, { start, end }) => {
+    let fixtures: SortedEvents;
+    if (state.sport_id === 1) {
+      fixtures = state.footballPopular;
+    } else if (state.sport_id === 2) {
+      fixtures = state.tennisPopular;
+    } else {
+      fixtures = state.basketBallPopular;
+    }
+
+    fixtures = fixtures!.map((fixture) => [
+      fixture[0],
+      fixture[1].filter(
+        (match) =>
+          new Date(match.starts).getTime() + 4 * 60 * 60 * 1000 >=
+            start.getTime() &&
+          new Date(match.starts).getTime() + 4 * 60 * 60 * 1000 <= end.getTime()
+      ),
+    ]);
+    return {
+      ...state,
+      activeFixtures: fixtures,
+    };
+  }),
+  on(BettingActions.RemoveFilter, (state) => {
+    let fixtures: SortedEvents;
+    if (state.sport_id === 1) {
+      fixtures = state.footballPopular;
+    } else if (state.sport_id === 2) {
+      fixtures = state.tennisPopular;
+    } else {
+      fixtures = state.basketBallPopular;
+    }
+    return {
+      ...state,
+      activeFixtures: fixtures,
+    };
+  })
 );

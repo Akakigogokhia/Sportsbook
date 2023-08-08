@@ -1,9 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import {
-  Bet,
-  SortedEvents,
-  Ticket,
-} from 'src/app/shared/models/betting.models';
+import { SortedEvents, Ticket } from 'src/app/shared/models/betting.models';
 import { Event } from 'src/app/shared/models/market.model';
 import { SpecialMarkets } from 'src/app/shared/models/specialMarket.model';
 
@@ -36,3 +32,15 @@ export const SetSpecialMarkets = createAction(
   '[Betting] SetSpecialMarkets',
   props<{ specialMarkets: SpecialMarkets }>()
 );
+
+export const ChangeSport = createAction(
+  '[Betting] ChangeSport',
+  props<{ sport_id: number }>()
+);
+
+export const FilterByTime = createAction(
+  '[Betting] FilterByTime',
+  props<{ start: Date; end: Date }>()
+);
+
+export const RemoveFilter = createAction('[Betting] RemoveFilter');

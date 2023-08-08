@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Event, MarketResponse } from 'src/app/shared/models/market.model';
 import { SpecialMarketResponse } from 'src/app/shared/models/specialMarket.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,7 @@ export class BettingService {
     const url = `https://pinnacle-odds.p.rapidapi.com/kit/v1/markets?sport_id=${sport_id}&is_have_odds=true`;
 
     const headers = new HttpHeaders({
-      'X-RapidAPI-Key': '75b0d7f53fmsh41383450bdaffc3p1ac0a3jsn2217b579f5c7',
+      'X-RapidAPI-Key': environment.rapidApiKey,
       'X-RapidAPI-Host': 'pinnacle-odds.p.rapidapi.com',
     });
 
@@ -32,7 +33,7 @@ export class BettingService {
         event_ids: event_id,
       },
       headers: {
-        'X-RapidAPI-Key': '75b0d7f53fmsh41383450bdaffc3p1ac0a3jsn2217b579f5c7',
+        'X-RapidAPI-Key': environment.rapidApiKey,
         'X-RapidAPI-Host': 'pinnacle-odds.p.rapidapi.com',
       },
     };

@@ -27,7 +27,7 @@ export class OddsService {
 
   convertOddsAndTimezone(value: any, key: string): any {
     if (typeof value === 'number') {
-      return value.toFixed(2);
+      return +value.toFixed(2);
     } else if (key === 'starts') {
       return new Date(value).getTime() + 4 * 60 * 60 * 1000;
     } else if (typeof value === 'object' && value !== null) {
