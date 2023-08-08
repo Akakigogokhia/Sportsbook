@@ -6,6 +6,7 @@ export interface State {
   ticket: Ticket;
   ticketHistory: Ticket[];
   activeTickets: Ticket[];
+  error: string | null;
 }
 
 const initialState: State = {
@@ -18,6 +19,7 @@ const initialState: State = {
   },
   ticketHistory: [],
   activeTickets: [],
+  error: null,
 };
 
 export const BetslipReducer = createReducer(
@@ -63,16 +65,40 @@ export const BetslipReducer = createReducer(
   })),
   on(BetslipActions.PlaceTicket, (state, action) => ({
     ...state,
-    activeTickets: [...state.activeTickets, action.ticket],
+    activeTickets: state.activeTickets
+      ? [...state.activeTickets, action.ticket]
+      : [action.ticket],
+  })),
+  on(BetslipActions.SaveBetStatus, (state, action) => {
+    console.log(state.activeTickets);
+    const activeTicketsCopy = state.activeTickets.map((ticket) => {
+      const updatedBets = ticket.bets.map((bet) => {
+        if (bet.id === action.id) {
+          return {
+            ...bet,
+            status: action.bet_status,
+          };
+        }
+        return bet;
+      });
+
+      return {
+        ...ticket,
+        bets: updatedBets,
+      };
+    });
+
+    return {
+      ...state,
+      activeTickets: activeTicketsCopy,
+    };
+  }),
+  on(BetslipActions.LoadTicketsSuccess, (state, { tickets }) => ({
+    ...state,
+    activeTickets: tickets,
+  })),
+  on(BetslipActions.LoadTicketsFailure, (state, { error }) => ({
+    ...state,
+    error: error,
   }))
-  // on(BetslipActions.SaveBetStatus, (state, action) => {
-  //   let checkedBet: Bet
-  //   let activeTicketsCopy = [...state.activeTickets]
-  //   activeTicketsCopy.map(ticket => {
-  //     let index = ticket.bets.findIndex(bet => bet.event_id === action.event_id)
-  //     if (index) {
-  //       ticket.bets[index].status =
-  //     }
-  //   })
-  // })
 );

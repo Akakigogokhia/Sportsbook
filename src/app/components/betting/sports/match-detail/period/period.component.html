@@ -43,17 +43,19 @@
   </section>
   <section
     class="details__odds--totals"
-    *ngFor="let total of period.totals | keyvalue"
+    *ngFor="let total of period?.totals | keyvalue"
   >
     <div
-      (click)="addBet(total.value.under, 'Total', 'Under', firstHalf)"
+      (click)="
+        addBet(total.value.under, total.value.points, 'Under', firstHalf)
+      "
       class="odd"
     >
       Under - {{ total.value.under }}
     </div>
     <div>{{ total.key }}</div>
     <div
-      (click)="addBet(total.value.over, 'Total', 'Over', firstHalf)"
+      (click)="addBet(total.value.over, total.value.points, 'Over', firstHalf)"
       class="odd"
     >
       Over - {{ total.value.over }}
@@ -61,7 +63,7 @@
   </section>
   <section
     class="details__odds--spreads"
-    *ngFor="let spread of period.spreads | keyvalue"
+    *ngFor="let spread of period?.spreads | keyvalue"
   >
     <div *ngIf="spread.key !== '0.0' && spread.value.home">
       <div>
@@ -69,8 +71,7 @@
           (click)="
             addBet(
               spread.value.home,
-              'Spread ' +
-                (spread.key[0] == '-' ? spread.key : '+' + spread.key),
+              spread.key[0] == '-' ? spread.key : '+' + spread.key,
               '1',
               firstHalf
             )
@@ -83,8 +84,7 @@
           (click)="
             addBet(
               spread.value.home,
-              'Spread ' +
-                (spread.key[0] == '-' ? spread.key : '+' + spread.key),
+              spread.key[0] == '-' ? spread.key : '+' + spread.key,
               '2',
               firstHalf
             )

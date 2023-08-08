@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { PreiodResult } from 'src/app/shared/models/market.model';
+import { PeriodResult } from 'src/app/shared/models/market.model';
 
 interface eventChecker {
   [name: string]: {
     checkStatus: (
       position: string,
-      fullTimeResults: PreiodResult,
-      firstHalfResults?: PreiodResult
+      fullTimeResults: PeriodResult,
+      firstHalfResults?: PeriodResult
     ) => boolean;
   };
 }
@@ -14,16 +14,35 @@ interface eventChecker {
 @Injectable({
   providedIn: 'root',
 })
-export class specialEventsChecker {
-  checkSpecialEvents = (
+export class oddsCheckerService {
+  checkEvents = (
     home: string,
     away: string,
     betType: string,
     position: string,
-    halfTime: PreiodResult,
-    fullTime: PreiodResult
+    halfTime: PeriodResult,
+    fullTime: PeriodResult,
+    result: { home: number; away: number }
   ) => {
-    if (betType === 'Half-Time/Full-Time') {
+    if (betType === 'Main Line') {
+      if (position === '1') return result.home > result.away;
+      else if (position === 'X') return result.home === result.away;
+      else return result.home < result.away;
+    } else if (betType === 'Double Chance') {
+      if (position === '1X') return result.home >= result.away;
+      else if (position === '12')
+        return result.home > result.away || result.home < result.away;
+      else return result.home <= result.away;
+    } else if (!isNaN(+betType) && betType.trim() !== '') {
+      if (position === 'over') {
+        return +betType >= result.home + result.away;
+      } else if (position === 'under') {
+        return +betType <= result.home + result.away;
+      } else if (position === '1') {
+        console.log(result.home, +betType, result.away);
+        return result.home + +betType > result.away;
+      } else return result.home < result.away + +betType;
+    } else if (betType === 'Half-Time/Full-Time') {
       const teams = position.split(' - ');
       const firstPeriod = teams[0];
       const fullPeriod = teams[1];
@@ -93,7 +112,7 @@ export class specialEventsChecker {
       if (range[0].includes('+')) {
         return goals >= +range[0][0];
       } else {
-        return goals >= +range[0] && goals <= +range[0];
+        return goals >= +range[0] && goals <= +range[1];
       }
     } else if (
       betType === 'Exact Total Goals 1st Half' ||
@@ -241,6 +260,18 @@ export class specialEventsChecker {
       return position === 'Yes'
         ? period.team_1_score + period.team_2_score > 0
         : period.team_1_score + period.team_2_score === 0;
+    } else if (betType.includes('To Win to Nil?')) {
+      const period = betType.includes('1st Half') ? halfTime : fullTime;
+      const homeWinsToNil =
+        period.team_1_score > 0 && period.team_2_score === 0;
+      const awayWinsToNil =
+        period.team_2_score > 0 && period.team_1_score === 0;
+
+      if (betType.includes(home)) {
+        return position == 'Yes' ? homeWinsToNil : !homeWinsToNil;
+      } else {
+        return position == 'Yes' ? awayWinsToNil : !awayWinsToNil;
+      }
     } else return false;
   };
 

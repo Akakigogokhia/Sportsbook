@@ -13,7 +13,7 @@ export interface Event {
   event_type: string;
   is_have_odds: boolean;
   resulting_unit?: 'Sets' | 'Games';
-  period_results?: PreiodResult[];
+  period_results?: PeriodResult[];
   periods?: Periods;
 }
 
@@ -22,7 +22,7 @@ export interface Periods {
   num_1: Period;
 }
 
-export interface PreiodResult {
+export interface PeriodResult {
   team_1_score: number;
   team_2_score: number;
   cancellation_reason: string;
@@ -56,7 +56,7 @@ export interface Totals {
 }
 
 export interface OverUnder {
-  points: number;
+  points: string;
   over: number;
   under: number;
 }

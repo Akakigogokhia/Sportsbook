@@ -9,6 +9,7 @@ export interface Ticket {
 }
 
 export interface Bet {
+  id: number;
   event_id: number;
   home: string;
   away: string;

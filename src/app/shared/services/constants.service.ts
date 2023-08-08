@@ -16,83 +16,79 @@ export class Constants {
   leagues: League = {
     '1728': {
       name: 'Sweden - Allsvenskan',
-      logoUrl: '',
+      logoUrl: 'images/allsvenskan.jpg',
     },
     '1742': {
       name: 'Armenia - Premier League',
-      logoUrl: '',
+      logoUrl: 'images/armenia.jpg',
     },
     '1792': {
       name: 'Austria - Bundesliga',
-      logoUrl: '',
+      logoUrl: 'images/austria-bundesliga.png',
     },
     '1817': {
       name: 'Belgium - Pro League',
-      logoUrl: '',
+      logoUrl: 'images/belgium-pro-league.png',
     },
     '1834': {
       name: 'Brazil - Serie A',
-      logoUrl: '',
+      logoUrl: 'images/brazil-serie-a.png',
     },
     '1842': {
       name: 'Germany - Bundesliga',
-      logoUrl: '',
+      logoUrl: 'images/bundesliga.png',
     },
     '1843': {
       name: 'Germany - Bundesliga 2',
-      logoUrl: '',
+      logoUrl: 'images/bundesliga2.png',
     },
     '1928': {
       name: 'Netherlands - Eredivisie',
-      logoUrl: '',
+      logoUrl: 'images/eredivisie.png',
     },
     '1977': {
       name: 'England - Championship',
-      logoUrl: '',
+      logoUrl: 'images/efl.png',
     },
     '1980': {
       name: 'England - Premier League',
-      logoUrl: '',
+      logoUrl: 'images/premiere-league.png',
     },
     '1982': {
       name: 'England - EFL Cup',
-      logoUrl: '',
+      logoUrl: 'images/efl-cup.jpg',
     },
     '2018': {
       name: 'Finland - Kakkonen',
-      logoUrl: '',
-    },
-    '2024': {
-      name: 'Finland - Veikkausliiga',
-      logoUrl: '',
+      logoUrl: 'images/finland-kkk.jpg',
     },
     '2036': {
       name: 'France - Ligue 1',
-      logoUrl: '',
+      logoUrl: 'images/league1.png',
     },
     '2037': {
       name: 'France - Ligue 2',
-      logoUrl: '',
+      logoUrl: 'images/league2.png',
     },
     '2065': {
       name: 'Germany - Oberliga Bayern Nord',
-      logoUrl: '',
+      logoUrl: 'images/oberliga.png',
     },
     '2157': {
       name: 'Japan - J League',
-      logoUrl: '',
+      logoUrl: 'images/j-league.png',
     },
     '2196': {
       name: 'Spain - La Liga',
-      logoUrl: '',
+      logoUrl: 'images/laliga.png',
     },
     '2331': {
       name: 'Norway - 1st Division',
-      logoUrl: '',
+      logoUrl: 'images/norway1st.png',
     },
     '2374': {
       name: 'Poland - Ekstraklasa',
-      logoUrl: '',
+      logoUrl: 'images/poland.jpg',
     },
     '2436': {
       name: 'Italy - Serie A',
@@ -100,23 +96,23 @@ export class Constants {
     },
     '2627': {
       name: 'UEFA - Champions League',
-      logoUrl: '',
+      logoUrl: 'images/ucl.png',
     },
     '2650': {
       name: 'Ukraine - Premier League',
-      logoUrl: '',
+      logoUrl: 'images/ukraine.png',
     },
     '2687': {
       name: 'FIFA - World Cup Women',
-      logoUrl: '',
+      logoUrl: 'images/woman-world-cup.jpg',
     },
     '6417': {
       name: 'China - Super League',
-      logoUrl: '',
+      logoUrl: 'images/csl.png',
     },
     '210697': {
       name: 'Argentina - Liga Pro',
-      logoUrl: '',
+      logoUrl: 'images/argentina.png',
     },
   };
 
@@ -149,7 +145,6 @@ export class Constants {
     '2065',
     '2157',
     '2331',
-    '2024',
   ];
   popularBasketballLeagues = [
     '397',
