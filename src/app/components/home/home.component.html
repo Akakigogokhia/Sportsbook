@@ -1,9 +1,10 @@
 <div class="home">
-  <section class="home__fixtures">
-    <app-top-fixtures></app-top-fixtures>
+  <section class="home__main">
+    <app-auth></app-auth>
+    <router-outlet></router-outlet>
   </section>
   <section class="home__ticketsContainer">
-    <app-ticket></app-ticket>
-    <app-tickets></app-tickets>
+    <app-ticket [user]="user"></app-ticket>
+    <app-tickets [user]="user"></app-tickets>
   </section>
 </div>

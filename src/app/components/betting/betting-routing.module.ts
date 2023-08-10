@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
-import { MatchDetailComponent } from './sports/match-detail/match-detail.component';
+import { FixtureComponent } from './fixture/fixture.component';
 
 const bettingRoutes: Routes = [
-  { path: 'fixture/:id', component: MatchDetailComponent },
+  { path: 'fixture/:id', component: FixtureComponent },
 ];
 
 @NgModule({

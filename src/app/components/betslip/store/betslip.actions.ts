@@ -31,10 +31,9 @@ export const UpdateActiveTickets = createAction('[Betting] SetActiveTickets');
 
 export const LoadTickets = createAction('[Ticket] Load Tickets');
 export const LoadTicketsSuccess = createAction(
-  '[Ticket] Load Tickets Success',
+  '[Ticket] LoadTicketsSuccess',
   props<{ tickets: Ticket[] }>()
 );
-export const LoadTicketsFailure = createAction(
-  '[Ticket] Load Tickets Failure',
-  props<{ error: string }>()
-);
+
+export const SaveTicketSuccess = createAction('[Ticket] SaveTicketSuccess');
+export const Fail = createAction('[Ticket] Fail', props<{ error: string }>());

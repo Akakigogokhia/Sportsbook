@@ -1,12 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { Bet, Ticket } from 'src/app/shared/models/betting.models';
 import { AppState } from 'src/app/store/app.reducer';
 import * as BetsliptSelectors from '../store/betslip.selectors';
 import * as BetslipActions from '../store/betslip.actions';
-import { BetsliptService } from '../services/betslip.service';
-
+import { User } from '../../auth/auth.models';
 @Component({
   selector: 'app-tickets',
   templateUrl: './tickets.component.html',
@@ -15,24 +14,30 @@ import { BetsliptService } from '../services/betslip.service';
 export class TicketsComponent implements OnInit, OnDestroy {
   ticketSub: Subscription;
   tickets: Ticket[];
+  toggle: boolean = false;
+  @Input() user: User | null;
 
-  constructor(
-    private store: Store<AppState>,
-    private betslipService: BetsliptService
-  ) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.store.dispatch(BetslipActions.LoadTickets());
     this.ticketSub = this.store
       .select(BetsliptSelectors.activeTicketsSelector)
       .subscribe((tickets) => {
         this.tickets = tickets;
-        console.log(tickets);
       });
   }
 
-  check() {
-    this.checkBetStatuses();
+  checkBets() {
+    if (this.user) {
+      this.store.dispatch(BetslipActions.LoadTickets());
+
+      this.toggle = !this.toggle;
+      this.checkBetStatuses();
+    } else {
+      this.store.dispatch(
+        BetslipActions.Fail({ error: 'You are not authorized' })
+      );
+    }
   }
 
   private checkBetStatuses(): void {
@@ -50,13 +55,12 @@ export class TicketsComponent implements OnInit, OnDestroy {
     this.processDispatchQueue(dispatchQueue);
   }
 
-  private processDispatchQueue(dispatchQueue: any[]) {
+  private processDispatchQueue(dispatchQueue: Bet[]) {
     const INTERVAL_MS = 210;
     let intervalId: any;
     const process = () => {
       if (dispatchQueue.length > 0) {
-        const bet = dispatchQueue.shift();
-        console.log('boom called');
+        const bet = dispatchQueue.shift()!;
 
         this.store.dispatch(BetslipActions.CheckBetStatus({ bet }));
       } else {

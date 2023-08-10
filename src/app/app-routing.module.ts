@@ -3,11 +3,20 @@ import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
+import { FixtureComponent } from './components/betting/fixture/fixture.component';
+import { TopFixturesComponent } from './components/betting/sports/top-fixtures/top-fixtures.component';
+import { TicketsComponent } from './components/betslip/tickets/tickets.component';
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'sport', component: AppComponent },
-  { path: 'header', component: HeaderComponent },
+  {
+    path: '',
+    component: HomeComponent,
+    children: [
+      { path: '', component: TopFixturesComponent },
+      { path: 'fixture/:id', component: FixtureComponent },
+    ],
+  },
+  { path: 'tickets', component: TicketsComponent },
 ];
 
 @NgModule({

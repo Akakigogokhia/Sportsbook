@@ -6,7 +6,6 @@ import { environment } from 'src/environments/environment';
 import * as AuthActions from './auth.actions';
 import { switchMap, map, of, catchError, tap } from 'rxjs';
 import { AuthResponse, User } from '../auth.models';
-import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
 @Injectable()
@@ -72,21 +71,31 @@ export class AuthEffects {
     )
   );
 
-  AuthRedirect = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(AuthActions.Login),
-        tap(() => {
-          this.router.navigate(['/sport']);
-        })
-      ),
-    { dispatch: false }
+  AutoLogin = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.AutoLogin),
+      map(() => {
+        const userData: {
+          email: string;
+          id: string;
+          _token: string;
+          _tokenExpirationDate: string;
+        } = JSON.parse(localStorage.getItem('userData')!);
+        if (userData) {
+          return AuthActions.Login({
+            email: userData.email,
+            userId: userData.id,
+            token: userData._token!,
+            expirationDate: new Date(userData._tokenExpirationDate),
+          });
+        } else return { type: 'DUMMY' };
+      })
+    )
   );
 
   constructor(
     private actions$: Actions,
     private http: HttpClient,
-    private router: Router,
     private authService: AuthService
   ) {}
 }

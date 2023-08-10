@@ -21,7 +21,11 @@
     </div>
   </section>
   <section class="ticket__buttons">
-    <button (click)="placeTicket()" class="btn ticket__placeBet">
+    <button
+      [disabled]="!user"
+      (click)="placeTicket()"
+      class="btn ticket__placeBet"
+    >
       Place Ticket
     </button>
     <button (click)="clearBets()" class="btn ticket__clearBets">

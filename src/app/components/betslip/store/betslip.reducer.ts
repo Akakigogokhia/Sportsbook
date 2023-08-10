@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { Bet, Status, Ticket } from 'src/app/shared/models/betting.models';
+import { Status, Ticket } from 'src/app/shared/models/betting.models';
 import * as BetslipActions from './betslip.actions';
 
 export interface State {
@@ -101,9 +101,14 @@ export const BetslipReducer = createReducer(
   on(BetslipActions.LoadTicketsSuccess, (state, { tickets }) => ({
     ...state,
     activeTickets: tickets,
+    error: null,
   })),
-  on(BetslipActions.LoadTicketsFailure, (state, { error }) => ({
+  on(BetslipActions.Fail, (state, { error }) => ({
     ...state,
     error: error,
+  })),
+  on(BetslipActions.SaveTicketSuccess, (state, action) => ({
+    ...state,
+    error: null,
   }))
 );

@@ -7,7 +7,6 @@ export const Login = createAction(
     userId: string;
     token: string;
     expirationDate: Date;
-    redirect: boolean;
   }>()
 );
 
@@ -32,6 +31,6 @@ export const LoginFail = createAction(
   props<{ error: string }>()
 );
 
-export const AutoLogin = createAction('[Auth] AutoLogin');
-
 export const Logout = createAction('[Auth] Logout');
+
+export const AutoLogin = createAction('[Auth] CheckUser');

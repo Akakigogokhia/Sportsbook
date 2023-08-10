@@ -1,10 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as FromApp from '../../../store/app.reducer';
 import * as BetslipSelectors from '../store/betslip.selectors';
 import * as BetslipActions from '../store/betslip.actions';
 import { Subscription } from 'rxjs';
 import { Ticket } from 'src/app/shared/models/betting.models';
+import { User } from '../../auth/auth.models';
 
 @Component({
   selector: 'app-ticket',
@@ -18,6 +19,7 @@ export class TicketComponent implements OnInit, OnDestroy {
   potential_payout: number;
   repeatTicket: boolean;
   dialogBox: boolean = false;
+  @Input() user: User | null;
 
   constructor(private store: Store<FromApp.AppState>) {}
 

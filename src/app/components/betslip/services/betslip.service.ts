@@ -56,7 +56,6 @@ export class BetsliptService {
   };
 
   saveActiveTickets = (activeTickets: Ticket[]) => {
-    console.log(activeTickets);
     return this.http.put(
       'https://sportsbook-1111-default-rtdb.firebaseio.com/tickets.json',
       activeTickets

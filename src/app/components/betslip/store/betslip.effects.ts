@@ -34,18 +34,20 @@ export class BetslipEffects {
     { dispatch: false }
   );
 
-  UpdateActiveTickets = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(BetslipActions.PlaceTicket, BetslipActions.SaveBetStatus),
-        withLatestFrom(
-          this.store.select(BetslipSelectors.activeTicketsSelector)
-        ),
-        switchMap(([, activeTickets]) =>
-          this.betSlipService.saveActiveTickets(activeTickets)
+  UpdateActiveTickets = createEffect(() =>
+    this.actions$.pipe(
+      ofType(BetslipActions.PlaceTicket, BetslipActions.SaveBetStatus),
+      withLatestFrom(this.store.select(BetslipSelectors.activeTicketsSelector)),
+      switchMap(([, activeTickets]) =>
+        this.betSlipService.saveActiveTickets(activeTickets).pipe(
+          map(() => BetslipActions.SaveTicketSuccess()),
+          catchError((error) => {
+            console.log(error);
+            return of(BetslipActions.Fail({ error: error }));
+          })
         )
-      ),
-    { dispatch: false }
+      )
+    )
   );
 
   CheckBetStatus = createEffect(() =>
@@ -77,9 +79,7 @@ export class BetslipEffects {
           map((tickets: Ticket[]) =>
             BetslipActions.LoadTicketsSuccess({ tickets: tickets })
           ),
-          catchError((error) =>
-            of(BetslipActions.LoadTicketsFailure({ error }))
-          )
+          catchError((error) => of(BetslipActions.Fail({ error })))
         )
       )
     )

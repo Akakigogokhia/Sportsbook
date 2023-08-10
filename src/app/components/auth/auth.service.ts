@@ -21,7 +21,6 @@ export class AuthService {
       userId: userId,
       token: token,
       expirationDate: expirationDate,
-      redirect: true,
     });
   };
 
