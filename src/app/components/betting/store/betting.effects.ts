@@ -42,14 +42,12 @@ export class BettingEffects {
           .getSpecialMarkets(+action.market.event_id)
           .pipe(
             map((response) => {
+              this.router.navigate(['/fixture', action.market.event_id]);
               return BettingActions.SetSpecialMarkets({
                 specialMarkets: response.specials,
               });
             })
           );
-      }),
-      tap(() => {
-        this.router.navigate(['/match']);
       })
     )
   );

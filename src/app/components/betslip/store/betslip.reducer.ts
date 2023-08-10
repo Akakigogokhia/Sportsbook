@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { Bet, Ticket } from 'src/app/shared/models/betting.models';
+import { Bet, Status, Ticket } from 'src/app/shared/models/betting.models';
 import * as BetslipActions from './betslip.actions';
 
 export interface State {
@@ -12,6 +12,7 @@ export interface State {
 const initialState: State = {
   ticket: {
     id: Math.random().toString(),
+    status: 'Pending',
     bets: [],
     total_stake: 1,
     total_odd: 0,
@@ -25,6 +26,7 @@ const initialState: State = {
 export const BetslipReducer = createReducer(
   initialState,
   on(BetslipActions.AddBet, (state, { bet }) => {
+    console.log(bet);
     let bets = state.ticket.bets;
     bets = bets.filter((activeBet) => activeBet.event_id !== bet.event_id);
     return {
@@ -70,7 +72,6 @@ export const BetslipReducer = createReducer(
       : [action.ticket],
   })),
   on(BetslipActions.SaveBetStatus, (state, action) => {
-    console.log(state.activeTickets);
     const activeTicketsCopy = state.activeTickets.map((ticket) => {
       const updatedBets = ticket.bets.map((bet) => {
         if (bet.id === action.id) {
@@ -82,16 +83,20 @@ export const BetslipReducer = createReducer(
         return bet;
       });
 
+      let ticketStatus: Status = 'Pending';
+      if (updatedBets.some((bet) => bet.status === 'Lost')) {
+        ticketStatus = 'Lost';
+      } else if (updatedBets.every((bet) => bet.status === 'Won')) {
+        ticketStatus = 'Won';
+      }
       return {
         ...ticket,
         bets: updatedBets,
+        status: ticketStatus!,
       };
     });
 
-    return {
-      ...state,
-      activeTickets: activeTicketsCopy,
-    };
+    return { ...state, activeTickets: activeTicketsCopy };
   }),
   on(BetslipActions.LoadTicketsSuccess, (state, { tickets }) => ({
     ...state,

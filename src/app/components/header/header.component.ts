@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 import * as BettingActions from '../betting/store/betting.actions';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-header',
@@ -9,6 +10,8 @@ import * as BettingActions from '../betting/store/betting.actions';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
+  @Input() filterControl: FormControl;
+
   selectedDuration: number;
   filterName: string;
 

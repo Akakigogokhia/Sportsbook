@@ -11,22 +11,4 @@ import { selectSportId } from './components/betting/store/betting.selectors';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
-  events: Event[];
-  sportId: number;
-
-  constructor(private store: Store<FromApp.AppState>, private router: Router) {}
-
-  fetch() {
-    this.store.dispatch(
-      BettingActions.FetchFixtures({ sport_id: this.sportId })
-    );
-    this.router.navigate(['/popular']);
-  }
-
-  ngOnInit(): void {
-    this.store
-      .select(selectSportId)
-      .subscribe((sportid) => (this.sportId = sportid));
-  }
-}
+export class AppComponent {}
