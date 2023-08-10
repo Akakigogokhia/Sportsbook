@@ -29,7 +29,7 @@ export class BetslipEffects {
     () =>
       this.actions$.pipe(
         ofType(BetslipActions.PlaceTicket),
-        tap((action) => BetslipActions.UpdateActiveTickets)
+        tap(() => BetslipActions.UpdateActiveTickets)
       ),
     { dispatch: false }
   );
@@ -37,11 +37,11 @@ export class BetslipEffects {
   UpdateActiveTickets = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(BetslipActions.PlaceTicket),
+        ofType(BetslipActions.PlaceTicket, BetslipActions.SaveBetStatus),
         withLatestFrom(
           this.store.select(BetslipSelectors.activeTicketsSelector)
         ),
-        switchMap(([action, activeTickets]) =>
+        switchMap(([, activeTickets]) =>
           this.betSlipService.saveActiveTickets(activeTickets)
         )
       ),
@@ -59,7 +59,9 @@ export class BetslipEffects {
               bet_status: this.betSlipService.checkBetStatus(
                 action.bet,
                 response.events![0].period_results!
-              ),
+              )
+                ? 'Won'
+                : 'Lost',
             })
           )
         )

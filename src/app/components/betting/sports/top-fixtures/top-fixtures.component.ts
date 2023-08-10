@@ -1,29 +1,59 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../../../store/app.reducer';
 import * as BettingSelector from '../../store/betting.selectors';
 import { SortedEvents } from 'src/app/shared/models/betting.models';
+import { Subscription } from 'rxjs';
+import { FormControl } from '@angular/forms';
+import { FilterService } from '../../services/filter.service';
+import * as BettingActions from '../../store/betting.actions';
 
 @Component({
   selector: 'app-top-fixtures',
   templateUrl: './top-fixtures.component.html',
   styleUrls: ['./top-fixtures.component.scss'],
 })
-export class TopFixturesComponent implements OnInit {
+export class TopFixturesComponent implements OnInit, OnDestroy {
   sportId: number;
   popularFixtures: SortedEvents;
-  constructor(private store: Store<fromApp.AppState>) {}
+  allFixtures: SortedEvents;
+  popularFixturesSub: Subscription;
+  sportIdSub: Subscription;
+  filterControl = new FormControl('');
+  filterInputSub: Subscription;
+
+  constructor(
+    private store: Store<fromApp.AppState>,
+    private filterService: FilterService
+  ) {}
 
   ngOnInit(): void {
-    this.store
+    this.sportIdSub = this.store
+      .select(BettingSelector.selectSportId)
+      .subscribe((sportId) => (this.sportId = sportId!));
+    this.store.dispatch(
+      BettingActions.FetchFixtures({ sport_id: this.sportId })
+    );
+    this.popularFixturesSub = this.store
       .select(BettingSelector.selectActiveFixtures)
       .subscribe(
         (fixtures) => (
-          (this.popularFixtures = fixtures), console.log(this.popularFixtures)
+          ((this.popularFixtures = fixtures), (this.allFixtures = fixtures)),
+          console.log(this.popularFixtures)
         )
       );
-    this.store
-      .select(BettingSelector.selectSportId)
-      .subscribe((sportId) => (this.sportId = sportId!));
+
+    this.filterInputSub = this.filterControl.valueChanges.subscribe(
+      (value) =>
+        (this.popularFixtures = this.filterService.searchFixtures(
+          value!,
+          this.allFixtures
+        ) as SortedEvents)
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.popularFixturesSub.unsubscribe();
+    this.sportIdSub.unsubscribe();
   }
 }

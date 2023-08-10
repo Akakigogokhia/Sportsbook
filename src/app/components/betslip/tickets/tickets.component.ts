@@ -41,7 +41,7 @@ export class TicketsComponent implements OnInit, OnDestroy {
       ticket.bets.forEach((bet) => {
         if (
           !bet.status &&
-          +bet.date > new Date().getTime() + 2 * 60 * 60 * 1000
+          +bet.date + 2 * 60 * 60 * 1000 < new Date().getTime()
         ) {
           dispatchQueue.push(bet);
         }
@@ -53,10 +53,11 @@ export class TicketsComponent implements OnInit, OnDestroy {
   private processDispatchQueue(dispatchQueue: any[]) {
     const INTERVAL_MS = 210;
     let intervalId: any;
-    console.log('boom called');
     const process = () => {
       if (dispatchQueue.length > 0) {
         const bet = dispatchQueue.shift();
+        console.log('boom called');
+
         this.store.dispatch(BetslipActions.CheckBetStatus({ bet }));
       } else {
         clearInterval(intervalId);

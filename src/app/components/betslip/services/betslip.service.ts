@@ -40,7 +40,7 @@ export class BetsliptService {
           position: position,
           odd: odd,
           firstHalf: firstHalf,
-          status: null,
+          status: 'Pending',
         },
       })
     );

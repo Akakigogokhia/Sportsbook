@@ -6,7 +6,10 @@ export interface Ticket {
   total_stake: number;
   total_odd: number;
   potential_payout: number;
+  status: Status;
 }
+
+export type Status = 'Pending' | 'Won' | 'Lost';
 
 export interface Bet {
   id: number;
@@ -17,7 +20,7 @@ export interface Bet {
   bet_type: string;
   position: string;
   odd: number;
-  status: boolean | null;
+  status: Status;
   firstHalf: boolean | null;
 }
 
