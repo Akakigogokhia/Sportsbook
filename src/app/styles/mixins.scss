@@ -1,0 +1,14 @@
+@mixin oddStyle {
+  height: 12px;
+  min-width: 35px;
+  text-align: center;
+  cursor: pointer;
+  vertical-align: middle;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  padding: 10px;
+  line-height: 14px;
+  transition: background-color 0.3s;
+}

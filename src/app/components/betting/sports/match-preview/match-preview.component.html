@@ -1,13 +1,16 @@
 <div class="match">
   <section class="match__date">
-    <div class="match__time">{{ match.starts | date : "HH:mm" }}</div>
-    <div class="match__day">{{ match.starts | formatDate }}</div>
+    <div class="match__date--time">{{ match.starts | date : "HH:mm" }}</div>
+    <div class="match__date--day">{{ match.starts | formatDate }}</div>
   </section>
+  <div class="separator"></div>
+
   <section class="match__desc">
     <div class="match__teams">
-      <div class="match__home">{{ match.home }}</div>
-      <div class="match__away">{{ match.away }}</div>
+      <div class="match__teams--home">{{ match.home }}</div>
+      <div class="match__teams--away">{{ match.away }}</div>
     </div>
+    <div class="separator"></div>
     <div class="match__odds">
       <section class="odds match__odds--moneyLine">
         <div

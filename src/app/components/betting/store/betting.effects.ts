@@ -12,34 +12,9 @@ export class BettingEffects {
   FetchFixtures = createEffect(() =>
     this.actions$.pipe(
       ofType(BettingActions.FetchFixtures, BettingActions.ChangeSport),
-      switchMap((action) => {
-        return this.bettingService.makeApiRequest(action.sport_id).pipe(
-          map((response) => {
-            if (action.sport_id === 1 || action.sport_id === 3) {
-              localStorage.setItem(
-                'fixtures',
-                JSON.stringify(
-                  this.sortingService.sortFixtures(
-                    response.events,
-                    action.sport_id
-                  )
-                )
-              );
-              return BettingActions.SetPopularFixtures({
-                popularFixtures: this.sortingService.sortFixtures(
-                  response.events,
-                  action.sport_id
-                ),
-              });
-            } else {
-              return BettingActions.SetPopularFixtures({
-                popularFixtures: this.sortingService.sortTennisFixtures(
-                  response.events
-                ),
-              });
-            }
-          })
-        );
+      map((action) => {
+        const fixtures = JSON.parse(localStorage.getItem('fixtures')!);
+        return BettingActions.SetPopularFixtures({ popularFixtures: fixtures });
       })
     )
   );

@@ -1,6 +1,11 @@
 .match {
   display: flex;
   gap: 10px;
+  border: 1px solid #ccc;
+  border-bottom: none;
+  padding: 15px;
+  align-items: center;
+  background-color: #f2f2f2;
 }
 
 .odds {
@@ -14,18 +19,62 @@
 }
 
 .match__desc {
+  width: 100%;
+  height: 100%;
   display: flex;
   gap: 10px;
 }
 
+.match__teams {
+  font-size: 16px;
+  width: 22%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+.match__teams--home, .match__teams--away {
+  text-align: start;
+  width: 85%;
+}
+
+.match__date {
+  width: 5%;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  text-align: center;
+}
+.match__date--time {
+  font-size: 17px;
+  font-weight: 600;
+}
+.match__date--day {
+  color: #404040;
+  font-size: 14px;
+}
+
 .odd {
+  height: 12px;
+  min-width: 35px;
+  text-align: center;
+  cursor: pointer;
+  vertical-align: middle;
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 14px;
-  padding: 20px;
-  margin: 0px;
-  text-align: center;
-  cursor: pointer;
+  padding: 10px;
+  line-height: 14px;
   transition: background-color 0.3s;
+}
+
+.odd:hover {
+  background-color: #f2f2f2;
+}
+
+.separator {
+  height: 40px;
+  width: 1px;
+  background-color: rgb(208, 205, 205);
 }
