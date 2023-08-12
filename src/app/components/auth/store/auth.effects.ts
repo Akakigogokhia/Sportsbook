@@ -6,8 +6,8 @@ import { environment } from 'src/environments/environment';
 import * as AuthActions from './auth.actions';
 import { switchMap, map, of, catchError, tap } from 'rxjs';
 import { AuthResponse, User } from '../auth.models';
-import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthEffects {
@@ -72,12 +72,38 @@ export class AuthEffects {
     )
   );
 
-  AuthRedirect = createEffect(
+  AutoLogin = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.AutoLogin),
+      map(() => {
+        const userData: {
+          email: string;
+          id: string;
+          _token: string;
+          _tokenExpirationDate: string;
+        } = JSON.parse(localStorage.getItem('userData')!);
+        if (userData) {
+          const duration =
+            new Date(userData._tokenExpirationDate).getTime() -
+            new Date().getTime();
+          this.authService.autoLogout(duration);
+          return AuthActions.Login({
+            email: userData.email,
+            userId: userData.id,
+            token: userData._token!,
+            expirationDate: new Date(userData._tokenExpirationDate),
+          });
+        } else return { type: 'DUMMY' };
+      })
+    )
+  );
+
+  AuthLogout = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(AuthActions.Login),
+        ofType(AuthActions.Logout),
         tap(() => {
-          this.router.navigate(['/sport']);
+          localStorage.removeItem('userData');
         })
       ),
     { dispatch: false }
@@ -86,7 +112,7 @@ export class AuthEffects {
   constructor(
     private actions$: Actions,
     private http: HttpClient,
-    private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 }

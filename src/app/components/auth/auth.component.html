@@ -1,5 +1,5 @@
 <div class="auth">
-  <div class="auth__container">
+  <div class="auth__container" *ngIf="!user">
     <div>{{ error }}</div>
     <form
       [formGroup]="authForm"
@@ -49,4 +49,12 @@
       </div>
     </form>
   </div>
+  <section class="auth__user">
+    <div class="aut__userName">{{ user?.email }}</div>
+    <div class="auth__balance">
+      <div class="auth__balance--amount">{{ balance }}₾</div>
+      <button (click)="addBalance()" class="auth__balance--add">+</button>
+    </div>
+    <button *ngIf="user" (click)="logout()">Logout</button>
+  </section>
 </div>

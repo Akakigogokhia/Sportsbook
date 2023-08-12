@@ -1,4 +1,8 @@
 import { Injectable } from '@angular/core';
+import {
+  SpecialMarket,
+  SpecialMarkets,
+} from 'src/app/shared/models/specialMarket.model';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +31,7 @@ export class OddsService {
 
   convertOddsAndTimezone(value: any, key: string): any {
     if (typeof value === 'number') {
-      return +value.toFixed(2);
+      return value.toFixed(2);
     } else if (key === 'starts') {
       return new Date(value).getTime() + 4 * 60 * 60 * 1000;
     } else if (typeof value === 'object' && value !== null) {
@@ -41,4 +45,24 @@ export class OddsService {
     }
     return value;
   }
+
+  formatOdds = (specialMarket: SpecialMarkets) => {
+    return specialMarket.map((item) => {
+      const newLines = Object.keys(item.lines).reduce((acc, key) => {
+        const line = item.lines[key];
+        return {
+          ...acc,
+          [key]: {
+            ...line,
+            price: line.price?.toFixed(2),
+          },
+        };
+      }, {});
+
+      return {
+        ...item,
+        lines: newLines,
+      };
+    });
+  };
 }

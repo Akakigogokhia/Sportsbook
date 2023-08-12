@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AuthComponent } from './components/auth/auth.component';
@@ -15,6 +15,7 @@ import { BetslipEffects } from './components/betslip/store/betslip.effects';
 import { BettingModule } from './components/betting/betting.module';
 import { SharedModule } from './shared/shared.module';
 import { HomeComponent } from './components/home/home.component';
+import { AuthInterceptorService } from './core/interceptors/auth-interceptor.service';
 
 @NgModule({
   declarations: [AppComponent, AuthComponent, HomeComponent],
@@ -27,7 +28,13 @@ import { HomeComponent } from './components/home/home.component';
     BettingModule,
     SharedModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

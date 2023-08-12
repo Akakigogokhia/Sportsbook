@@ -1,8 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 import * as BettingActions from '../betting/store/betting.actions';
+import * as BetslipSelectors from '../betslip/store/betslip.selectors';
+import * as BetslipActions from '../betslip/store/betslip.actions';
 import { FormControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',

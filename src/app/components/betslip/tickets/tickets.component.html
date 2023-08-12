@@ -1,4 +1,9 @@
-<button (click)="check()">check</button>
-<div class="tickets" *ngFor="let ticket of tickets">
-  <app-betslip [betslip]="ticket"></app-betslip>
+<div class="tickets">
+  <button (click)="checkBets()">Tickets</button>
+  <div class="tickets__content" *ngIf="toggle">
+    <app-betslip
+      *ngFor="let ticket of tickets"
+      [betslip]="ticket"
+    ></app-betslip>
+  </div>
 </div>

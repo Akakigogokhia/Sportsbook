@@ -7,7 +7,6 @@ import { environment } from 'src/environments/environment';
 import { Event, PeriodResult } from 'src/app/shared/models/market.model';
 import { Bet, Ticket } from 'src/app/shared/models/betting.models';
 import { oddsCheckerService } from './oddsChecker.service';
-import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -28,22 +27,28 @@ export class BetsliptService {
     odd: number,
     firstHalf: boolean = false
   ) => {
-    this.store.dispatch(
-      BetslipActions.AddBet({
-        bet: {
-          id: Math.random(),
-          event_id: id,
-          home: home,
-          away: away,
-          date: starts,
-          bet_type: bet_type,
-          position: position,
-          odd: odd,
-          firstHalf: firstHalf,
-          status: 'Pending',
-        },
-      })
-    );
+    if (new Date(starts).getTime() > new Date().getTime()) {
+      this.store.dispatch(
+        BetslipActions.AddBet({
+          bet: {
+            id: Math.random(),
+            event_id: id,
+            home: home,
+            away: away,
+            date: starts,
+            bet_type: bet_type,
+            position: position,
+            odd: odd,
+            firstHalf: firstHalf,
+            status: 'Pending',
+          },
+        })
+      );
+    } else {
+      this.store.dispatch(
+        BetslipActions.Fail({ error: 'This match is no longer available!' })
+      );
+    }
   };
 
   betStatusCall = (event_id: number) => {
@@ -55,17 +60,16 @@ export class BetsliptService {
     return this.http.get<{ events: Event[] }>(url, { headers: headers });
   };
 
-  saveActiveTickets = (activeTickets: Ticket[]) => {
-    console.log(activeTickets);
+  saveActiveTickets = (activeTickets: Ticket[], userId: string) => {
     return this.http.put(
-      'https://sportsbook-1111-default-rtdb.firebaseio.com/tickets.json',
+      `https://sportsbook-1111-default-rtdb.firebaseio.com/${userId}/tickets.json`,
       activeTickets
     );
   };
 
-  getActiveTickets = () =>
+  getActiveTickets = (userId: string) =>
     this.http.get<Ticket[]>(
-      'https://sportsbook-1111-default-rtdb.firebaseio.com/tickets.json'
+      `https://sportsbook-1111-default-rtdb.firebaseio.com/${userId}/tickets.json`
     );
 
   checkBetStatus = (bet: Bet, period_results: PeriodResult[]) => {

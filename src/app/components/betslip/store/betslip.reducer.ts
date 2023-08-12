@@ -1,11 +1,11 @@
 import { createReducer, on } from '@ngrx/store';
-import { Bet, Status, Ticket } from 'src/app/shared/models/betting.models';
+import { Status, Ticket } from 'src/app/shared/models/betting.models';
 import * as BetslipActions from './betslip.actions';
 
 export interface State {
   ticket: Ticket;
-  ticketHistory: Ticket[];
   activeTickets: Ticket[];
+  balance: number;
   error: string | null;
 }
 
@@ -18,8 +18,8 @@ const initialState: State = {
     total_odd: 0,
     potential_payout: 0,
   },
-  ticketHistory: [],
   activeTickets: [],
+  balance: 100,
   error: null,
 };
 
@@ -68,7 +68,7 @@ export const BetslipReducer = createReducer(
   on(BetslipActions.PlaceTicket, (state, action) => ({
     ...state,
     activeTickets: state.activeTickets
-      ? [...state.activeTickets, action.ticket]
+      ? [action.ticket, ...state.activeTickets]
       : [action.ticket],
   })),
   on(BetslipActions.SaveBetStatus, (state, action) => {
@@ -93,6 +93,7 @@ export const BetslipReducer = createReducer(
         ...ticket,
         bets: updatedBets,
         status: ticketStatus!,
+        balance: state.balance + ticket.potential_payout,
       };
     });
 
@@ -101,9 +102,18 @@ export const BetslipReducer = createReducer(
   on(BetslipActions.LoadTicketsSuccess, (state, { tickets }) => ({
     ...state,
     activeTickets: tickets,
+    error: null,
   })),
-  on(BetslipActions.LoadTicketsFailure, (state, { error }) => ({
+  on(BetslipActions.Fail, (state, { error }) => ({
     ...state,
     error: error,
+  })),
+  on(BetslipActions.SaveTicketSuccess, (state, action) => ({
+    ...state,
+    error: null,
+  })),
+  on(BetslipActions.AddBalance, (state, action) => ({
+    ...state,
+    balance: state.balance + action.amount,
   }))
 );

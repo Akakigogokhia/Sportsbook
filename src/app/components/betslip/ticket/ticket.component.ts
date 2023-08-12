@@ -1,10 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as FromApp from '../../../store/app.reducer';
 import * as BetslipSelectors from '../store/betslip.selectors';
 import * as BetslipActions from '../store/betslip.actions';
 import { Subscription } from 'rxjs';
 import { Ticket } from 'src/app/shared/models/betting.models';
+import { User } from '../../auth/auth.models';
 
 @Component({
   selector: 'app-ticket',
@@ -12,17 +13,25 @@ import { Ticket } from 'src/app/shared/models/betting.models';
   styleUrls: ['./ticket.component.scss'],
 })
 export class TicketComponent implements OnInit, OnDestroy {
-  ticketSubscription: Subscription;
+  ticketSub: Subscription;
   ticket: Ticket;
   betAmount: number = 1;
   potential_payout: number;
   repeatTicket: boolean;
   dialogBox: boolean = false;
+  balanceSub: Subscription;
+  balance: number;
+  @Input() user: User | null;
 
   constructor(private store: Store<FromApp.AppState>) {}
 
   ngOnInit(): void {
-    this.ticketSubscription = this.store
+    this.balanceSub = this.store
+      .select(BetslipSelectors.balanceSelector)
+      .subscribe((balance) => {
+        this.balance = balance;
+      });
+    this.ticketSub = this.store
       .select(BetslipSelectors.ticketSelector)
       .subscribe((ticket) => {
         (this.ticket = ticket), console.log(ticket);
@@ -38,12 +47,19 @@ export class TicketComponent implements OnInit, OnDestroy {
   }
 
   placeTicket() {
-    this.dialogBox = true;
-    this.ticket = {
-      ...this.ticket,
-      potential_payout: this.betAmount * this.ticket.total_odd,
-    };
-    this.store.dispatch(BetslipActions.PlaceTicket({ ticket: this.ticket }));
+    if (this.balance >= this.betAmount) {
+      this.dialogBox = true;
+      this.ticket = {
+        ...this.ticket,
+        potential_payout: this.betAmount * this.ticket.total_odd,
+      };
+      this.store.dispatch(BetslipActions.PlaceTicket({ ticket: this.ticket }));
+    } else
+      this.store.dispatch(
+        BetslipActions.Fail({
+          error: 'Insufficient funds. Please add more money to continue.',
+        })
+      );
   }
 
   answerDialog(shouldSaveTicket: boolean) {
@@ -54,6 +70,7 @@ export class TicketComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.ticketSubscription.unsubscribe();
+    this.ticketSub.unsubscribe();
+    this.balanceSub.unsubscribe();
   }
 }
