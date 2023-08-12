@@ -1,0 +1,11 @@
+.home {
+  display: flex;
+}
+
+.home__main {
+  flex: 3;
+}
+
+.home__ticketsContainer {
+  flex: 1;
+}

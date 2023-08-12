@@ -16,6 +16,15 @@ export class BettingEffects {
         return this.bettingService.makeApiRequest(action.sport_id).pipe(
           map((response) => {
             if (action.sport_id === 1 || action.sport_id === 3) {
+              localStorage.setItem(
+                'fixtures',
+                JSON.stringify(
+                  this.sortingService.sortFixtures(
+                    response.events,
+                    action.sport_id
+                  )
+                )
+              );
               return BettingActions.SetPopularFixtures({
                 popularFixtures: this.sortingService.sortFixtures(
                   response.events,
