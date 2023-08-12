@@ -253,7 +253,7 @@ export class oddsCheckerService {
       } else if (goalCondition.includes('Under')) {
         return oddEvenCheck && totalGoals < goalValue;
       } else {
-        return false; // Unexpected goal condition format
+        return false; // Unexpected
       }
     } else if (betType.includes('Either Team To Score?')) {
       const period = betType.includes('1st Half') ? halfTime : fullTime;
@@ -272,6 +272,14 @@ export class oddsCheckerService {
       } else {
         return position == 'Yes' ? awayWinsToNil : !awayWinsToNil;
       }
+    } else if (betType.includes('3-Way Handicap')) {
+      return this.checkThreeWayHandicap(
+        betType,
+        position,
+        home,
+        away,
+        fullTime
+      );
     } else return false;
   };
 
@@ -301,6 +309,37 @@ export class oddsCheckerService {
       return fullTime.team_1_score === fullTime.team_2_score;
     } else {
       return fullTime.team_1_score < fullTime.team_2_score;
+    }
+  }
+
+  checkThreeWayHandicap(
+    betType: string,
+    position: string,
+    home: string,
+    away: string,
+    fullTime: PeriodResult
+  ): boolean {
+    const teamName = betType.split(' ')[2]; // Extracting "Everton" from "3-Way Handicap Everton -3"
+    const handicap = parseInt(betType.split(' ')[3], 10); // Extracting "-3" from "3-Way Handicap Everton -3"
+
+    if (teamName === home) {
+      if (position.includes(home)) {
+        return fullTime.team_1_score - fullTime.team_2_score > handicap;
+      } else if (position.includes(away)) {
+        return fullTime.team_2_score - fullTime.team_1_score + handicap > 0;
+      } else {
+        return fullTime.team_1_score - fullTime.team_2_score === handicap;
+      }
+    } else if (teamName === away) {
+      if (position.includes(away)) {
+        return fullTime.team_2_score - fullTime.team_1_score > handicap;
+      } else if (position.includes(home)) {
+        return fullTime.team_1_score - fullTime.team_2_score + handicap > 0;
+      } else {
+        return fullTime.team_2_score - fullTime.team_1_score === handicap;
+      }
+    } else {
+      return false; // Unexpected
     }
   }
 }
