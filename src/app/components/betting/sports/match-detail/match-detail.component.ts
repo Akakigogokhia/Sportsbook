@@ -1,11 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import * as BettingSelector from '../../store/betting.selectors';
 import * as FromApp from '../../../../store/app.reducer';
+import * as BettingActions from '../../store/betting.actions';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { SpecialMarkets } from 'src/app/shared/models/specialMarket.model';
 import { Event } from 'src/app/shared/models/market.model';
 import { FilterService } from '../../services/filter.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-match-detail',
@@ -24,35 +26,33 @@ export class MatchDetailComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<FromApp.AppState>,
-    private filterService: FilterService
+    private filterService: FilterService,
+    private location: Location
   ) {}
 
   setOddsType(type: 'All' | 'I Half' | 'Goals') {
+    if (type === 'Goals') {
+      this.goalSpecialMarkets = this.filterService.getGoalOdds(
+        this.specialMarkets!
+      );
+    }
     this.oddsType = type;
   }
 
   ngOnInit(): void {
-    this.marketSubscription = this.store
-      .select(BettingSelector.selectMarket)
-      .subscribe((market) => (this.market = market));
+    this.market = JSON.parse(localStorage.getItem('market')!);
+    this.store.dispatch(BettingActions.SelectMatch({ market: this.market! }));
     this.specialMarketSubscription = this.store
       .select(BettingSelector.specialMarket)
-      .subscribe((specialMarket) => {
-        this.specialMarkets = specialMarket;
+      .subscribe((specialMarkets) => {
+        this.specialMarkets = specialMarkets;
       });
     this.sportIdSubscription = this.store
       .select(BettingSelector.selectSportId)
       .subscribe((sportId) => (this.sportId = sportId));
-
-    this.goalSpecialMarkets = this.filterService.getGoalOdds(
-      this.specialMarkets!
-    );
-
-    console.log(this.specialMarkets);
   }
 
   ngOnDestroy(): void {
-    this.marketSubscription.unsubscribe();
     this.specialMarketSubscription.unsubscribe();
     this.sportIdSubscription.unsubscribe();
   }

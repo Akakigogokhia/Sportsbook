@@ -27,22 +27,28 @@ export class BetsliptService {
     odd: number,
     firstHalf: boolean = false
   ) => {
-    this.store.dispatch(
-      BetslipActions.AddBet({
-        bet: {
-          id: Math.random(),
-          event_id: id,
-          home: home,
-          away: away,
-          date: starts,
-          bet_type: bet_type,
-          position: position,
-          odd: odd,
-          firstHalf: firstHalf,
-          status: 'Pending',
-        },
-      })
-    );
+    if (new Date(starts).getTime() > new Date().getTime()) {
+      this.store.dispatch(
+        BetslipActions.AddBet({
+          bet: {
+            id: Math.random(),
+            event_id: id,
+            home: home,
+            away: away,
+            date: starts,
+            bet_type: bet_type,
+            position: position,
+            odd: odd,
+            firstHalf: firstHalf,
+            status: 'Pending',
+          },
+        })
+      );
+    } else {
+      this.store.dispatch(
+        BetslipActions.Fail({ error: 'This match is no longer available!' })
+      );
+    }
   };
 
   betStatusCall = (event_id: number) => {

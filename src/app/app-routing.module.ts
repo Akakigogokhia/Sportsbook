@@ -6,6 +6,7 @@ import { HomeComponent } from './components/home/home.component';
 import { FixtureComponent } from './components/betting/fixture/fixture.component';
 import { TopFixturesComponent } from './components/betting/sports/top-fixtures/top-fixtures.component';
 import { TicketsComponent } from './components/betslip/tickets/tickets.component';
+import { MatchDetailGuard } from './core/guards/matchDetailGuard.guard';
 
 const appRoutes: Routes = [
   {
@@ -13,7 +14,11 @@ const appRoutes: Routes = [
     component: HomeComponent,
     children: [
       { path: '', component: TopFixturesComponent },
-      { path: 'fixture/:id', component: FixtureComponent },
+      {
+        path: 'fixture/:id',
+        component: FixtureComponent,
+        canActivate: [MatchDetailGuard],
+      },
     ],
   },
   { path: 'tickets', component: TicketsComponent },

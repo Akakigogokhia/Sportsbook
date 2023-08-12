@@ -83,6 +83,10 @@ export class AuthEffects {
           _tokenExpirationDate: string;
         } = JSON.parse(localStorage.getItem('userData')!);
         if (userData) {
+          const duration =
+            new Date(userData._tokenExpirationDate).getTime() -
+            new Date().getTime();
+          this.authService.autoLogout(duration);
           return AuthActions.Login({
             email: userData.email,
             userId: userData.id,

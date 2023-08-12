@@ -1,6 +1,6 @@
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as BettingActions from './betting.actions';
-import { map, switchMap, tap, withLatestFrom } from 'rxjs';
+import { map, of, switchMap, tap, withLatestFrom } from 'rxjs';
 import { SortingService } from '../services/sorting.service';
 import { Injectable } from '@angular/core';
 import { BettingService } from '../services/betting.service';
@@ -42,10 +42,13 @@ export class BettingEffects {
           .getSpecialMarkets(+action.market.event_id)
           .pipe(
             map((response) => {
-              this.router.navigate(['/fixture', action.market.event_id]);
               return BettingActions.SetSpecialMarkets({
                 specialMarkets: response.specials,
               });
+            }),
+            tap(() => {
+              localStorage.setItem('market', JSON.stringify(action.market));
+              this.router.navigate(['/fixture', +action.market.event_id]);
             })
           );
       })

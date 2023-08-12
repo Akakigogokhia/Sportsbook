@@ -1,4 +1,5 @@
 export interface SpecialMarket {
+  cutoff: string;
   name: string;
   lines: Lines;
 }

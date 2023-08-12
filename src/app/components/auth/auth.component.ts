@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { User } from './auth.models';
 import * as BetslipSelectors from '../betslip/store/betslip.selectors';
 import * as BetslipActions from '../betslip/store/betslip.actions';
+import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -23,7 +24,8 @@ export class AuthComponent implements OnInit, OnDestroy {
 
   constructor(
     private formBuilder: FormBuilder,
-    private store: Store<FromApp.AppState>
+    private store: Store<FromApp.AppState>,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -78,7 +80,6 @@ export class AuthComponent implements OnInit, OnDestroy {
   }
 
   logout = () => {
-    this.store.dispatch(AuthActions.Logout());
-    location.reload();
+    this.authService.logout();
   };
 }
