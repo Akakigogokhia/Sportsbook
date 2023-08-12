@@ -72,6 +72,7 @@ export const BetslipReducer = createReducer(
       : [action.ticket],
   })),
   on(BetslipActions.SaveBetStatus, (state, action) => {
+    let amountToAdd: number = 0;
     const activeTicketsCopy = state.activeTickets.map((ticket) => {
       const updatedBets = ticket.bets.map((bet) => {
         if (bet.id === action.id) {
@@ -88,16 +89,20 @@ export const BetslipReducer = createReducer(
         ticketStatus = 'Lost';
       } else if (updatedBets.every((bet) => bet.status === 'Won')) {
         ticketStatus = 'Won';
+        amountToAdd += state.ticket.potential_payout;
       }
       return {
         ...ticket,
         bets: updatedBets,
         status: ticketStatus!,
-        balance: state.balance + ticket.potential_payout,
       };
     });
 
-    return { ...state, activeTickets: activeTicketsCopy };
+    return {
+      ...state,
+      activeTickets: activeTicketsCopy,
+      balance: state.balance + amountToAdd,
+    };
   }),
   on(BetslipActions.LoadTicketsSuccess, (state, { tickets }) => ({
     ...state,

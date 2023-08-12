@@ -11,11 +11,13 @@
     <div></div>
   </section>
   <section class="ticket__outcomes">
-    <div class="ticket__bet">bet amount - {{ betslip.total_stake }}</div>
-    <div class="ticket__totalOdd">{{ betslip.total_odd }}</div>
+    <div class="ticket__bet">bet amount - {{ betslip.total_stake }}₾</div>
+    <div class="ticket__totalOdd">{{ betslip.total_odd | formatDecimal }}</div>
     <div class="ticket__potentialPayout">
       potential payout - {{ betslip.potential_payout | formatDecimal }}
     </div>
   </section>
-  <div></div>
+  <div>
+    <img src="../../../../../assets/images/icons/close.png" alt="close" />
+  </div>
 </div>

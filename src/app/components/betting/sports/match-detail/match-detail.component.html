@@ -1,4 +1,15 @@
 <div class="details">
+  <section class="details__match">
+    <div class="details__home">{{ market!.home }}</div>
+    <div class="details__date">
+      <div class="details__date--date">{{ market!.starts | formatDate }}</div>
+      <div class="details__date--time">
+        {{ market!.starts | date : "HH:mm" }}
+      </div>
+      vs
+    </div>
+    <div class="details__away">{{ market?.away }}</div>
+  </section>
   <div class="details__header">
     <ul>
       <li (click)="setOddsType('All')">All</li>

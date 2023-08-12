@@ -51,9 +51,13 @@ export class TicketComponent implements OnInit, OnDestroy {
       this.dialogBox = true;
       this.ticket = {
         ...this.ticket,
+        total_stake: this.betAmount,
         potential_payout: this.betAmount * this.ticket.total_odd,
       };
       this.store.dispatch(BetslipActions.PlaceTicket({ ticket: this.ticket }));
+      this.store.dispatch(
+        BetslipActions.AddBalance({ amount: -this.betAmount })
+      );
     } else
       this.store.dispatch(
         BetslipActions.Fail({
