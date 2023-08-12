@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as BetslipActions from './betslip.actions';
+import * as AuthSelector from '../../auth/store/auth.selectors';
 import {
   catchError,
   map,
@@ -25,24 +26,17 @@ export class BetslipEffects {
     )
   );
 
-  HandleTicketAdd = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(BetslipActions.PlaceTicket),
-        tap(() => BetslipActions.UpdateActiveTickets)
-      ),
-    { dispatch: false }
-  );
-
   UpdateActiveTickets = createEffect(() =>
     this.actions$.pipe(
       ofType(BetslipActions.PlaceTicket, BetslipActions.SaveBetStatus),
-      withLatestFrom(this.store.select(BetslipSelectors.activeTicketsSelector)),
-      switchMap(([, activeTickets]) =>
-        this.betSlipService.saveActiveTickets(activeTickets).pipe(
+      withLatestFrom(
+        this.store.select(BetslipSelectors.activeTicketsSelector),
+        this.store.select(AuthSelector.userIdSelector)
+      ),
+      switchMap(([, activeTickets, userId]) =>
+        this.betSlipService.saveActiveTickets(activeTickets, userId!).pipe(
           map(() => BetslipActions.SaveTicketSuccess()),
           catchError((error) => {
-            console.log(error);
             return of(BetslipActions.Fail({ error: error }));
           })
         )
@@ -54,7 +48,7 @@ export class BetslipEffects {
     this.actions$.pipe(
       ofType(BetslipActions.CheckBetStatus),
       switchMap((action) =>
-        this.betSlipService.betStatusCall(action.bet.event_id).pipe(
+        this.betSlipService.betStatusCall(+action.bet.event_id).pipe(
           map((response) =>
             BetslipActions.SaveBetStatus({
               id: action.bet.id,
@@ -74,11 +68,12 @@ export class BetslipEffects {
   LoadTickets = createEffect(() =>
     this.actions$.pipe(
       ofType(BetslipActions.LoadTickets),
-      mergeMap(() =>
-        this.betSlipService.getActiveTickets().pipe(
-          map((tickets: Ticket[]) =>
-            BetslipActions.LoadTicketsSuccess({ tickets: tickets })
-          ),
+      withLatestFrom(this.store.select(AuthSelector.userIdSelector)),
+      mergeMap(([, userId]) =>
+        this.betSlipService.getActiveTickets(userId!).pipe(
+          map((tickets: Ticket[]) => {
+            return BetslipActions.LoadTicketsSuccess({ tickets: tickets });
+          }),
           catchError((error) => of(BetslipActions.Fail({ error })))
         )
       )

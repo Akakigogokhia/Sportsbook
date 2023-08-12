@@ -27,7 +27,10 @@ export const SaveBetStatus = createAction(
   props<{ id: number; bet_status: Status }>()
 );
 
-export const UpdateActiveTickets = createAction('[Betting] SetActiveTickets');
+export const AddBalance = createAction(
+  '[Betslip] AddBalance',
+  props<{ amount: number }>()
+);
 
 export const LoadTickets = createAction('[Ticket] Load Tickets');
 export const LoadTicketsSuccess = createAction(

@@ -7,7 +7,6 @@ import { environment } from 'src/environments/environment';
 import { Event, PeriodResult } from 'src/app/shared/models/market.model';
 import { Bet, Ticket } from 'src/app/shared/models/betting.models';
 import { oddsCheckerService } from './oddsChecker.service';
-import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -55,16 +54,16 @@ export class BetsliptService {
     return this.http.get<{ events: Event[] }>(url, { headers: headers });
   };
 
-  saveActiveTickets = (activeTickets: Ticket[]) => {
+  saveActiveTickets = (activeTickets: Ticket[], userId: string) => {
     return this.http.put(
-      'https://sportsbook-1111-default-rtdb.firebaseio.com/tickets.json',
+      `https://sportsbook-1111-default-rtdb.firebaseio.com/${userId}/tickets.json`,
       activeTickets
     );
   };
 
-  getActiveTickets = () =>
+  getActiveTickets = (userId: string) =>
     this.http.get<Ticket[]>(
-      'https://sportsbook-1111-default-rtdb.firebaseio.com/tickets.json'
+      `https://sportsbook-1111-default-rtdb.firebaseio.com/${userId}/tickets.json`
     );
 
   checkBetStatus = (bet: Bet, period_results: PeriodResult[]) => {

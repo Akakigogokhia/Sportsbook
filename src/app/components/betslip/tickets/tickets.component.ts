@@ -20,6 +20,10 @@ export class TicketsComponent implements OnInit, OnDestroy {
   constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
+    if (this.user) {
+      this.store.dispatch(BetslipActions.LoadTickets());
+    }
+
     this.ticketSub = this.store
       .select(BetsliptSelectors.activeTicketsSelector)
       .subscribe((tickets) => {
@@ -29,8 +33,6 @@ export class TicketsComponent implements OnInit, OnDestroy {
 
   checkBets() {
     if (this.user) {
-      this.store.dispatch(BetslipActions.LoadTickets());
-
       this.toggle = !this.toggle;
       this.checkBetStatuses();
     } else {
@@ -41,11 +43,12 @@ export class TicketsComponent implements OnInit, OnDestroy {
   }
 
   private checkBetStatuses(): void {
+    console.log(this.tickets);
     const dispatchQueue: Bet[] = [];
     this.tickets.forEach((ticket) => {
       ticket.bets.forEach((bet) => {
         if (
-          !bet.status &&
+          bet.status === 'Pending' &&
           +bet.date + 2 * 60 * 60 * 1000 < new Date().getTime()
         ) {
           dispatchQueue.push(bet);

@@ -4,16 +4,22 @@ import { Store } from '@ngrx/store';
 import * as FromApp from '../../store/app.reducer';
 import * as AuthActions from './store/auth.actions';
 import { Subscription } from 'rxjs';
+import { User } from './auth.models';
+import * as BetslipSelectors from '../betslip/store/betslip.selectors';
+import * as BetslipActions from '../betslip/store/betslip.actions';
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
 })
 export class AuthComponent implements OnInit, OnDestroy {
-  isLoginMode = false;
+  isLoginMode = true;
   isLoading = false;
   storeSub: Subscription;
   error: string;
+  user: User | null;
+  balance: number;
+  balanceSub: Subscription;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -23,12 +29,21 @@ export class AuthComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.storeSub = this.store.select('auth').subscribe((authState) => {
       (this.error = authState.authError!),
-        (this.isLoading = authState.loading!);
+        (this.isLoading = authState.loading!),
+        (this.user = authState.user);
     });
+    this.balanceSub = this.store
+      .select(BetslipSelectors.balanceSelector)
+      .subscribe((balance) => (this.balance = balance));
   }
+
+  addBalance = () => {
+    this.store.dispatch(BetslipActions.AddBalance({ amount: 100 }));
+  };
 
   ngOnDestroy(): void {
     this.storeSub.unsubscribe();
+    this.balanceSub.unsubscribe();
   }
 
   authForm = this.formBuilder.group({
@@ -61,4 +76,9 @@ export class AuthComponent implements OnInit, OnDestroy {
   switchMode() {
     this.isLoginMode = !this.isLoginMode;
   }
+
+  logout = () => {
+    this.store.dispatch(AuthActions.Logout());
+    location.reload();
+  };
 }

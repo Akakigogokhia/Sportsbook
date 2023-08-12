@@ -1,5 +1,5 @@
 <div class="tickets">
-  <button [disabled]="!user" (click)="checkBets()">Tickets</button>
+  <button (click)="checkBets()">Tickets</button>
   <div class="tickets__content" *ngIf="toggle">
     <app-betslip
       *ngFor="let ticket of tickets"

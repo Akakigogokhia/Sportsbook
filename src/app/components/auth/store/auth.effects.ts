@@ -7,6 +7,7 @@ import * as AuthActions from './auth.actions';
 import { switchMap, map, of, catchError, tap } from 'rxjs';
 import { AuthResponse, User } from '../auth.models';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthEffects {
@@ -93,9 +94,21 @@ export class AuthEffects {
     )
   );
 
+  AuthLogout = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActions.Logout),
+        tap(() => {
+          localStorage.removeItem('userData');
+        })
+      ),
+    { dispatch: false }
+  );
+
   constructor(
     private actions$: Actions,
     private http: HttpClient,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 }
