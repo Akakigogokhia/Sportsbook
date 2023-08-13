@@ -2,10 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 import * as BettingActions from '../betting/store/betting.actions';
-import * as BetslipSelectors from '../betslip/store/betslip.selectors';
-import * as BetslipActions from '../betslip/store/betslip.actions';
 import { FormControl } from '@angular/forms';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -14,13 +11,15 @@ import { Subscription } from 'rxjs';
 })
 export class HeaderComponent {
   @Input() filterControl: FormControl;
+  sportId: number = 1;
 
-  selectedDuration: number;
+  selectedDuration: number | string = 'Select duration';
   filterName: string;
 
   constructor(private store: Store<AppState>) {}
 
   changeSport = (sportId: number) => {
+    this.sportId = sportId;
     this.store.dispatch(BettingActions.ChangeSport({ sport_id: sportId }));
   };
 
@@ -55,6 +54,7 @@ export class HeaderComponent {
 
   removeFilter() {
     this.filterName = '';
+    this.selectedDuration = 'Select duration';
     this.store.dispatch(BettingActions.RemoveFilter());
   }
 }

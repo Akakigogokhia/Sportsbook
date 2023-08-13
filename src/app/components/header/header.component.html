@@ -1,26 +1,24 @@
 <header class="header">
-  <section class="header__search">
-    <input
-      [formControl]="filterControl"
-      type="text"
-      class="header__search--input"
-    />
-  </section>
-  <section class="header__timeFilter">
-    <div class="header__timeFilter--dropdown">
-      <div
-        class="header__timeFilter--name"
-        *ngIf="filterName"
-        (click)="removeFilter()"
-      >
-        {{ filterName }} x
-      </div>
-      <label for="duration">Select Duration:</label>
+  <div class="header__filters">
+    <section class="header__search">
+      <input
+        [formControl]="filterControl"
+        type="text"
+        placeholder="Search game"
+        class="header__search--input"
+      />
+    </section>
+    <section class="header__timeFilter">
       <select
         id="duration"
         [(ngModel)]="selectedDuration"
+        class="header__timeFilter--dropdown"
         (change)="filterByTime(+selectedDuration)"
       >
+        <option disabled hidden [value]="'Select duration'">
+          Select duration
+        </option>
+
         <option value="0.5">30 min</option>
         <option value="1">1 hour</option>
         <option value="3">3 hours</option>
@@ -28,21 +26,55 @@
         <option value="24">24 hours</option>
         <option value="48">48 hours</option>
       </select>
-    </div>
-    <div (click)="filterByTime('today')" class="header__timeFilter--day">
-      today
-    </div>
-    <div (click)="filterByTime('tomorrow')" class="header__timeFilter--day">
-      tomorrow
-    </div>
-  </section>
+      <div (click)="filterByTime('today')" class="header__timeFilter--day">
+        today
+      </div>
+      <div (click)="filterByTime('tomorrow')" class="header__timeFilter--day">
+        tomorrow
+      </div>
+      <div class="header__timeFilter--name" *ngIf="filterName">
+        <div>Filter: {{ filterName }}</div>
+        <img
+          class="header__timeFilter--remove"
+          (click)="removeFilter()"
+          src="../../../assets/images/icons/close-white.png"
+          alt=""
+        />
+      </div>
+    </section>
+  </div>
   <section class="header__sports">
-    <div (click)="changeSport(1)" class="header__sports--football">
-      Football
+    <div
+      [ngClass]="{ 'header__sports--sport--selected': sportId === 1 }"
+      (click)="changeSport(1)"
+      class="header__sports--sport"
+    >
+      <img src="../../../assets/images/icons/football-white.png" alt="" />
+      <div>Football</div>
     </div>
-    <div (click)="changeSport(2)" class="header__sports--tennis">Tennis</div>
-    <div (click)="changeSport(3)" class="header__sports--basketball">
-      Basketball
+    <div
+      [ngClass]="{ 'header__sports--sport--selected': sportId === 2 }"
+      (click)="changeSport(2)"
+      class="header__sports--sport"
+    >
+      <img src="../../../assets/images/icons/tennis-white.png" alt="" />
+      <div>Tennis</div>
+    </div>
+    <div
+      [ngClass]="{ 'header__sports--sport--selected': sportId === 3 }"
+      (click)="changeSport(3)"
+      class="header__sports--sport"
+    >
+      <img src="../../../assets/images/icons/basketball-white.png" alt="" />
+      <div>Basketball</div>
+    </div>
+    <div (click)="changeSport(3)" class="header__sports--sport">
+      <img src="../../../assets/images/icons/basketball-white.png" alt="" />
+      <div>Basketball</div>
+    </div>
+    <div (click)="changeSport(3)" class="header__sports--sport">
+      <img src="../../../assets/images/icons/basketball-white.png" alt="" />
+      <div>Basketball</div>
     </div>
   </section>
 </header>
