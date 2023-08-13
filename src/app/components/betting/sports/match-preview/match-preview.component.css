@@ -3,9 +3,10 @@
   gap: 10px;
   border: 1px solid #ccc;
   border-bottom: none;
-  padding: 15px;
+  padding: 15px 5px;
   align-items: center;
   background-color: #f2f2f2;
+  box-sizing: border-box;
 }
 
 .odds {
@@ -14,20 +15,20 @@
 }
 
 .match__odds {
+  flex: 2;
   display: flex;
   gap: 10px;
 }
 
 .match__desc {
   width: 100%;
-  height: 100%;
+  flex: 1;
   display: flex;
-  gap: 10px;
 }
 
 .match__teams {
   font-size: 16px;
-  width: 22%;
+  flex: 3;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -39,7 +40,7 @@
 }
 
 .match__date {
-  width: 5%;
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 3px;

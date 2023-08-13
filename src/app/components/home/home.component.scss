@@ -1,11 +1,13 @@
 .home {
   display: flex;
-}
-
-.home__main {
-  flex: 3;
+  flex-direction: column;
 }
 
 .home__ticketsContainer {
-  flex: 1;
+  display: flex;
+  flex-direction: row;
+}
+
+.home__main {
+  width: 100%;
 }

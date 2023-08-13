@@ -1,20 +1,56 @@
 .league__header {
   display: flex;
   gap: 10px;
-  background-color: aquamarine;
-}
-
-.league__desc {
-  display: flex;
-  gap: 10px;
+  background-color: #666666;
+  color: white;
+  align-items: center;
+  height: 20px;
+  border-radius: 5px 5px 0px 0px;
+  padding: 15px 5px;
+  box-sizing: border-box;
 }
 
 .league__oddNames {
   display: flex;
+  flex: 2;
+  background-color: #666666;
+  gap: 10px;
+}
+.league__oddNames--main {
+  display: flex;
+  gap: 10px;
+}
+.league__oddNames--doubleChance {
+  display: flex;
+  gap: 10px;
+}
+.league__oddNames--totals {
+  display: flex;
   gap: 10px;
 }
 
-.league__oddNames--special {
+.oddName {
+  min-width: 35px;
+  padding: 0px 10px;
+  text-align: center;
+}
+
+.league__matchDesc {
+  text-align: center;
   display: flex;
-  gap: 10px;
+  flex: 1;
+}
+
+.league__date {
+  flex: 1;
+}
+
+.league__fixture {
+  flex: 3;
+  display: flex;
+  justify-content: center;
+}
+.league__fixture--content {
+  width: 85%;
+  text-align: start;
 }

@@ -12,3 +12,31 @@
   line-height: 14px;
   transition: background-color 0.3s;
 }
+
+@mixin spinner(
+  $size: 20px,
+  $border-width: 4px,
+  $spinner-color: #333,
+  $background-color: rgba(255, 255, 255, 0.3)
+) {
+  position: absolute;
+  top: 50%;
+  left: 37%;
+  transform: translate(-50%);
+
+  width: $size;
+  height: $size;
+  border: $border-width solid $background-color;
+  border-radius: 50%;
+  border-top: $border-width solid $spinner-color;
+  animation: spin 1s linear infinite;
+
+  @keyframes spin {
+    0% {
+      transform: translateY(-50%) rotate(0deg);
+    }
+    100% {
+      transform: translateY(-50%) rotate(360deg);
+    }
+  }
+}
