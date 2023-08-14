@@ -57,14 +57,17 @@
   cursor: pointer;
   background-color: transparent;
 }
-.ticket__totalOdd, .ticket__potentialPayout {
+.ticket__totalOdd,
+.ticket__potentialPayout {
   display: flex;
   justify-content: space-between;
 }
-.ticket__totalOdd span, .ticket__potentialPayout span {
+.ticket__totalOdd span,
+.ticket__potentialPayout span {
   font-size: 18px;
 }
-.ticket__totalOdd div, .ticket__potentialPayout div {
+.ticket__totalOdd div,
+.ticket__potentialPayout div {
   font-size: 20px;
 }
 .ticket__stakes {
