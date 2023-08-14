@@ -1,0 +1,12 @@
+.betslip {
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: 15px;
+  font-size: 17px;
+  background-color: rgb(235, 235, 235);
+  &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}

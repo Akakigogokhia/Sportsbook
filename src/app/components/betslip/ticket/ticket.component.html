@@ -5,6 +5,7 @@
         class="ticket__bet__container"
         *ngFor="let bet of ticket.bets"
         [bet]="bet"
+        [isActive]="true"
       ></app-bet>
     </section>
     <div class="ticket__bottom">

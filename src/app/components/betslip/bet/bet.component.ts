@@ -11,7 +11,7 @@ import { Bet } from 'src/app/shared/models/betting.models';
 })
 export class BetComponent {
   @Input() bet: Bet;
-  isActive: boolean;
+  @Input() isActive: boolean;
 
   constructor(private store: Store<AppState>) {}
   removeBet = (betId: number) => {

@@ -319,27 +319,38 @@ export class oddsCheckerService {
     away: string,
     fullTime: PeriodResult
   ): boolean {
-    const teamName = betType.split(' ')[2]; // Extracting "Everton" from "3-Way Handicap Everton -3"
-    const handicap = parseInt(betType.split(' ')[3], 10); // Extracting "-3" from "3-Way Handicap Everton -3"
+    const [teamName, handicap] = betType
+      .replace('3-Way Handicap ', '')
+      .split(' ');
+    const parsedHandicap = parseInt(handicap, 10);
+
+    const scoreDifference = fullTime.team_1_score - fullTime.team_2_score;
 
     if (teamName === home) {
+      const adjustedScoreDifference = scoreDifference + parsedHandicap;
+
       if (position.includes(home)) {
-        return fullTime.team_1_score - fullTime.team_2_score > handicap;
-      } else if (position.includes(away)) {
-        return fullTime.team_2_score - fullTime.team_1_score + handicap > 0;
+        return adjustedScoreDifference > 0;
+      } else if (position.includes('Draw')) {
+        return adjustedScoreDifference === 0;
       } else {
-        return fullTime.team_1_score - fullTime.team_2_score === handicap;
+        return scoreDifference < -1;
       }
     } else if (teamName === away) {
+      const adjustedScoreDifference = scoreDifference - parsedHandicap;
+
       if (position.includes(away)) {
-        return fullTime.team_2_score - fullTime.team_1_score > handicap;
-      } else if (position.includes(home)) {
-        return fullTime.team_1_score - fullTime.team_2_score + handicap > 0;
+        return adjustedScoreDifference < -1;
+      } else if (position.includes('Draw')) {
+        return adjustedScoreDifference === 0;
       } else {
-        return fullTime.team_2_score - fullTime.team_1_score === handicap;
+        return scoreDifference > 1;
       }
-    } else {
-      return false; // Unexpected
+    }
+
+    // Unexpected
+    else {
+      return false;
     }
   }
 }

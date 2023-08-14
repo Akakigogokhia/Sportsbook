@@ -14,7 +14,7 @@ import { User } from '../../auth/auth.models';
 export class TicketsComponent implements OnInit, OnDestroy {
   ticketSub: Subscription;
   tickets: Ticket[];
-  toggle: boolean = false;
+  toggle: boolean = true;
   @Input() user: User | null;
 
   constructor(private store: Store<AppState>) {}

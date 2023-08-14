@@ -10,10 +10,14 @@
 
   <div class="bet__right">
     <img
+      *ngIf="isActive"
       (click)="removeBet(bet.id)"
       src="../../../../assets/images/icons/close.png"
       alt=""
     />
+    <div *ngIf="!isActive">
+      <h3>{{ bet.status }} - status</h3>
+    </div>
     <div class="bet__odd">{{ bet.odd }}</div>
   </div>
 </div>
