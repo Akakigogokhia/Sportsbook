@@ -30,8 +30,9 @@
 
 .oddName {
   min-width: 35px;
-  padding: 0px 10px;
+  padding: 0px 11px;
   text-align: center;
+  box-sizing: content-box;
 }
 
 .league__matchDesc {

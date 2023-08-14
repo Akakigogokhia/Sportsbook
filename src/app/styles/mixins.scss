@@ -1,6 +1,7 @@
 @mixin oddStyle {
-  height: 12px;
-  min-width: 35px;
+  box-sizing: border-box;
+  height: 34px;
+  min-width: 57px;
   text-align: center;
   cursor: pointer;
   vertical-align: middle;

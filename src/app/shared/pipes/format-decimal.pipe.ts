@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class FormatDecimalPipe implements PipeTransform {
   transform(num: number | undefined): string {
-    if (num) return num.toFixed(2);
+    if (num || num === 0) return num.toFixed(2);
     return '';
   }
 }

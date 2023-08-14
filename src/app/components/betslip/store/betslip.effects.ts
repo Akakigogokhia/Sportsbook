@@ -21,7 +21,11 @@ import * as BetslipSelectors from '../store/betslip.selectors';
 export class BetslipEffects {
   Calculate = createEffect(() =>
     this.actions$.pipe(
-      ofType(BetslipActions.AddBet, BetslipActions.ChangeBetAmount),
+      ofType(
+        BetslipActions.AddBet,
+        BetslipActions.ChangeBetAmount,
+        BetslipActions.RemoveBet
+      ),
       map(() => BetslipActions.CalculateTicket())
     )
   );

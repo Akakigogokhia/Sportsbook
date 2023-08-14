@@ -3,6 +3,11 @@ import { Bet, Status, Ticket } from 'src/app/shared/models/betting.models';
 
 export const AddBet = createAction('[Betting] Addbet', props<{ bet: Bet }>());
 
+export const RemoveBet = createAction(
+  '[Bettin] RemoveBet',
+  props<{ betId: number }>()
+);
+
 export const ChangeBetAmount = createAction(
   '[Betting] ChangeBetAmount',
   props<{ betAmount: number }>()

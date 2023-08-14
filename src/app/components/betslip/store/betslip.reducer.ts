@@ -37,6 +37,18 @@ export const BetslipReducer = createReducer(
       },
     };
   }),
+  on(BetslipActions.RemoveBet, (state, action) => {
+    const updatedBets = state.ticket.bets.filter(
+      (bet) => bet.id !== action.betId
+    );
+    return {
+      ...state,
+      ticket: {
+        ...state.ticket,
+        bets: [...updatedBets],
+      },
+    };
+  }),
   on(BetslipActions.ChangeBetAmount, (state, { betAmount }) => ({
     ...state,
     ticket: {

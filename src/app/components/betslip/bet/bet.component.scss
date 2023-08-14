@@ -1,0 +1,48 @@
+.bet {
+  &__left {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  &__right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    img {
+      cursor: pointer;
+      width: 11px;
+      height: 11px;
+      transition: transform 0.2s ease;
+      &:hover {
+        transform: rotate(90deg);
+      }
+    }
+  }
+
+  &__teams {
+    font-size: 17px;
+    font-weight: bold;
+  }
+
+  &__type {
+    font-size: 14px;
+    color: #858585;
+  }
+
+  &__position {
+    font-size: 16px;
+    font-weight: bold;
+    color: #8a6d6d;
+  }
+
+  &__odd {
+    padding: 10px;
+    border-radius: 2px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background-color: #8a6d6d;
+  }
+}
