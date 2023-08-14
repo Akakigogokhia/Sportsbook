@@ -1,17 +1,19 @@
-<div class="bet__left">
-  <div class="bet__teams">
-    <div>{{ bet.home }}</div>
-    <div>{{ bet.away }}</div>
+<div class="bet">
+  <div class="bet__left">
+    <div class="bet__teams">
+      <div>{{ bet.home }}</div>
+      <div>{{ bet.away }}</div>
+    </div>
+    <div class="bet__type">{{ bet.bet_type }}</div>
+    <div class="bet__position">{{ bet.position }}</div>
   </div>
-  <div class="bet__type">{{ bet.bet_type }}</div>
-  <div class="bet__position">{{ bet.position }}</div>
-</div>
 
-<div class="bet__right">
-  <img
-    (click)="removeBet(bet.id)"
-    src="../../../../assets/images/icons/close.png"
-    alt=""
-  />
-  <div class="bet__odd">{{ bet.odd }}</div>
+  <div class="bet__right">
+    <img
+      (click)="removeBet(bet.id)"
+      src="../../../../assets/images/icons/close.png"
+      alt=""
+    />
+    <div class="bet__odd">{{ bet.odd }}</div>
+  </div>
 </div>

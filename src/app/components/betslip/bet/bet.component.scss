@@ -1,4 +1,12 @@
 .bet {
+  display: flex;
+  justify-content: space-between;
+  width: 95%;
+  background-color: white;
+  height: max-content;
+  padding: 15px;
+  border-radius: 4px;
+  margin-bottom: 10px;
   &__left {
     display: flex;
     flex-direction: column;
