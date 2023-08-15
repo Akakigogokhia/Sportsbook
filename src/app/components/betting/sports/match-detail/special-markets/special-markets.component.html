@@ -1,11 +1,19 @@
-<div class="special-markets" *ngFor="let specialMarket of specialMarkets">
-  <div class="special-market__name">{{ specialMarket.name }}</div>
-  <div
-    class="odd"
-    *ngFor="let line of specialMarket.lines | keyvalue"
-    (click)="addBet(line.value.price, specialMarket.name, line.value.name)"
-  >
-    <div *ngIf="line.value.price">{{ line.value.name }}</div>
-    <div *ngIf="line.value.price">{{ line.value.price }}</div>
+<div class="special-markets">
+  <div class="special-market" *ngFor="let specialMarket of specialMarkets">
+    <div class="special-market__name">{{ specialMarket.name }}</div>
+    <section class="special-market__container">
+      <ng-container *ngFor="let line of specialMarket.lines | keyvalue">
+        <div
+          *ngIf="line.value.price"
+          class="odd special-market__lines"
+          (click)="
+            addBet(line.value.price, specialMarket.name, line.value.name)
+          "
+        >
+          <div class="special-market__line--name">{{ line.value.name }}</div>
+          <div class="special-market__line--price">{{ line.value.price }}</div>
+        </div>
+      </ng-container>
+    </section>
   </div>
 </div>

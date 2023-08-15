@@ -123,8 +123,11 @@
   <div class="period__odds">
     <h3>Spreads</h3>
 
-    <section *ngFor="let spread of period?.spreads | keyvalue">
-      <div class="odds period__odds--spreads" *ngIf="spread.value.home">
+    <ng-container *ngFor="let spread of period?.spreads | keyvalue">
+      <section
+        *ngIf="spread.value.home && spread.key !== '0.0'"
+        class="odds period__odds--spreads"
+      >
         <div
           class="odd"
           (click)="
@@ -157,8 +160,8 @@
           <p>2 ({{ spread.key[0] == "-" ? spread.key : "+" + spread.key }})</p>
           {{ spread.value.away }}
         </div>
-      </div>
-    </section>
+      </section>
+    </ng-container>
   </div>
   <div *ngIf="specialMarkets">
     <app-special-markets
