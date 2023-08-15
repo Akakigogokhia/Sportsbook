@@ -56,6 +56,9 @@ export class BetslipEffects {
           map((response) =>
             BetslipActions.SaveBetStatus({
               id: action.bet.id,
+              results: this.betSlipService.sortPeriods(
+                response.events![0].period_results!
+              ),
               bet_status: this.betSlipService.checkBetStatus(
                 action.bet,
                 response.events![0].period_results!

@@ -1,6 +1,19 @@
 <div class="details">
   <section class="details__match">
-    <div class="details__home">{{ market!.home }}</div>
+    <img
+      class="details__match--close"
+      src="../../../../../assets/images/icons/close-match.png"
+      alt=""
+      (click)="close()"
+    />
+    <div class="details__team">
+      <img
+        class="club"
+        src="../../../../../assets/images/icons/football-club.png"
+        alt=""
+      />
+      <div>{{ market!.home }}</div>
+    </div>
     <div class="details__date">
       <div class="details__date--date">{{ market!.starts | formatDate }}</div>
       <div class="details__date--time">
@@ -8,18 +21,38 @@
       </div>
       vs
     </div>
-    <div class="details__away">{{ market?.away }}</div>
+    <div class="details__team">
+      <img
+        class="club"
+        src="../../../../../assets/images/icons/football-club.png"
+        alt=""
+      />
+      <div>{{ market?.away }}</div>
+    </div>
   </section>
   <div class="details__header">
-    <ul>
-      <li (click)="setOddsType('All')">All</li>
-      <li (click)="setOddsType('I Half')">
-        {{ sportId === 2 ? "I Set" : "I Half" }}
-      </li>
-      <li *ngIf="sportId !== 2" (click)="setOddsType('Goals')">
-        {{ sportId == 1 ? "Goals" : "Points" }}
-      </li>
-    </ul>
+    <div
+      [ngClass]="oddsType === 'All' ? 'activeOdds' : ''"
+      class="details__header--option"
+      (click)="setOddsType('All')"
+    >
+      All
+    </div>
+    <div
+      [ngClass]="oddsType === 'I Half' ? 'activeOdds' : ''"
+      class="details__header--option"
+      (click)="setOddsType('I Half')"
+    >
+      {{ sportId === 2 ? "I Set" : "I Half" }}
+    </div>
+    <div
+      [ngClass]="oddsType === 'Goals' ? 'activeOdds' : ''"
+      class="details__header--option"
+      *ngIf="sportId !== 2"
+      (click)="setOddsType('Goals')"
+    >
+      {{ sportId == 1 ? "Goals" : "Points" }}
+    </div>
   </div>
 
   <section class="odds details__odds--all" *ngIf="oddsType === 'All'">

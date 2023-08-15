@@ -5,13 +5,43 @@
     [isActive]="false"
     *ngFor="let bet of betslip.bets"
   ></app-bet>
-  <section class="ticket__outcomes">
-    <div class="ticket__bet">Bet amount - {{ betslip.total_stake }}₾</div>
-    <div class="ticket__totalOdd">
+  <section class="betslip__outcomes">
+    <div class="betslip__bet">
+      Bet amount - {{ betslip.total_stake | formatDecimal }}₾
+    </div>
+    <div class="betslip__totalOdd">
       Total odd - {{ betslip.total_odd | formatDecimal }}
     </div>
-    <div class="ticket__potentialPayout">
-      potential payout - {{ betslip.potential_payout | formatDecimal }}
+    <div class="betslip__potentialPayout">
+      <div>
+        potential payout - {{ betslip.potential_payout | formatDecimal }}
+      </div>
+      <div *ngIf="betslip.status === 'Pending'">
+        Pending
+        <img
+          *ngIf="betslip.status === 'Pending'"
+          class="betslip__status"
+          src="../../../../assets/images/icons/dry-clean.png"
+          alt=""
+        />
+      </div>
+      <div *ngIf="betslip.status === 'Lost'">
+        Lost
+        <img
+          class="betslip__status"
+          src="../../../../assets/images/icons/x-mark.png"
+          alt=""
+        />
+      </div>
+
+      <div *ngIf="betslip.status === 'Won'">
+        Won
+        <img
+          class="betslip__status"
+          src="../../../../assets/images/icons/check.png"
+          alt=""
+        />
+      </div>
     </div>
   </section>
 </div>

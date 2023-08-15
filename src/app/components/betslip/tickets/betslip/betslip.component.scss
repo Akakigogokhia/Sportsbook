@@ -9,4 +9,14 @@
     flex-direction: column;
     align-items: center;
   }
+
+  &__status {
+    width: 12px;
+    height: 12px;
+  }
+
+  &__potentialPayout {
+    display: flex;
+    justify-content: space-between;
+  }
 }

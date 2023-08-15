@@ -10,14 +10,49 @@
 
   <div class="bet__right">
     <img
+      class="bet__right--remove"
       *ngIf="isActive"
       (click)="removeBet(bet.id)"
       src="../../../../assets/images/icons/close.png"
       alt=""
     />
-    <div *ngIf="!isActive">
-      <h3>{{ bet.status }} - status</h3>
+    <div *ngIf="!isActive" class="bet__right--statuses">
+      <img
+        *ngIf="bet.status === 'Pending'"
+        class="bet__right--status"
+        src="../../../../assets/images/icons/dry-clean.png"
+        alt=""
+      />
+      <img
+        class="bet__right--status"
+        *ngIf="bet.status === 'Lost'"
+        src="../../../../assets/images/icons/x-mark.png"
+        alt=""
+      />
+      <img
+        class="bet__right--status"
+        *ngIf="bet.status === 'Won'"
+        src="../../../../assets/images/icons/check.png"
+        alt=""
+      />
+      <div class="bet__odd">
+        {{ bet.odd }}
+      </div>
     </div>
-    <div class="bet__odd">{{ bet.odd }}</div>
+    <div *ngIf="isActive" class="bet__odd">
+      {{ bet.odd }}
+    </div>
+    <div *ngIf="!isActive && bet.results" class="bet__right--results">
+      <div *ngIf="bet.results[0]" class="bet__right--half">
+        <p>{{ bet.results[0].team_1_score }}</p>
+        <p>{{ bet.results[0].team_2_score }}</p>
+        <p>FT</p>
+      </div>
+      <div *ngIf="bet.results[1]" class="bet__right--half">
+        <p>{{ bet.results[1].team_1_score }}</p>
+        <p>{{ bet.results[1].team_2_score }}</p>
+        <p>HT</p>
+      </div>
+    </div>
   </div>
 </div>

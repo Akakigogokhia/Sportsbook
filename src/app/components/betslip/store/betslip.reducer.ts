@@ -91,6 +91,7 @@ export const BetslipReducer = createReducer(
           return {
             ...bet,
             status: action.bet_status,
+            results: action.results,
           };
         }
         return bet;

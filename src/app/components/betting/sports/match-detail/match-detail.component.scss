@@ -1,6 +1,7 @@
 @import "../../../../styles/mixins.scss";
 
 .details {
+  position: relative;
   margin-top: 50px;
   width: 100%;
   height: calc(100vh - 50px);
@@ -8,16 +9,75 @@
   display: flex;
   flex-direction: column;
   padding: 40px;
-}
 
-.details__match {
-  width: 50%;
-  border: 1px solid black;
-  display: flex;
-  justify-content: center;
-  gap: 10px;
+  &__match {
+    width: 100%;
+    height: 500px;
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+    color: white;
+    font-size: 20px;
+    display: flex;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+    background-image: url("../../../../../assets/images/icons/match-backg.jpg");
+    background-size: cover;
+    background-position: center;
+
+    &--close {
+      width: 27px;
+      height: 27px;
+      cursor: pointer;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+  }
+
+  &__date {
+    margin-top: 17px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    &--date {
+      font-size: 15px;
+      opacity: 0.8;
+    }
+  }
+
+  &__team {
+    width: 25%;
+    font-size: 16px;
+    text-align: center;
+  }
+
+  &__header {
+    width: 50%;
+    margin: 0 25%;
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+
+    &--option {
+      cursor: pointer;
+      padding: 10px;
+    }
+  }
 }
 
 .period {
   width: 100%;
+}
+
+.club {
+  width: 80px;
+  height: 80px;
+}
+
+.activeOdds {
+  border-bottom: 2px solid black;
 }

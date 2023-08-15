@@ -41,6 +41,7 @@ export class BetsliptService {
             odd: odd,
             firstHalf: firstHalf,
             status: 'Pending',
+            results: [],
           },
         })
       );
@@ -72,12 +73,16 @@ export class BetsliptService {
       `https://sportsbook-1111-default-rtdb.firebaseio.com/${userId}/tickets.json`
     );
 
-  checkBetStatus = (bet: Bet, period_results: PeriodResult[]) => {
-    const lastIndex = period_results.length - 1;
-    period_results.sort(
+  sortPeriods = (period_results: PeriodResult[]) => {
+    return period_results.sort(
       (a, b) =>
         b.team_1_score + b.team_2_score - (a.team_1_score + a.team_2_score)
     );
+  };
+
+  checkBetStatus = (bet: Bet, period_results: PeriodResult[]) => {
+    const lastIndex = period_results.length - 1;
+    period_results = this.sortPeriods(period_results);
     const result = bet.firstHalf
       ? {
           home: period_results[lastIndex].team_1_score,
