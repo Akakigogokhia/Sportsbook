@@ -24,7 +24,7 @@ export class oddsCheckerService {
     fullTime: PeriodResult,
     result: { home: number; away: number }
   ) => {
-    if (betType === 'Main Line') {
+    if (betType === 'Main Line' || betType === 'I Half Main Line') {
       if (position === '1') return result.home > result.away;
       else if (position === 'X') return result.home === result.away;
       else return result.home < result.away;
@@ -33,14 +33,16 @@ export class oddsCheckerService {
       else if (position === '12')
         return result.home > result.away || result.home < result.away;
       else return result.home <= result.away;
-    } else if (!isNaN(+betType) && betType.trim() !== '') {
-      if (position === 'over') {
-        return +betType >= result.home + result.away;
-      } else if (position === 'under') {
-        return +betType <= result.home + result.away;
-      } else if (position === '1') {
-        return result.home + +betType > result.away;
-      } else return result.home < result.away + +betType;
+    } else if (betType.includes('Spread') || betType.includes('Over/Under')) {
+      position = position.replace(/1 \(|2 \(|Over|Under|\(|\)/g, '');
+
+      if (position.includes('over')) {
+        return +position >= result.home + result.away;
+      } else if (position.includes('under')) {
+        return +position <= result.home + result.away;
+      } else if (position.includes('1')) {
+        return result.home + +position > result.away;
+      } else return result.home < result.away + +position;
     } else if (betType === 'Half-Time/Full-Time') {
       const teams = position.split(' - ');
       const firstPeriod = teams[0];
