@@ -1,73 +1,95 @@
-<div [style.backgroundColor]="single ? 'yellow' : 'red'">
-  <h1 *ngIf="firstHalf">{{ sportId === 2 ? "1st Set" : "1st Half" }}</h1>
-  <section class="details__odds--moneyLine">
-    <div (click)="addBet(home, 'Main Line', '1', firstHalf)" class="odd">
-      1 - {{ home }}
-    </div>
-    <div
-      (click)="addBet(home, 'Main Line', 'X', firstHalf)"
-      class="odd"
-      *ngIf="draw"
+<div class="period">
+  <h2 *ngIf="firstHalf">{{ sportId === 2 ? "1st Set" : "1st Half" }}</h2>
+  <div class="period__odds">
+    <h3>Main line</h3>
+    <section class="odds period__odds--moneyLine">
+      <div (click)="addBet(home, 'Main Line', '1', firstHalf)" class="odd">
+        <p>1</p>
+        {{ home }}
+      </div>
+      <div
+        (click)="addBet(home, 'Main Line', 'X', firstHalf)"
+        class="odd"
+        *ngIf="draw"
+      >
+        <p>X</p>
+        {{ draw }}
+      </div>
+      <div (click)="addBet(home, 'Main Line', '2', firstHalf)" class="odd">
+        <p>2</p>
+        {{ away }}
+      </div>
+    </section>
+  </div>
+  <div class="period__odds">
+    <h3>Double chance</h3>
+
+    <section class="odds period__odds--doubleChance" *ngIf="!firstHalf && draw">
+      <div
+        (click)="
+          addBet(+doubleChance.homeOrDraw, 'Double Chance', '1X', firstHalf)
+        "
+        class="odd"
+      >
+        <p>1X</p>
+        {{ doubleChance.homeOrDraw }}
+      </div>
+      <div
+        (click)="
+          addBet(+doubleChance.homeOrAway, 'Double Chance', '12', firstHalf)
+        "
+        class="odd"
+      >
+        <p>12</p>
+        {{ doubleChance.homeOrAway }}
+      </div>
+      <div
+        (click)="
+          addBet(+doubleChance.drawOrAway, 'Double Chance', 'X2', firstHalf)
+        "
+        class="odd"
+      >
+        <p>X2</p>
+        {{ doubleChance.drawOrAway }}
+      </div>
+    </section>
+  </div>
+
+  <div class="period__odds">
+    <h3>Totals</h3>
+
+    <section
+      class="odds period__odds--totals"
+      *ngFor="let total of period?.totals | keyvalue"
     >
-      X - {{ draw }}
-    </div>
-    <div (click)="addBet(home, 'Main Line', '2', firstHalf)" class="odd">
-      2 - {{ away }}
-    </div>
-  </section>
-  <section class="details__odds--doubleChance" *ngIf="!firstHalf && draw">
-    <div
-      (click)="
-        addBet(+doubleChance.homeOrDraw, 'Double Chance', '1X', firstHalf)
-      "
-      class="odd"
-    >
-      1X - {{ doubleChance.homeOrDraw }}
-    </div>
-    <div
-      (click)="
-        addBet(+doubleChance.homeOrAway, 'Double Chance', '12', firstHalf)
-      "
-      class="odd"
-    >
-      12 - {{ doubleChance.homeOrAway }}
-    </div>
-    <div
-      (click)="
-        addBet(+doubleChance.drawOrAway, 'Double Chance', 'X2', firstHalf)
-      "
-      class="odd"
-    >
-      X2 - {{ doubleChance.drawOrAway }}
-    </div>
-  </section>
-  <section
-    class="details__odds--totals"
-    *ngFor="let total of period?.totals | keyvalue"
-  >
-    <div
-      (click)="
-        addBet(total.value.under, total.value.points, 'Under', firstHalf)
-      "
-      class="odd"
-    >
-      Under - {{ total.value.under }}
-    </div>
-    <div>{{ total.key }}</div>
-    <div
-      (click)="addBet(total.value.over, total.value.points, 'Over', firstHalf)"
-      class="odd"
-    >
-      Over - {{ total.value.over }}
-    </div>
-  </section>
-  <section
-    class="details__odds--spreads"
-    *ngFor="let spread of period?.spreads | keyvalue"
-  >
-    <div *ngIf="spread.key !== '0.0' && spread.value.home">
-      <div>
+      <div
+        (click)="
+          addBet(total.value.under, total.value.points, 'Under', firstHalf)
+        "
+        class="odd"
+      >
+        <p>Under ({{ total.key }})</p>
+        {{ total.value.under }}
+      </div>
+      <div
+        (click)="
+          addBet(total.value.over, total.value.points, 'Over', firstHalf)
+        "
+        class="odd"
+      >
+        <p>Over ({{ total.key }})</p>
+        {{ total.value.over }}
+      </div>
+    </section>
+  </div>
+
+  <div class="period__odds">
+    <h3>Spreads</h3>
+
+    <section *ngFor="let spread of period?.spreads | keyvalue">
+      <div class="odds period__odds--spreads" *ngIf="spread.value.home">
         <div
+          class="odd"
           (click)="
             addBet(
               spread.value.home,
@@ -77,10 +99,11 @@
             )
           "
         >
-          {{ "1 - " + spread.value.home }}
+          <p>1 ({{ spread.key[0] == "-" ? spread.key : "+" + spread.key }})</p>
+          {{ spread.value.home }}
         </div>
-        <div>{{ spread.key[0] == "-" ? spread.key : "+" + spread.key }}</div>
         <div
+          class="odd"
           (click)="
             addBet(
               spread.value.home,
@@ -90,11 +113,12 @@
             )
           "
         >
-          {{ "2 - " + spread.value.away }}
+          <p>2 ({{ spread.key[0] == "-" ? spread.key : "+" + spread.key }})</p>
+          {{ spread.value.away }}
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
   <div *ngIf="specialMarkets">
     <app-special-markets
       [specialMarkets]="specialMarkets"

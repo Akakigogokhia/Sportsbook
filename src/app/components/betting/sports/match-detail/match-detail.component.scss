@@ -1,0 +1,23 @@
+@import "../../../../styles/mixins.scss";
+
+.details {
+  margin-top: 50px;
+  width: 100%;
+  height: calc(100vh - 50px);
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+}
+
+.details__match {
+  width: 50%;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.period {
+  width: 100%;
+}

@@ -7,7 +7,6 @@ import { Subscription } from 'rxjs';
 import { SpecialMarkets } from 'src/app/shared/models/specialMarket.model';
 import { Event } from 'src/app/shared/models/market.model';
 import { FilterService } from '../../services/filter.service';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-match-detail',
@@ -26,8 +25,7 @@ export class MatchDetailComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<FromApp.AppState>,
-    private filterService: FilterService,
-    private location: Location
+    private filterService: FilterService
   ) {}
 
   setOddsType(type: 'All' | 'I Half' | 'Goals') {

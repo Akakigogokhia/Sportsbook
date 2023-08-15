@@ -31,6 +31,7 @@
   </section>
   <section class="odds details__odds--first" *ngIf="oddsType === 'I Half'">
     <app-period
+      class="period"
       [specialMarkets]="specialMarkets!"
       [period]="market?.periods?.num_1!"
       [firstHalf]="true"
@@ -44,6 +45,7 @@
   </section>
   <section class="odds details__odds--goals" *ngIf="oddsType === 'Goals'">
     <app-period
+      class="period"
       [specialMarkets]="goalSpecialMarkets"
       [period]="market?.periods?.num_0!"
       [event_id]="market!.event_id"

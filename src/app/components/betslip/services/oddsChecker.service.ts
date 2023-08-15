@@ -39,7 +39,6 @@ export class oddsCheckerService {
       } else if (position === 'under') {
         return +betType <= result.home + result.away;
       } else if (position === '1') {
-        console.log(result.home, +betType, result.away);
         return result.home + +betType > result.away;
       } else return result.home < result.away + +betType;
     } else if (betType === 'Half-Time/Full-Time') {
