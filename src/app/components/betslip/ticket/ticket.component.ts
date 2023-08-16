@@ -34,11 +34,14 @@ export class TicketComponent implements OnInit, OnDestroy {
     this.ticketSub = this.store
       .select(BetslipSelectors.ticketSelector)
       .subscribe((ticket) => {
-        (this.ticket = ticket), console.log(ticket);
+        this.ticket = ticket;
       });
   }
 
   changeBetAmount = (betAmount: number) => {
+    if (this.betAmount > 10000) {
+      this.betAmount = 10000;
+    }
     this.potential_payout = betAmount * this.ticket.total_odd;
   };
 
@@ -47,13 +50,20 @@ export class TicketComponent implements OnInit, OnDestroy {
   }
 
   placeTicket() {
+    if (this.betAmount > 10000) {
+      this.betAmount = 10000;
+    }
     if (this.balance >= this.betAmount) {
       this.dialogBox = true;
       this.ticket = {
         ...this.ticket,
+        total_stake: this.betAmount,
         potential_payout: this.betAmount * this.ticket.total_odd,
       };
       this.store.dispatch(BetslipActions.PlaceTicket({ ticket: this.ticket }));
+      this.store.dispatch(
+        BetslipActions.AddBalance({ amount: -this.betAmount })
+      );
     } else
       this.store.dispatch(
         BetslipActions.Fail({
@@ -62,12 +72,20 @@ export class TicketComponent implements OnInit, OnDestroy {
       );
   }
 
+  removeBet = (betId: number) => {
+    this.store.dispatch(BetslipActions.RemoveBet({ betId: betId }));
+  };
+
   answerDialog(shouldSaveTicket: boolean) {
     if (!shouldSaveTicket) {
       this.store.dispatch(BetslipActions.ClearTicket());
     }
     this.dialogBox = false;
   }
+
+  changeStake = (amount: number) => {
+    this.betAmount = amount;
+  };
 
   ngOnDestroy(): void {
     this.ticketSub.unsubscribe();

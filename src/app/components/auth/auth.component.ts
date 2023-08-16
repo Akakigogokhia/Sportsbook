@@ -8,10 +8,12 @@ import { User } from './auth.models';
 import * as BetslipSelectors from '../betslip/store/betslip.selectors';
 import * as BetslipActions from '../betslip/store/betslip.actions';
 import { AuthService } from './auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
+  styleUrls: ['./auth.component.css'],
 })
 export class AuthComponent implements OnInit, OnDestroy {
   isLoginMode = true;
@@ -21,11 +23,13 @@ export class AuthComponent implements OnInit, OnDestroy {
   user: User | null;
   balance: number;
   balanceSub: Subscription;
+  auth: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private store: Store<FromApp.AppState>,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -41,6 +45,14 @@ export class AuthComponent implements OnInit, OnDestroy {
 
   addBalance = () => {
     this.store.dispatch(BetslipActions.AddBalance({ amount: 100 }));
+  };
+
+  showAuth = () => {
+    this.auth = !this.auth;
+  };
+
+  goHome = () => {
+    this.router.navigate(['/']);
   };
 
   ngOnDestroy(): void {

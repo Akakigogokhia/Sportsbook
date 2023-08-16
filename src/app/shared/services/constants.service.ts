@@ -16,103 +16,115 @@ export class Constants {
   leagues: League = {
     '1728': {
       name: 'Sweden - Allsvenskan',
-      logoUrl: 'images/allsvenskan.jpg',
+      logoUrl: 'assets/images/leagues/allsvenskan.jpg',
     },
     '1742': {
       name: 'Armenia - Premier League',
-      logoUrl: 'images/armenia.jpg',
+      logoUrl: 'assets/images/leagues/armenia.jpg',
     },
     '1792': {
       name: 'Austria - Bundesliga',
-      logoUrl: 'images/austria-bundesliga.png',
+      logoUrl: 'assets/images/leagues/austria-bundesliga.png',
     },
     '1817': {
       name: 'Belgium - Pro League',
-      logoUrl: 'images/belgium-pro-league.png',
+      logoUrl: 'assets/images/leagues/belgium-pro-league.png',
     },
     '1834': {
       name: 'Brazil - Serie A',
-      logoUrl: 'images/brazil-serie-a.png',
+      logoUrl: 'assets/images/leagues/brazil-serie-a.png',
     },
     '1842': {
       name: 'Germany - Bundesliga',
-      logoUrl: 'images/bundesliga.png',
+      logoUrl: 'assets/images/leagues/bundesliga.png',
     },
     '1843': {
       name: 'Germany - Bundesliga 2',
-      logoUrl: 'images/bundesliga2.png',
+      logoUrl: 'assets/images/leagues/bundesliga2.png',
     },
     '1928': {
       name: 'Netherlands - Eredivisie',
-      logoUrl: 'images/eredivisie.png',
+      logoUrl: 'assets/images/leagues/eredivisie.png',
     },
     '1977': {
       name: 'England - Championship',
-      logoUrl: 'images/efl.png',
+      logoUrl: 'assets/images/leagues/efl.png',
     },
     '1980': {
       name: 'England - Premier League',
-      logoUrl: 'images/premiere-league.png',
+      logoUrl: 'assets/images/leagues/premier-league.png',
     },
     '1982': {
       name: 'England - EFL Cup',
-      logoUrl: 'images/efl-cup.jpg',
+      logoUrl: 'assets/images/leagues/efl-cup.jpg',
     },
     '2018': {
       name: 'Finland - Kakkonen',
-      logoUrl: 'images/finland-kkk.jpg',
+      logoUrl: 'assets/images/leagues/finland-kkk.jpg',
     },
     '2036': {
       name: 'France - Ligue 1',
-      logoUrl: 'images/league1.png',
+      logoUrl: 'assets/images/leagues/league1.png',
     },
     '2037': {
       name: 'France - Ligue 2',
-      logoUrl: 'images/league2.png',
+      logoUrl: 'assets/images/leagues/league2.png',
     },
     '2065': {
       name: 'Germany - Oberliga Bayern Nord',
-      logoUrl: 'images/oberliga.png',
+      logoUrl: 'assets/images/leagues/oberliga.png',
     },
     '2157': {
       name: 'Japan - J League',
-      logoUrl: 'images/j-league.png',
+      logoUrl: 'assets/images/leagues/j-league.png',
     },
     '2196': {
       name: 'Spain - La Liga',
-      logoUrl: 'images/laliga.png',
+      logoUrl: 'assets/images/leagues/laliga.png',
     },
     '2331': {
       name: 'Norway - 1st Division',
-      logoUrl: 'images/norway1st.png',
+      logoUrl: 'assets/images/leagues/norway1st.png',
     },
     '2374': {
       name: 'Poland - Ekstraklasa',
-      logoUrl: 'images/poland.jpg',
+      logoUrl: 'assets/images/leagues/poland.jpg',
     },
     '2436': {
       name: 'Italy - Serie A',
-      logoUrl: '',
+      logoUrl: 'assets/images/leagues/seria-a.png',
     },
     '2627': {
       name: 'UEFA - Champions League',
-      logoUrl: 'images/ucl.png',
+      logoUrl: 'assets/images/leagues/ucl.png',
     },
     '2650': {
       name: 'Ukraine - Premier League',
-      logoUrl: 'images/ukraine.png',
+      logoUrl: 'assets/images/leagues/ukraine.png',
     },
     '2687': {
       name: 'FIFA - World Cup Women',
-      logoUrl: 'images/woman-world-cup.jpg',
+      logoUrl: 'assets/images/leagues/woman-world-cup.jpg',
+    },
+    '2386': {
+      name: 'Portugal - Primeira Liga',
+      logoUrl: 'assets/images/leagues/portugal.png',
     },
     '6417': {
       name: 'China - Super League',
-      logoUrl: 'images/csl.png',
+      logoUrl: 'assets/images/leagues/csl.png',
     },
     '210697': {
       name: 'Argentina - Liga Pro',
-      logoUrl: 'images/argentina.png',
+      logoUrl: 'assets/images/leagues/argentina.png',
+    },
+    '214101': {
+      name: 'UEFA - Europa Conference',
+      logoUrl: 'assets/images/leagues/conf.png',
+    },
+    '2630': {
+      name: 'UEFA - Europa League',
+      logoUrl: 'assets/images/leagues/europa.png',
     },
   };
 

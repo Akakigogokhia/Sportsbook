@@ -1,0 +1,79 @@
+.bet {
+  display: flex;
+  justify-content: space-between;
+  width: 95%;
+  background-color: white;
+  height: max-content;
+  padding: 15px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  &__left {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  &__right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    &--remove {
+      cursor: pointer;
+      width: 11px;
+      height: 11px;
+      transition: transform 0.2s ease;
+      &:hover {
+        transform: rotate(90deg);
+      }
+    }
+
+    &--results {
+      display: flex;
+      gap: 10px;
+      font-size: 15px;
+      margin-top: 12px;
+    }
+
+    &--half {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    &--statuses {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    &--status {
+      width: 17px;
+      height: 17px;
+    }
+  }
+
+  &__teams {
+    font-size: 17px;
+    font-weight: bold;
+  }
+
+  &__type {
+    font-size: 14px;
+    color: #858585;
+  }
+
+  &__position {
+    font-size: 16px;
+    font-weight: bold;
+    color: #8a6d6d;
+  }
+
+  &__odd {
+    padding: 10px;
+    border-radius: 2px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background-color: #8a6d6d;
+  }
+}

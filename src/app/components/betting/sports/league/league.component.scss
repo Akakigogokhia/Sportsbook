@@ -1,18 +1,106 @@
-.league__header {
-  display: flex;
-  gap: 10px;
-  background-color: aquamarine;
-}
-.league__desc {
-  display: flex;
-  gap: 10px;
-}
-.league__oddNames {
-  display: flex;
-  gap: 10px;
+.league {
+  &__header {
+    display: flex;
+    gap: 10px;
+    background-color: #666666;
+    color: white;
+    align-items: center;
+    height: 20px;
+    padding: 15px 5px;
+    box-sizing: border-box;
+  }
+
+  &__date {
+    flex: 1;
+  }
+
+  &__desc {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid black;
+    padding: 10px 0px 7px 0px;
+    &--logo {
+      width: max-content;
+      height: 50px;
+    }
+  }
+
+  &__fixture {
+    flex: 3;
+    display: flex;
+    justify-content: center;
+    &--content {
+      width: 85%;
+      text-align: start;
+    }
+  }
+
+  &__matchDesc {
+    text-align: center;
+    display: flex;
+    flex: 1;
+  }
+
+  &__oddNames {
+    display: flex;
+    flex: 2;
+    background-color: #666666;
+    gap: 10px;
+    &--main {
+      display: flex;
+      gap: 10px;
+    }
+    &--doubleChance {
+      display: flex;
+      gap: 10px;
+    }
+    &--totals {
+      display: flex;
+      gap: 10px;
+    }
+  }
 }
 
-.league__oddNames--special {
-  display: flex;
-  gap: 10px;
+.oddName {
+  min-width: 35px;
+  padding: 0px 11px;
+  text-align: center;
+  box-sizing: content-box;
+}
+
+@media screen and (max-width: 1200px) {
+  .league {
+    &__date {
+      flex: 0.4;
+    }
+    &__oddNames {
+      flex: 1;
+    }
+    &__fixture {
+      flex: 1;
+    }
+  }
+  .league__oddNames--totals {
+    display: none;
+  }
+  .league__oddNames--doubleChance {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .league {
+    &__date {
+      display: none;
+    }
+    &__oddNames {
+      flex: 1;
+    }
+    &__fixture {
+      flex: 1;
+    }
+  }
 }

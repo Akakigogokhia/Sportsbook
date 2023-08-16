@@ -1,5 +1,5 @@
 <div class="tickets">
-  <button (click)="checkBets()">Tickets</button>
+  <button class="btn" (click)="checkBets()">Tickets</button>
   <div class="tickets__content" *ngIf="toggle">
     <app-betslip
       *ngFor="let ticket of tickets"
@@ -7,3 +7,4 @@
     ></app-betslip>
   </div>
 </div>
+<app-error-message *ngIf="error" [errorMessage]="error"></app-error-message>

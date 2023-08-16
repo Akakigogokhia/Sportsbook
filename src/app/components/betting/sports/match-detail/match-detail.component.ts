@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 import { SpecialMarkets } from 'src/app/shared/models/specialMarket.model';
 import { Event } from 'src/app/shared/models/market.model';
 import { FilterService } from '../../services/filter.service';
-import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-match-detail',
@@ -27,7 +27,7 @@ export class MatchDetailComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<FromApp.AppState>,
     private filterService: FilterService,
-    private location: Location
+    private router: Router
   ) {}
 
   setOddsType(type: 'All' | 'I Half' | 'Goals') {
@@ -37,6 +37,10 @@ export class MatchDetailComponent implements OnInit, OnDestroy {
       );
     }
     this.oddsType = type;
+  }
+
+  close() {
+    this.router.navigate(['/']);
   }
 
   ngOnInit(): void {

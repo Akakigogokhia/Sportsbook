@@ -1,14 +1,23 @@
 <div class="auth">
-  <div class="auth__container" *ngIf="!user">
-    <div>{{ error }}</div>
-    <form
-      [formGroup]="authForm"
-      (ngSubmit)="onSubmit()"
-      class="card__form"
-      *ngIf="!isLoading"
-    >
+  <img
+    class="auth__logo"
+    (click)="goHome()"
+    src="../../../assets/images/icons/horse.png"
+    alt=""
+  />
+  <img
+    class="auth__menu--button"
+    (click)="showAuth()"
+    src="assets/images/icons/user.png"
+    alt=""
+  />
+
+  <div
+    *ngIf="!user"
+    [ngClass]="auth ? 'auth__menu auth__container' : 'auth__container'"
+  >
+    <form [formGroup]="authForm" (ngSubmit)="onSubmit()" class="auth__form">
       <div class="auth__form-group">
-        <label class="auth__label" for="email">E-Mail</label>
         <input
           type="email"
           id="email"
@@ -16,15 +25,16 @@
           formControlName="email"
           required
           email
+          placeholder="Email"
           minlength="6"
         />
       </div>
       <div class="auth__form-group">
-        <label class="auth__label" for="password">Password</label>
         <input
           type="password"
           id="password"
           class="auth__input auth__input--password"
+          placeholder="Password"
           formControlName="password"
           required
           minlength="6"
@@ -32,29 +42,38 @@
       </div>
       <div class="auth__buttons">
         <button
-          class="auth__btn auth__btn--submit"
+          class="btn btn--submit"
           type="submit"
           [disabled]="!authForm.valid"
         >
-          {{ isLoginMode ? "Login" : "Sign Up" }}
+          <div [ngStyle]="{ opacity: isLoading ? '0' : '1' }">
+            {{ isLoginMode ? "Login" : "Sign Up" }}
+          </div>
+          <div *ngIf="isLoading" class="spinner"></div>
         </button>
         |
-        <button
-          (click)="switchMode()"
-          class="auth__btn auth__btn--switch"
-          type="button"
-        >
+        <button (click)="switchMode()" class="btn btn--switch" type="button">
           Switch to {{ isLoginMode ? "Sign Up" : "Login" }}
         </button>
       </div>
     </form>
   </div>
-  <section class="auth__user">
-    <div class="aut__userName">{{ user?.email }}</div>
+  <section
+    [ngClass]="auth ? 'auth__menu auth__user' : 'auth__user'"
+    *ngIf="user"
+  >
+    <div class="auth__userName">{{ user.email }}</div>
+    <div class="separator"></div>
     <div class="auth__balance">
-      <div class="auth__balance--amount">{{ balance }}₾</div>
-      <button (click)="addBalance()" class="auth__balance--add">+</button>
+      <button (click)="addBalance()" class="btn auth__balance--add">
+        Deposit
+      </button>
+      <div class="separator"></div>
+
+      <div class="auth__balance--amount">Balance - {{ balance }} ₾</div>
     </div>
-    <button *ngIf="user" (click)="logout()">Logout</button>
+    <div class="separator"></div>
+    <button class="btn" (click)="logout()">Logout</button>
   </section>
 </div>
+<app-error-message *ngIf="error" [errorMessage]="error"></app-error-message>

@@ -1,7 +1,13 @@
 import { createAction, props } from '@ngrx/store';
 import { Bet, Status, Ticket } from 'src/app/shared/models/betting.models';
+import { PeriodResult } from 'src/app/shared/models/market.model';
 
 export const AddBet = createAction('[Betting] Addbet', props<{ bet: Bet }>());
+
+export const RemoveBet = createAction(
+  '[Bettin] RemoveBet',
+  props<{ betId: number }>()
+);
 
 export const ChangeBetAmount = createAction(
   '[Betting] ChangeBetAmount',
@@ -17,6 +23,16 @@ export const PlaceTicket = createAction(
   props<{ ticket: Ticket }>()
 );
 
+export const GetBalance = createAction(
+  '[Betting] GetBalance',
+  props<{ userId: string }>()
+);
+
+export const SaveBalance = createAction(
+  '[Betting] SaveBalance',
+  props<{ balance: number }>()
+);
+
 export const CheckBetStatus = createAction(
   '[Betting] CheckBetStatus',
   props<{ bet: Bet }>()
@@ -24,7 +40,7 @@ export const CheckBetStatus = createAction(
 
 export const SaveBetStatus = createAction(
   '[Bettin] SaveBetStatus',
-  props<{ id: number; bet_status: Status }>()
+  props<{ id: number; bet_status: Status; results: PeriodResult[] }>()
 );
 
 export const AddBalance = createAction(

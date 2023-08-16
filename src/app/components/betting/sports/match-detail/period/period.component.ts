@@ -21,9 +21,9 @@ export class PeriodComponent implements OnInit {
   @Input() homeTeam: string;
   @Input() awayTeam: string;
   @Input() starts: string;
-  home: number;
+  home: number | undefined;
   draw: number;
-  away: number;
+  away: number | undefined;
   doubleChance: DoubleChance;
 
   constructor(
@@ -50,15 +50,15 @@ export class PeriodComponent implements OnInit {
       this.specialMarkets = this.filterService.getFirstHalfOdds(
         this.specialMarkets
       );
-    this.home = this.period.money_line?.home || 1;
-    this.draw = this.period.money_line?.draw!;
-    this.away = this.period.money_line?.away || 1;
+    this.home = this.period?.money_line?.home;
+    this.draw = this.period?.money_line?.draw!;
+    this.away = this.period?.money_line?.away;
 
     if (this.draw)
       this.doubleChance = this.oddsService.doubleChance(
-        this.home,
+        this.home!,
         this.draw,
-        this.away
+        this.away!
       );
   }
 }

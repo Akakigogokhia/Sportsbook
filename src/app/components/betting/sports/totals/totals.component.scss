@@ -1,4 +1,37 @@
+@import "../../../../styles/mixins.scss";
+@import "../../../../styles/variables.scss";
 .totals {
   display: flex;
   gap: 10px;
+
+  &__total {
+    &--select {
+      box-sizing: border-box;
+      height: 34px;
+      min-width: 57px;
+      text-align: center;
+      cursor: pointer;
+      vertical-align: middle;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+      line-height: 14px;
+      transition: background-color 0.3s;
+      border: 1px solid black;
+      &:focus {
+        outline: none;
+      }
+      option {
+        padding: 0 20px;
+      }
+      &:hover {
+        background-color: $primary-color;
+      }
+    }
+  }
+}
+
+.odd {
+  @include oddStyle;
 }

@@ -1,4 +1,4 @@
-import { Event } from './market.model';
+import { Event, PeriodResult } from './market.model';
 
 export interface Ticket {
   id: string;
@@ -22,6 +22,7 @@ export interface Bet {
   odd: number;
   status: Status;
   firstHalf: boolean | null;
+  results: PeriodResult[];
 }
 
 export interface GroupedEvents {

@@ -1,14 +1,58 @@
 <div class="details">
+  <section class="details__match">
+    <img
+      class="details__match--close"
+      src="../../../../../assets/images/icons/close-match.png"
+      alt=""
+      (click)="close()"
+    />
+    <div class="details__team">
+      <img
+        class="club"
+        src="../../../../../assets/images/icons/football-club.png"
+        alt=""
+      />
+      <div>{{ market!.home }}</div>
+    </div>
+    <div class="details__date">
+      <div class="details__date--date">{{ market!.starts | formatDate }}</div>
+      <div class="details__date--time">
+        {{ market!.starts | date : "HH:mm" }}
+      </div>
+      vs
+    </div>
+    <div class="details__team">
+      <img
+        class="club"
+        src="../../../../../assets/images/icons/football-club.png"
+        alt=""
+      />
+      <div>{{ market?.away }}</div>
+    </div>
+  </section>
   <div class="details__header">
-    <ul>
-      <li (click)="setOddsType('All')">All</li>
-      <li (click)="setOddsType('I Half')">
-        {{ sportId === 2 ? "I Set" : "I Half" }}
-      </li>
-      <li *ngIf="sportId !== 2" (click)="setOddsType('Goals')">
-        {{ sportId == 1 ? "Goals" : "Points" }}
-      </li>
-    </ul>
+    <div
+      [ngClass]="oddsType === 'All' ? 'activeOdds' : ''"
+      class="details__header--option"
+      (click)="setOddsType('All')"
+    >
+      All
+    </div>
+    <div
+      [ngClass]="oddsType === 'I Half' ? 'activeOdds' : ''"
+      class="details__header--option"
+      (click)="setOddsType('I Half')"
+    >
+      {{ sportId === 2 ? "I Set" : "I Half" }}
+    </div>
+    <div
+      [ngClass]="oddsType === 'Goals' ? 'activeOdds' : ''"
+      class="details__header--option"
+      *ngIf="sportId !== 2"
+      (click)="setOddsType('Goals')"
+    >
+      {{ sportId == 1 ? "Goals" : "Points" }}
+    </div>
   </div>
 
   <section class="odds details__odds--all" *ngIf="oddsType === 'All'">
@@ -20,6 +64,7 @@
   </section>
   <section class="odds details__odds--first" *ngIf="oddsType === 'I Half'">
     <app-period
+      class="period"
       [specialMarkets]="specialMarkets!"
       [period]="market?.periods?.num_1!"
       [firstHalf]="true"
@@ -33,6 +78,7 @@
   </section>
   <section class="odds details__odds--goals" *ngIf="oddsType === 'Goals'">
     <app-period
+      class="period"
       [specialMarkets]="goalSpecialMarkets"
       [period]="market?.periods?.num_0!"
       [event_id]="market!.event_id"

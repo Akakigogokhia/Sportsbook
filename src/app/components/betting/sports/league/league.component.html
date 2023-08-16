@@ -1,23 +1,37 @@
-<div class="leagues">
-  <h2>{{ leagueName }}</h2>
+<div class="league">
+  <div class="league__desc">
+    <img
+      *ngIf="leagueLogo"
+      class="league__desc--logo"
+      [src]="leagueLogo"
+      alt=""
+    />
+    <h3 class="league__desc--name">{{ leagueName }}</h3>
+  </div>
   <section class="league__header">
-    <div class="league__desc">
-      <div>date</div>
-      <div>fixture</div>
-    </div>
-    <div class="league__oddNames">
-      <div>1</div>
-      <div *ngIf="sportId === 1">X</div>
-      <div>2</div>
-      <div class="league__oddNames--special" *ngIf="sportId === 1">
-        <div>1X</div>
-        <div>12</div>
-        <div>X2</div>
+    <section class="league__matchDesc">
+      <div class="league__date">Date</div>
+      <div class="league__fixture">
+        <div class="league__fixture--content">Match</div>
       </div>
-      <div>under</div>
-      <div>total</div>
-      <div>over</div>
-    </div>
+    </section>
+    <section class="league__oddNames">
+      <section class="league__oddNames--main">
+        <div class="oddName">1</div>
+        <div class="oddName" *ngIf="sportId === 1">X</div>
+        <div class="oddName">2</div>
+      </section>
+      <section class="league__oddNames--doubleChance" *ngIf="sportId === 1">
+        <div class="oddName">1X</div>
+        <div class="oddName">12</div>
+        <div class="oddName">X2</div>
+      </section>
+      <section class="league__oddNames--totals">
+        <div class="oddName">under</div>
+        <div class="oddName">total</div>
+        <div class="oddName">over</div>
+      </section>
+    </section>
   </section>
   <div class="league" *ngFor="let match of events">
     <app-match-preview [sportId]="sportId" [match]="match"></app-match-preview>

@@ -24,7 +24,7 @@ export class oddsCheckerService {
     fullTime: PeriodResult,
     result: { home: number; away: number }
   ) => {
-    if (betType === 'Main Line') {
+    if (betType === 'Main Line' || betType === 'I Half Main Line') {
       if (position === '1') return result.home > result.away;
       else if (position === 'X') return result.home === result.away;
       else return result.home < result.away;
@@ -33,15 +33,16 @@ export class oddsCheckerService {
       else if (position === '12')
         return result.home > result.away || result.home < result.away;
       else return result.home <= result.away;
-    } else if (!isNaN(+betType) && betType.trim() !== '') {
-      if (position === 'over') {
-        return +betType >= result.home + result.away;
-      } else if (position === 'under') {
-        return +betType <= result.home + result.away;
-      } else if (position === '1') {
-        console.log(result.home, +betType, result.away);
-        return result.home + +betType > result.away;
-      } else return result.home < result.away + +betType;
+    } else if (betType.includes('Spread') || betType.includes('Over/Under')) {
+      position = position.replace(/1 \(|2 \(|Over|Under|\(|\)/g, '');
+
+      if (position.includes('over')) {
+        return +position >= result.home + result.away;
+      } else if (position.includes('under')) {
+        return +position <= result.home + result.away;
+      } else if (position.includes('1')) {
+        return result.home + +position > result.away;
+      } else return result.home < result.away + +position;
     } else if (betType === 'Half-Time/Full-Time') {
       const teams = position.split(' - ');
       const firstPeriod = teams[0];
@@ -253,7 +254,7 @@ export class oddsCheckerService {
       } else if (goalCondition.includes('Under')) {
         return oddEvenCheck && totalGoals < goalValue;
       } else {
-        return false; // Unexpected goal condition format
+        return false; // Unexpected
       }
     } else if (betType.includes('Either Team To Score?')) {
       const period = betType.includes('1st Half') ? halfTime : fullTime;
@@ -272,6 +273,14 @@ export class oddsCheckerService {
       } else {
         return position == 'Yes' ? awayWinsToNil : !awayWinsToNil;
       }
+    } else if (betType.includes('3-Way Handicap')) {
+      return this.checkThreeWayHandicap(
+        betType,
+        position,
+        home,
+        away,
+        fullTime
+      );
     } else return false;
   };
 
@@ -301,6 +310,48 @@ export class oddsCheckerService {
       return fullTime.team_1_score === fullTime.team_2_score;
     } else {
       return fullTime.team_1_score < fullTime.team_2_score;
+    }
+  }
+
+  checkThreeWayHandicap(
+    betType: string,
+    position: string,
+    home: string,
+    away: string,
+    fullTime: PeriodResult
+  ): boolean {
+    const [teamName, handicap] = betType
+      .replace('3-Way Handicap ', '')
+      .split(' ');
+    const parsedHandicap = parseInt(handicap, 10);
+
+    const scoreDifference = fullTime.team_1_score - fullTime.team_2_score;
+
+    if (teamName === home) {
+      const adjustedScoreDifference = scoreDifference + parsedHandicap;
+
+      if (position.includes(home)) {
+        return adjustedScoreDifference > 0;
+      } else if (position.includes('Draw')) {
+        return adjustedScoreDifference === 0;
+      } else {
+        return scoreDifference < -1;
+      }
+    } else if (teamName === away) {
+      const adjustedScoreDifference = scoreDifference - parsedHandicap;
+
+      if (position.includes(away)) {
+        return adjustedScoreDifference < -1;
+      } else if (position.includes('Draw')) {
+        return adjustedScoreDifference === 0;
+      } else {
+        return scoreDifference > 1;
+      }
+    }
+
+    // Unexpected
+    else {
+      return false;
     }
   }
 }

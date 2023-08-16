@@ -5,7 +5,18 @@
   >
     {{ totals![total].under }}
   </div>
-  <div class="totals__total">{{ total }}</div>
+  <div class="totals__total">
+    <select [(ngModel)]="total" class="totals__total--select">
+      <option
+        *ngFor="let total of totals | keyvalue"
+        name=""
+        id=""
+        value="{{ total.key }}"
+      >
+        {{ total.key }}
+      </option>
+    </select>
+  </div>
   <div
     class="odd totals__over"
     (click)="addBet(totals![total].over, total, 'over')"

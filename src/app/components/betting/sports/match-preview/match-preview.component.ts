@@ -3,7 +3,6 @@ import { Event, Totals } from 'src/app/shared/models/market.model';
 import { OddsService } from '../../services/odds.service';
 import * as FromApp from '../../../../store/app.reducer';
 import * as BettingActions from '../../store/betting.actions';
-import * as BetslipActions from '../../../betslip/store/betslip.actions';
 import { Store } from '@ngrx/store';
 import { BetsliptService } from 'src/app/components/betslip/services/betslip.service';
 
@@ -32,9 +31,9 @@ export class MatchPreviewComponent implements OnInit {
           ? '2.5'
           : Object.keys(this.totals)[0];
     }
-    this.home = this.match.periods?.num_0.money_line?.home || 0;
-    this.draw = this.match.periods?.num_0.money_line?.draw || 0;
-    this.away = this.match.periods?.num_0.money_line?.away || 0;
+    this.home = this.match.periods?.num_0?.money_line?.home || 0;
+    this.draw = this.match.periods?.num_0?.money_line?.draw || 0;
+    this.away = this.match.periods?.num_0?.money_line?.away || 0;
 
     this.doubleChance = this.oddsService.doubleChance(
       this.home,

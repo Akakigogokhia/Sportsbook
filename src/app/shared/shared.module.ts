@@ -11,6 +11,8 @@ import { LeagueComponent } from '../components/betting/sports/league/league.comp
 import { MatchPreviewComponent } from '../components/betting/sports/match-preview/match-preview.component';
 import { TotalsComponent } from '../components/betting/sports/totals/totals.component';
 import { TicketComponent } from '../components/betslip/ticket/ticket.component';
+import { BetComponent } from '../components/betslip/bet/bet.component';
+import { ErrorMessageComponent } from '../components/error-message/error-message.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import { TicketComponent } from '../components/betslip/ticket/ticket.component';
     MatchPreviewComponent,
     TotalsComponent,
     TicketComponent,
+    BetComponent,
+    ErrorMessageComponent,
   ],
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   exports: [
@@ -40,6 +44,8 @@ import { TicketComponent } from '../components/betslip/ticket/ticket.component';
     MatchPreviewComponent,
     TotalsComponent,
     TicketComponent,
+    BetComponent,
+    ErrorMessageComponent,
   ],
 })
 export class SharedModule {}

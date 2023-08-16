@@ -21,7 +21,11 @@ import * as BetslipSelectors from '../store/betslip.selectors';
 export class BetslipEffects {
   Calculate = createEffect(() =>
     this.actions$.pipe(
-      ofType(BetslipActions.AddBet, BetslipActions.ChangeBetAmount),
+      ofType(
+        BetslipActions.AddBet,
+        BetslipActions.ChangeBetAmount,
+        BetslipActions.RemoveBet
+      ),
       map(() => BetslipActions.CalculateTicket())
     )
   );
@@ -44,6 +48,32 @@ export class BetslipEffects {
     )
   );
 
+  SaveBalance = createEffect(() =>
+    this.actions$.pipe(
+      ofType(BetslipActions.GetBalance),
+      switchMap((action) => this.betSlipService.getBalance(action.userId)),
+      map((balance: number) => BetslipActions.SaveBalance({ balance }))
+    )
+  );
+
+  UpdateBalance = createEffect(() =>
+    this.actions$.pipe(
+      ofType(BetslipActions.SaveBetStatus, BetslipActions.AddBalance),
+      withLatestFrom(
+        this.store.select(BetslipSelectors.balanceSelector),
+        this.store.select(AuthSelector.userIdSelector)
+      ),
+      switchMap(([, balance, userId]) =>
+        this.betSlipService.saveBalance(userId!, balance!).pipe(
+          map(() => BetslipActions.SaveTicketSuccess()),
+          catchError((error) => {
+            return of(BetslipActions.Fail({ error: error }));
+          })
+        )
+      )
+    )
+  );
+
   CheckBetStatus = createEffect(() =>
     this.actions$.pipe(
       ofType(BetslipActions.CheckBetStatus),
@@ -52,6 +82,9 @@ export class BetslipEffects {
           map((response) =>
             BetslipActions.SaveBetStatus({
               id: action.bet.id,
+              results: this.betSlipService.sortPeriods(
+                response.events![0].period_results!
+              ),
               bet_status: this.betSlipService.checkBetStatus(
                 action.bet,
                 response.events![0].period_results!

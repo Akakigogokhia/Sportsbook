@@ -26,7 +26,6 @@ const initialState: State = {
 export const BetslipReducer = createReducer(
   initialState,
   on(BetslipActions.AddBet, (state, { bet }) => {
-    console.log(bet);
     let bets = state.ticket.bets;
     bets = bets.filter((activeBet) => activeBet.event_id !== bet.event_id);
     return {
@@ -34,6 +33,18 @@ export const BetslipReducer = createReducer(
       ticket: {
         ...state.ticket,
         bets: [...bets, bet],
+      },
+    };
+  }),
+  on(BetslipActions.RemoveBet, (state, action) => {
+    const updatedBets = state.ticket.bets.filter(
+      (bet) => bet.id !== action.betId
+    );
+    return {
+      ...state,
+      ticket: {
+        ...state.ticket,
+        bets: [...updatedBets],
       },
     };
   }),
@@ -72,12 +83,14 @@ export const BetslipReducer = createReducer(
       : [action.ticket],
   })),
   on(BetslipActions.SaveBetStatus, (state, action) => {
+    let amountToAdd: number = 0;
     const activeTicketsCopy = state.activeTickets.map((ticket) => {
       const updatedBets = ticket.bets.map((bet) => {
         if (bet.id === action.id) {
           return {
             ...bet,
             status: action.bet_status,
+            results: action.results,
           };
         }
         return bet;
@@ -88,16 +101,20 @@ export const BetslipReducer = createReducer(
         ticketStatus = 'Lost';
       } else if (updatedBets.every((bet) => bet.status === 'Won')) {
         ticketStatus = 'Won';
+        amountToAdd += state.ticket.potential_payout;
       }
       return {
         ...ticket,
         bets: updatedBets,
         status: ticketStatus!,
-        balance: state.balance + ticket.potential_payout,
       };
     });
 
-    return { ...state, activeTickets: activeTicketsCopy };
+    return {
+      ...state,
+      activeTickets: activeTicketsCopy,
+      balance: state.balance + amountToAdd,
+    };
   }),
   on(BetslipActions.LoadTicketsSuccess, (state, { tickets }) => ({
     ...state,
@@ -115,5 +132,9 @@ export const BetslipReducer = createReducer(
   on(BetslipActions.AddBalance, (state, action) => ({
     ...state,
     balance: state.balance + action.amount,
+  })),
+  on(BetslipActions.SaveBalance, (state, action) => ({
+    ...state,
+    balance: action.balance ? action.balance : 100,
   }))
 );

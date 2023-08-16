@@ -1,0 +1,139 @@
+@import "../../styles/mixins.scss";
+.auth {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333333;
+  position: fixed;
+  padding: 0px 15px;
+  color: white;
+
+  &__user {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+  }
+
+  &__userName {
+    font-weight: bold;
+  }
+
+  &__form {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  &__balance {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    &--amount {
+      font-weight: bold;
+    }
+  }
+
+  &__input {
+    background-color: #f6f6f6;
+    color: #333;
+    border: 2px solid #ddd;
+    height: 30px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 180px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+    &:focus {
+      border-color: #555;
+      box-shadow: 0 0 5px rgba(85, 85, 85, 0.3);
+    }
+
+    &::placeholder {
+      color: #999;
+    }
+
+    &:disabled {
+      background-color: #e9e9e9;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.btn {
+  @include authButton;
+}
+
+.spinner {
+  @include spinner();
+}
+
+.btn--submit {
+  position: relative;
+}
+
+.separator {
+  @include separator;
+}
+
+img {
+  width: 35px;
+  cursor: pointer;
+}
+
+.auth__menu--button {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  display: none;
+}
+
+.auth__menu {
+  display: flex !important;
+}
+
+@media screen and (max-width: 800px) {
+  .separator {
+    display: none;
+  }
+  .auth {
+    align-items: flex-start;
+    justify-content: center;
+    height: max-content;
+    min-height: 50px;
+    padding: 10px;
+    z-index: 99;
+
+    &__menu--button {
+      display: block;
+    }
+    &__container {
+      display: none;
+    }
+    &__form {
+      padding: 20px;
+      flex-direction: column;
+    }
+
+    &__logo {
+      position: absolute;
+      left: 15px;
+    }
+
+    &__user {
+      display: none;
+      flex-direction: column;
+      gap: 20px;
+      font-size: 14px;
+      font-weight: normal;
+    }
+
+    &__input {
+      width: 250px;
+    }
+  }
+}
