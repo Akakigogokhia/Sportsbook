@@ -122,6 +122,10 @@ export class Constants {
       name: 'UEFA - Europa Conference',
       logoUrl: 'assets/images/leagues/conf.png',
     },
+    '2630': {
+      name: 'UEFA - Europa League',
+      logoUrl: 'assets/images/leagues/europa.png',
+    },
   };
 
   popularLeagues = [

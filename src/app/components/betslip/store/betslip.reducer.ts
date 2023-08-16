@@ -132,5 +132,9 @@ export const BetslipReducer = createReducer(
   on(BetslipActions.AddBalance, (state, action) => ({
     ...state,
     balance: state.balance + action.amount,
+  })),
+  on(BetslipActions.SaveBalance, (state, action) => ({
+    ...state,
+    balance: action.balance ? action.balance : 100,
   }))
 );

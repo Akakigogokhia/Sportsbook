@@ -27,6 +27,7 @@ export class TicketsComponent implements OnInit, OnDestroy {
       .subscribe((error) => (this.error = error));
     if (this.user) {
       this.store.dispatch(BetslipActions.LoadTickets());
+      this.store.dispatch(BetslipActions.GetBalance({ userId: this.user.id }));
     }
 
     this.ticketSub = this.store

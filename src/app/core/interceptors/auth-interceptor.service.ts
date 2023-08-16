@@ -21,7 +21,10 @@ export class AuthInterceptorService implements HttpInterceptor {
     return this.store.select(AuthSelectors.userSelector).pipe(
       take(1),
       exhaustMap((user) => {
-        if ((!user || req.method !== 'GET', !req.url.includes('tickets.json')))
+        if (
+          !req.url.includes('tickets.json') &&
+          !req.url.includes('balance.json')
+        )
           return next.handle(req);
         const modifiedReq = req.clone({
           params: new HttpParams().set('auth', user!.token!),

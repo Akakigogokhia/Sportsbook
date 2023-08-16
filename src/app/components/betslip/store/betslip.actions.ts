@@ -23,6 +23,16 @@ export const PlaceTicket = createAction(
   props<{ ticket: Ticket }>()
 );
 
+export const GetBalance = createAction(
+  '[Betting] GetBalance',
+  props<{ userId: string }>()
+);
+
+export const SaveBalance = createAction(
+  '[Betting] SaveBalance',
+  props<{ balance: number }>()
+);
+
 export const CheckBetStatus = createAction(
   '[Betting] CheckBetStatus',
   props<{ bet: Bet }>()

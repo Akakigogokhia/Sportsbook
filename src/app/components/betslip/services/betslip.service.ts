@@ -61,6 +61,19 @@ export class BetsliptService {
     return this.http.get<{ events: Event[] }>(url, { headers: headers });
   };
 
+  saveBalance = (userId: string, balance: number) => {
+    return this.http.put(
+      `https://sportsbook-1111-default-rtdb.firebaseio.com/${userId}/balance.json`,
+      balance
+    );
+  };
+
+  getBalance = (userId: string) => {
+    return this.http.get<number>(
+      `https://sportsbook-1111-default-rtdb.firebaseio.com/${userId}/balance.json`
+    );
+  };
+
   saveActiveTickets = (activeTickets: Ticket[], userId: string) => {
     return this.http.put(
       `https://sportsbook-1111-default-rtdb.firebaseio.com/${userId}/tickets.json`,

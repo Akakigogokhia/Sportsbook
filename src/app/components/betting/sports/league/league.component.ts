@@ -1,8 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { Event } from 'src/app/shared/models/market.model';
 import { Constants, League } from 'src/app/shared/services/constants.service';
-import * as BettingSelectors from '../../store/betting.selectors';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 

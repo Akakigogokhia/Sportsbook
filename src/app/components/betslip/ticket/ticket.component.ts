@@ -34,7 +34,7 @@ export class TicketComponent implements OnInit, OnDestroy {
     this.ticketSub = this.store
       .select(BetslipSelectors.ticketSelector)
       .subscribe((ticket) => {
-        (this.ticket = ticket), console.log(ticket);
+        this.ticket = ticket;
       });
   }
 
