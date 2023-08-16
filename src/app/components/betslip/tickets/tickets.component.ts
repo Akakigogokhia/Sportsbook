@@ -15,11 +15,16 @@ export class TicketsComponent implements OnInit, OnDestroy {
   ticketSub: Subscription;
   tickets: Ticket[];
   toggle: boolean = true;
+  error: string | null;
+  errorSub: Subscription;
   @Input() user: User | null;
 
   constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
+    this.errorSub = this.store
+      .select(BetsliptSelectors.errorSelector)
+      .subscribe((error) => (this.error = error));
     if (this.user) {
       this.store.dispatch(BetslipActions.LoadTickets());
     }
@@ -76,5 +81,6 @@ export class TicketsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.ticketSub.unsubscribe();
+    this.errorSub.unsubscribe();
   }
 }

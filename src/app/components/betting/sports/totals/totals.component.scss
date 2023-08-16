@@ -1,5 +1,5 @@
 @import "../../../../styles/mixins.scss";
-
+@import "../../../../styles/variables.scss";
 .totals {
   display: flex;
   gap: 10px;
@@ -26,7 +26,7 @@
         padding: 0 20px;
       }
       &:hover {
-        background-color: #f2f2f2;
+        background-color: $primary-color;
       }
     }
   }

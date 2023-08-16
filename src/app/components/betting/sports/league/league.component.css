@@ -5,11 +5,40 @@
   color: white;
   align-items: center;
   height: 20px;
-  border-radius: 5px 5px 0px 0px;
   padding: 15px 5px;
   box-sizing: border-box;
 }
-
+.league__date {
+  flex: 1;
+}
+.league__desc {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid black;
+  padding: 10px 0px 7px 0px;
+}
+.league__desc--logo {
+  width: -moz-max-content;
+  width: max-content;
+  height: 50px;
+}
+.league__fixture {
+  flex: 3;
+  display: flex;
+  justify-content: center;
+}
+.league__fixture--content {
+  width: 85%;
+  text-align: start;
+}
+.league__matchDesc {
+  text-align: center;
+  display: flex;
+  flex: 1;
+}
 .league__oddNames {
   display: flex;
   flex: 2;
@@ -36,22 +65,31 @@
   box-sizing: content-box;
 }
 
-.league__matchDesc {
-  text-align: center;
-  display: flex;
-  flex: 1;
+@media screen and (max-width: 1200px) {
+  .league__date {
+    flex: 0.4;
+  }
+  .league__oddNames {
+    flex: 1;
+  }
+  .league__fixture {
+    flex: 1;
+  }
+  .league__oddNames--totals {
+    display: none;
+  }
+  .league__oddNames--doubleChance {
+    display: none;
+  }
 }
-
-.league__date {
-  flex: 1;
-}
-
-.league__fixture {
-  flex: 3;
-  display: flex;
-  justify-content: center;
-}
-.league__fixture--content {
-  width: 85%;
-  text-align: start;
+@media screen and (max-width: 540px) {
+  .league__date {
+    display: none;
+  }
+  .league__oddNames {
+    flex: 1;
+  }
+  .league__fixture {
+    flex: 1;
+  }
 }

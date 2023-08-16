@@ -1,10 +1,22 @@
 <div class="auth">
-  <img src="../../../assets/images/icons/horse.png" alt="" />
+  <img
+    class="auth__logo"
+    (click)="goHome()"
+    src="../../../assets/images/icons/horse.png"
+    alt=""
+  />
+  <img
+    class="auth__menu--button"
+    (click)="showAuth()"
+    src="assets/images/icons/user.png"
+    alt=""
+  />
 
-  <div class="auth__container" *ngIf="!user">
+  <div
+    *ngIf="!user"
+    [ngClass]="auth ? 'auth__menu auth__container' : 'auth__container'"
+  >
     <form [formGroup]="authForm" (ngSubmit)="onSubmit()" class="auth__form">
-      <div *ngIf="error" class="auth__error">{{ error }}</div>
-
       <div class="auth__form-group">
         <input
           type="email"
@@ -46,7 +58,10 @@
       </div>
     </form>
   </div>
-  <section class="auth__user" *ngIf="user">
+  <section
+    [ngClass]="auth ? 'auth__menu auth__user' : 'auth__user'"
+    *ngIf="user"
+  >
     <div class="auth__userName">{{ user.email }}</div>
     <div class="separator"></div>
     <div class="auth__balance">
@@ -61,3 +76,4 @@
     <button class="btn" (click)="logout()">Logout</button>
   </section>
 </div>
+<app-error-message *ngIf="error" [errorMessage]="error"></app-error-message>

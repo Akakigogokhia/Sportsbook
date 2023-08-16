@@ -30,7 +30,10 @@ export class TopFixturesComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.sportIdSub = this.store
       .select(BettingSelector.selectSportId)
-      .subscribe((sportId) => (this.sportId = sportId!));
+      .subscribe((sportId) => {
+        this.sportId = sportId!;
+      });
+    console.log(this.sportId);
     this.store.dispatch(
       BettingActions.FetchFixtures({ sport_id: this.sportId })
     );
@@ -38,8 +41,7 @@ export class TopFixturesComponent implements OnInit, OnDestroy {
       .select(BettingSelector.selectActiveFixtures)
       .subscribe(
         (fixtures) => (
-          ((this.popularFixtures = fixtures), (this.allFixtures = fixtures)),
-          console.log(this.popularFixtures)
+          (this.popularFixtures = fixtures), (this.allFixtures = fixtures)
         )
       );
 

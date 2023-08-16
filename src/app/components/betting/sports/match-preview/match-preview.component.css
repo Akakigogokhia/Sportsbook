@@ -59,8 +59,7 @@
   align-items: center;
   gap: 3px;
 }
-.match__teams--home,
-.match__teams--away {
+.match__teams--home, .match__teams--away {
   text-align: start;
   width: 85%;
 }
@@ -82,7 +81,6 @@
 }
 
 .odd {
-  box-sizing: border-box;
   height: 34px;
   min-width: 57px;
   text-align: center;
@@ -96,13 +94,63 @@
   line-height: 14px;
   transition: background-color 0.3s;
 }
-
 .odd:hover {
   background-color: #f2f2f2;
 }
 
 .separator {
-  height: 40px;
   width: 1px;
+  height: 40px;
   background-color: rgb(208, 205, 205);
+}
+
+@media screen and (max-width: 1200px) {
+  .match__odds {
+    flex: 1;
+  }
+  .match__odds--doubleChance {
+    display: none;
+  }
+  .match__odds--totals {
+    display: none;
+  }
+  .match__teams {
+    flex: 1;
+  }
+  .match__date {
+    flex: 0.4;
+  }
+}
+@media screen and (max-width: 470px) {
+  .match {
+    position: relative;
+  }
+  .match__odds {
+    flex: 1;
+  }
+  .match__odds--doubleChance {
+    display: none;
+  }
+  .match__odds--totals {
+    display: none;
+  }
+  .match__teams {
+    flex: 1;
+    font-size: 12px;
+    justify-content: center;
+  }
+  .match__date {
+    display: none;
+  }
+  .match__more {
+    position: absolute;
+    width: 30%;
+    height: 50px;
+    left: 0;
+    opacity: 0;
+    margin: 0;
+  }
+  .separatorFirst {
+    display: none;
+  }
 }

@@ -15,6 +15,13 @@
     [ngClass]="menu ? 'open' : 'home__ticketsContainer'"
     class="home__ticketsContainer"
   >
+    <img
+      class="home__main__menu--close"
+      (click)="showMenu()"
+      *ngIf="menu"
+      src="../../../assets/images/icons/close-white.png"
+      alt=""
+    />
     <app-ticket [user]="user"></app-ticket>
     <app-tickets *ngIf="user" [user]="user"></app-tickets>
   </section>

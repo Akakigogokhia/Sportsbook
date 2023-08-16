@@ -1,4 +1,5 @@
 @import "../../../../../styles/mixins.scss";
+@import "../../../../../styles/variables.scss";
 
 .odd {
   @include oddStyle;
@@ -24,7 +25,7 @@
   flex-direction: column;
   gap: 20px;
   padding: 20px 15px;
-  background-color: #f2f2f2;
+  background-color: $primary-color;
   border-radius: 4px;
 
   &__name {
@@ -36,5 +37,11 @@
     &--name {
       white-space: nowrap;
     }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .odd {
+    width: 100%;
   }
 }

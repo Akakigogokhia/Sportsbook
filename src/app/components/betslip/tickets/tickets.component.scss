@@ -1,3 +1,5 @@
+@import "../../styles/common";
+
 .tickets {
   max-width: calc(100% - 20px);
   min-height: 200px;
@@ -6,10 +8,8 @@
   flex: 1;
   border: 1px solid #c8c4c4;
   border-radius: 4px;
-  display: flex;
-  flex-direction: column;
-  background-color: #f2f2f2;
-  align-items: center;
+  @include flexColumn;
+  background-color: $primary-color;
   gap: 20px;
 
   &__content {

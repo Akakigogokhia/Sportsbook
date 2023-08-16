@@ -1,4 +1,4 @@
-<div class="period">
+<div class="period" *ngIf="home">
   <h2 *ngIf="firstHalf">{{ sportId === 2 ? "1st Set" : "I Half  " }}</h2>
   <div class="period__odds">
     <h3>Main line</h3>
@@ -82,12 +82,12 @@
     </section>
   </div>
 
-  <div class="period__odds">
+  <div class="period__odds" *ngIf="period?.totals">
     <h3>Totals</h3>
 
     <section
       class="odds period__odds--totals"
-      *ngFor="let total of period?.totals | keyvalue"
+      *ngFor="let total of period.totals | keyvalue"
     >
       <div
         (click)="
@@ -120,10 +120,10 @@
     </section>
   </div>
 
-  <div class="period__odds">
+  <div class="period__odds" *ngIf="period?.spreads">
     <h3>Spreads</h3>
 
-    <ng-container *ngFor="let spread of period?.spreads | keyvalue">
+    <ng-container *ngFor="let spread of period.spreads | keyvalue">
       <section
         *ngIf="spread.value.home && spread.key !== '0.0'"
         class="odds period__odds--spreads"
