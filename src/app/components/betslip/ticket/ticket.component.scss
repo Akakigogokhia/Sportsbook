@@ -146,7 +146,6 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
-    background-color: yellow;
 
     &--answers {
       display: flex;
@@ -168,4 +167,10 @@
 }
 .btn {
   width: 100%;
+}
+
+@media screen and (max-width: 1200px) {
+  .ticket__stakes--stake {
+    display: none;
+  }
 }

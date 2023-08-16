@@ -132,8 +132,9 @@
   }
 }
 
-@media screen and (max-width: 540px) {
+@media screen and (max-width: 470px) {
   .match {
+    position: relative;
     &__odds {
       flex: 1;
       &--doubleChance {
@@ -146,10 +147,25 @@
 
     &__teams {
       flex: 1;
+      font-size: 12px;
+      justify-content: center;
     }
 
     &__date {
       display: none;
     }
+
+    &__more {
+      position: absolute;
+      width: 30%;
+      height: 50px;
+      left: 0;
+      opacity: 0;
+      margin: 0;
+    }
+  }
+
+  .separatorFirst {
+    display: none;
   }
 }

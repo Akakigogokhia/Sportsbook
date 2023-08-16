@@ -26,15 +26,16 @@
         <option value="24">24 hours</option>
         <option value="48">48 hours</option>
       </select>
-      <div (click)="filterByTime('today')" class="header__timeFilter--day">
-        today
+      <div (click)="filterByTime('Today')" class="header__timeFilter--day">
+        Today
       </div>
-      <div (click)="filterByTime('tomorrow')" class="header__timeFilter--day">
-        tomorrow
+      <div (click)="filterByTime('Tomorrow')" class="header__timeFilter--day">
+        Tomorrow
       </div>
-      <div class="header__timeFilter--name" *ngIf="filterName">
-        <div>Filter: {{ filterName }}</div>
+      <div class="header__timeFilter--name">
+        <div>Filter: {{ filterName ? filterName : "No filter" }}</div>
         <img
+          *ngIf="filterName"
           class="header__timeFilter--remove"
           (click)="removeFilter()"
           src="../../../assets/images/icons/close-white.png"
@@ -68,7 +69,7 @@
       <img src="../../../assets/images/icons/basketball-white.png" alt="" />
       <div>Basketball</div>
     </div>
-    <div class="header__sports--sport">
+    <div class="header__sports--sport baseball">
       <img src="../../../assets/images/icons/baseball-ball.png" alt="" />
       <div>Baseball</div>
     </div>

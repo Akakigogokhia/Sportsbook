@@ -3,7 +3,6 @@ import { Event, Totals } from 'src/app/shared/models/market.model';
 import { OddsService } from '../../services/odds.service';
 import * as FromApp from '../../../../store/app.reducer';
 import * as BettingActions from '../../store/betting.actions';
-import * as BetslipActions from '../../../betslip/store/betslip.actions';
 import { Store } from '@ngrx/store';
 import { BetsliptService } from 'src/app/components/betslip/services/betslip.service';
 

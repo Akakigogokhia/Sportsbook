@@ -59,7 +59,8 @@
   align-items: center;
   gap: 3px;
 }
-.match__teams--home, .match__teams--away {
+.match__teams--home,
+.match__teams--away {
   text-align: start;
   width: 85%;
 }

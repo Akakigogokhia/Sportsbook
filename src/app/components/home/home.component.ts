@@ -13,6 +13,7 @@ import { User } from '../auth/auth.models';
 export class HomeComponent implements OnInit, OnDestroy {
   userSub: Subscription;
   user: User | null;
+  menu: boolean = false;
 
   constructor(private store: Store<AppState>) {}
 
@@ -24,4 +25,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.userSub.unsubscribe();
   }
+
+  showMenu = () => {
+    this.menu = !this.menu;
+  };
 }

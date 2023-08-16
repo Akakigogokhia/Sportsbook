@@ -118,6 +118,10 @@ export class Constants {
       name: 'Argentina - Liga Pro',
       logoUrl: 'assets/images/leagues/argentina.png',
     },
+    '214101': {
+      name: 'UEFA - Europa Conference',
+      logoUrl: 'assets/images/leagues/conf.png',
+    },
   };
 
   popularLeagues = [
