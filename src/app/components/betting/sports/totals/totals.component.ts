@@ -24,6 +24,5 @@ export class TotalsComponent {
       position,
       odd
     );
-    console.log(bet_type, position);
   }
 }

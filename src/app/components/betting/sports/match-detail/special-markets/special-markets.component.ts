@@ -38,7 +38,6 @@ export class SpecialMarketsComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.select(BettingSelectors.selectMarket).subscribe((market) => {
-      console.log(market);
       this.event_id = market!.event_id;
       this.homeTeam = market!.home;
       this.awayTeam = market!.away;

@@ -48,7 +48,6 @@ export class TicketsComponent implements OnInit, OnDestroy {
   }
 
   private checkBetStatuses(): void {
-    console.log(this.tickets);
     const dispatchQueue: Bet[] = [];
     this.tickets.forEach((ticket) => {
       ticket.bets.forEach((bet) => {

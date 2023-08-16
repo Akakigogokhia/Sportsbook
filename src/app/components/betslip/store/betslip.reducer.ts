@@ -26,7 +26,6 @@ const initialState: State = {
 export const BetslipReducer = createReducer(
   initialState,
   on(BetslipActions.AddBet, (state, { bet }) => {
-    console.log(bet);
     let bets = state.ticket.bets;
     bets = bets.filter((activeBet) => activeBet.event_id !== bet.event_id);
     return {

@@ -33,7 +33,6 @@ export class TopFixturesComponent implements OnInit, OnDestroy {
       .subscribe((sportId) => {
         this.sportId = sportId!;
       });
-    console.log(this.sportId);
     this.store.dispatch(
       BettingActions.FetchFixtures({ sport_id: this.sportId })
     );
