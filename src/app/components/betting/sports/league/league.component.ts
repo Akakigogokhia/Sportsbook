@@ -14,11 +14,13 @@ export class LeagueComponent implements OnInit {
 
   leagues: League;
   leagueName: string;
+  leagueLogo: string;
 
   constructor(private constants: Constants) {}
 
   ngOnInit(): void {
     this.leagues = this.constants.leagues;
     this.leagueName = this.events[0].league_name;
+    this.leagueLogo = this.leagues[this.leagueId]?.logoUrl;
   }
 }

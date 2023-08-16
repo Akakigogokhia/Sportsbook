@@ -52,7 +52,9 @@
   </div>
   <div *ngIf="ticket.bets.length == 0" class="ticket__empty">
     <img src="../../../../assets/images/icons/ticket.png" alt="betslip" />
-    <div>Ticket is empty, please choose your position</div>
+    <div class="ticket__empty--message">
+      Ticket is empty, please choose your position
+    </div>
   </div>
   <div class="ticket__dialogBox" *ngIf="dialogBox">
     <div>Ticket was placed successfully!</div>

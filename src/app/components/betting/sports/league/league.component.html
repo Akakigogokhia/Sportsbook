@@ -1,6 +1,12 @@
-<div class="leagues">
-  <div class="league__name">
-    <h2>{{ leagueName }}</h2>
+<div class="league">
+  <div class="league__desc">
+    <img
+      *ngIf="leagueLogo"
+      class="league__desc--logo"
+      [src]="leagueLogo"
+      alt=""
+    />
+    <h3 class="league__desc--name">{{ leagueName }}</h3>
   </div>
   <section class="league__header">
     <section class="league__matchDesc">

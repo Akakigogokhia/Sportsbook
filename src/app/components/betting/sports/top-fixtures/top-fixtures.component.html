@@ -3,7 +3,7 @@
 <div class="popular" *ngFor="let league of popularFixtures">
   <app-league
     *ngIf="league[1].length > 0"
-    class="popular__league"
+    class="popular__leagues"
     [sportId]="sportId"
     [leagueId]="league[0]"
     [events]="league[1]"
