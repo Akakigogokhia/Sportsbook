@@ -11,7 +11,7 @@ import { FormControl } from '@angular/forms';
 })
 export class HeaderComponent {
   @Input() filterControl: FormControl;
-  sportId: number = 1;
+  @Input() sportId: number = 1;
 
   selectedDuration: number | string = 'Select duration';
   filterName: string;
